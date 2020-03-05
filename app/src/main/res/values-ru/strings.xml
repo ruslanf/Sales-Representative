@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Экспедитор</string>
+
+    <string name="main_menu_title_route">Маршрут</string>
+    <string name="main_menu_title_reports">Отчеты</string>
+    <string name="main_menu_title_profile">Профиль</string>
+</resources>

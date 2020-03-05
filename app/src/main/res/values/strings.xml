@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Freight Forwarder</string>
+
+    <string name="main_menu_title_route">Route</string>
+    <string name="main_menu_title_reports">Reports</string>
+    <string name="main_menu_title_profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
