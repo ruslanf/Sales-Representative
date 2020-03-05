@@ -60,3 +60,5 @@ output.json
 obj/
 .externalNativeBuild
 .cxx
+/app/src/androidTest/java/studio/bz_soft/freightforwarder/ExampleInstrumentedTest.kt
+/app/src/test/java/studio/bz_soft/freightforwarder/ExampleUnitTest.kt
