@@ -19,6 +19,18 @@
     <string name="auth_message_error_response">Registration error</string>
     <string name="auth_message_not_filled">Not filled all requested fields</string>
 
+    <string name="auth_exit_title">Exit</string>
+
+    <string name="profile_message_exit_title">Logout from account</string>
+    <string name="profile_message_exit">Are you sure you want to logout?</string>
+    <string name="profile_message_exit_button">Exit</string>
+    <string name="profile_message_cancel_button">Cancel</string>
+
+    <string name="fragment_route_start_of_shift">Start of shift</string>
+    <string name="fragment_route_end_of_shift">End of shift</string>
+    <string name="fragment_route_work_button_start">Start</string>
+    <string name="fragment_route_work_button_end">Finish</string>
+
     <!--  -->
     <string name="latin_alphabet" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@_-</string>
 </resources>

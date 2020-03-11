@@ -19,4 +19,16 @@
     <string name="auth_message_error_response">Ошибка регистрации</string>
     <string name="auth_message_not_filled">Не заполнены все необходимые поля</string>
 
+    <string name="auth_exit_title">Выход</string>
+
+    <string name="profile_message_exit_title">Выйти из аккаунта</string>
+    <string name="profile_message_exit">Вы действительно хотите выйти?</string>
+    <string name="profile_message_exit_button">Выход</string>
+    <string name="profile_message_cancel_button">Отмена</string>
+
+    <string name="fragment_route_start_of_shift">Начало смены</string>
+    <string name="fragment_route_end_of_shift">Конец смены</string>
+
+    <string name="fragment_route_work_button_start">Начать</string>
+    <string name="fragment_route_work_button_end">Закончить</string>
 </resources>

@@ -8,6 +8,12 @@
         android:icon="@drawable/ic_profile"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menuLogout"
+        android:title="@string/auth_exit_title"
+        android:icon="@drawable/ic_exit_light"
+        app:showAsAction="ifRoom" />
+
 <!--    <item-->
 <!--        android:id="@+id/menuSettings"-->
 <!--        android:title="@string/fragment_settings_title"-->
