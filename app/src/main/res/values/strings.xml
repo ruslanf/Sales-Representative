@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Freight Forwarder</string>
+    <string name="app_name">Sales Representative</string>
 
     <string name="main_menu_title_route">Route</string>
     <string name="main_menu_title_reports">Reports</string>

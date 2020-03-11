@@ -36,6 +36,7 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
+        loadToken()
         initButtons()
     }
 
@@ -71,11 +72,7 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
                 } ?: run {
                     if (BuildConfig.DEBUG) Log.d(logTag, "response token => ${responseModel?.token}, user id => ${responseModel?.id}")
                     saveUserData(responseModel)
-                    this@AuthActivity.let { activity ->
-                        Intent(activity, RootActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        }.also { activity.startActivity(it) }
-                    }
+                    loadApp()
                 }
             }
         } else {
@@ -90,5 +87,17 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
             id?.let { presenter.setUserId(it) }
             token?.let { presenter.setUserToken(it) }
         }
+    }
+
+    private fun loadApp() {
+        this.let { activity ->
+            Intent(activity, RootActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }.also { activity.startActivity(it) }
+        }
+    }
+
+    private fun loadToken() {
+        presenter.getUserToken()?.let { loadApp() }
     }
 }

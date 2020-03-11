@@ -9,6 +9,9 @@ class AuthPresenter(
     private val repository: RepositoryInterface
 ) : AuthInterface {
 
+    override fun getUserToken(): String? =
+        repository.getUserToken()
+
     override fun setUserToken(token: String) {
         repository.setUserToken(token)
     }

@@ -4,6 +4,7 @@ import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.AuthResponseModel
 
 interface AuthInterface {
+    fun getUserToken(): String?
     fun setUserToken(token: String)
     fun setUserId(id: Int)
     suspend fun signUpUser(eMail: String, pass: String): Either<Exception, AuthResponseModel>
