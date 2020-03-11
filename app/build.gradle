@@ -68,9 +68,6 @@ dependencies {
     // Chrome Tabs
     implementation "com.android.support:customtabs:$custom_tabs_version"
 
-    // Navigation
-    implementation "ru.terrakok.cicerone:cicerone:$cicerone_version"
-
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
