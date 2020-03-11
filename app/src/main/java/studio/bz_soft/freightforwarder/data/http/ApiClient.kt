@@ -5,12 +5,12 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
-import retrofit2.await
 import retrofit2.converter.gson.GsonConverterFactory
 import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.data.models.*
 import java.io.File
 import java.util.*
+import javax.net.ssl.HostnameVerifier
 
 class ApiClient(
     private val apiURL: String,
@@ -41,6 +41,7 @@ class ApiClient(
     private fun httpClient(): OkHttpClient =
         OkHttpClient.Builder()
             .cache(httpCache)
+            .hostnameVerifier(HostnameVerifier { _, _ -> true }) // Added due javax.net.ssl.SSLPeerUnverifiedException
             .connectionSpecs(Collections.singletonList(connectionSpec))
             .addNetworkInterceptor(cacheInterceptor())
             .addInterceptor(offlineCacheInterceptor(appContext))
@@ -54,11 +55,9 @@ class ApiClient(
             .client(httpClient())
             .build()
 
-//    override suspend fun signUp(userRequest: UserRequest): AuthResponseModel = apiClient.signUp(userRequest)
-//    override suspend fun signIn(userRequest: UserRequest): AuthResponseModel = apiClient.signIn(userRequest)
-//    override suspend fun signInFb(fbLoginModel: FbLoginModel): AuthResponseModel = apiClient.signInFb(fbLoginModel)
-//    override suspend fun signInVk(vkLoginModel: VkLoginModel): AuthResponseModel = apiClient.signInVk(vkLoginModel)
-//
+    override suspend fun signUp(userRequest: UserRequest): AuthResponseModel = apiClient.signUp(userRequest)
+    override suspend fun signIn(userRequest: UserRequest): AuthResponseModel = apiClient.signIn(userRequest)
+
 //    override suspend fun restorePassword(email: Email): Unit? = apiClient.restorePassword(email).await()
 //    override suspend fun changePassword(token: String, passwords: Passwords): Unit? =
 //        apiClient.changePassword(modifiedToken(token), passwords).await()
@@ -67,35 +66,6 @@ class ApiClient(
 //    override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit? =
 //        apiClient.updateProfile(modifiedToken(token), userProfile).await()
 //
-//    override suspend fun getListSimulators(token: String): List<SimulatorsModel> =
-//        apiClient.getListSimulators(modifiedToken(token))
-//
-//    override suspend fun getLessons(token: String, id: Int): LessonsModel =
-//        apiClient.getLessons(modifiedToken(token), id)
-//
-//    override suspend fun getLesson(token: String, id: Int): TrainingModel =
-//        apiClient.getLesson(modifiedToken(token), id)
-//
-//    override suspend fun setLessonProgress(token: String, id: Int, progressModel: ProgressModel): Unit? =
-//        apiClient.setLessonProgress(modifiedToken(token), id, progressModel).await()
-//
-//    override suspend fun finishLesson(token: String, finish: FProgressModel): FProgressResponseModel =
-//        apiClient.finishLesson(modifiedToken(token), finish)
-//
-//    override suspend fun getGrammar(token: String): List<GrammarModel> =
-//        apiClient.getGrammar(modifiedToken(token))
-//
-//    override suspend fun getPersonalWords(token: String): PersonalWordsModel =
-//        apiClient.getPersonalWords(modifiedToken(token))
-//
-//    override suspend fun addPersonalWord(token: String, word: Word): Data =
-//        apiClient.addPersonalWord(modifiedToken(token), word)
-//
-//    override suspend fun getAllProducts(token: String): List<ProductModel> =
-//        apiClient.getAllProducts(modifiedToken(token))
-//
-//    override suspend fun createPayments(token: String, paymentsRequest: PaymentsRequest): PaymentsModel =
-//        apiClient.createPayments(modifiedToken(token), paymentsRequest)
 
     private fun modifiedToken(token: String): String = "Bearer $token"
 }

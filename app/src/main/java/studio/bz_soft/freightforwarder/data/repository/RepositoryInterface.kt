@@ -11,13 +11,9 @@ interface RepositoryInterface {
     fun setUserId(id: Int)
     fun deleteUserId()
 
-    fun setLegacyId(legacyId: Int)
+    suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
+    suspend fun sendAuthData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
 
-//    suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
-//    suspend fun sendAuthData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
-//    suspend fun sendFbAuthData(fbLoginModel: FbLoginModel): Either<Exception, AuthResponseModel>
-//    suspend fun sendVkAuthData(vkLoginModel: VkLoginModel): Either<Exception, AuthResponseModel>
-//
 //    suspend fun restorePassword(email: Email): Either<Exception, Unit?>
 //    suspend fun changePassword(token: String, passwords: Passwords): Either<Exception, Unit?>
 //

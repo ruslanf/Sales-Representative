@@ -5,4 +5,18 @@
     <string name="main_menu_title_route">Маршрут</string>
     <string name="main_menu_title_reports">Отчеты</string>
     <string name="main_menu_title_profile">Профиль</string>
+
+    <string name="signUp">Регистрация</string>
+    <string name="signIn">У меня уже есть аккаунт</string>
+    <string name="fragment_sign_up_hint_email">Введите email</string>
+    <string name="fragment_sign_up_hint_password">Введите пароль</string>
+
+    <string name="auth_message_enter_email">Введите email</string>
+    <string name="auth_message_send">Отправить</string>
+    <string name="auth_message_error_pass_restore">Ошибка восстановления пароля</string>
+    <string name="auth_message_pass_restored">Запрос на восстановление пароля отправлен</string>
+    <string name="auth_message_error">Ошибка авторизации</string>
+    <string name="auth_message_error_response">Ошибка регистрации</string>
+    <string name="auth_message_not_filled">Не заполнены все необходимые поля</string>
+
 </resources>

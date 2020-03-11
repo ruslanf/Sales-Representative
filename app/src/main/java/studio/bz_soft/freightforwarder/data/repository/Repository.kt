@@ -29,64 +29,12 @@ class Repository(
         storage.deleteUserId()
     }
 
-    override fun setLegacyId(legacyId: Int) {
-        storage.setLegacyId(legacyId)
-    }
+    override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
+        safeRequest { client.signUp(userRequest) }
 
-//    override fun setDifficultyLevel(level: DifficultyLevel) {
-//        storage.setDifficultyLevel(level)
-//    }
-//
-//    override fun getDifficultyLevel(): DifficultyLevel = storage.getDifficultyLevel() ?: run { DifficultyLevel.SIMPLE }
-//
-//    override fun setNextLesson(isActive: Boolean) {
-//        storage.setNextLesson(isActive)
-//    }
-//
-//    override fun getNextLesson(): Boolean = storage.getNextLesson() ?: run { false }
-//
-//    override fun setSoundEffect(isActive: Boolean) {
-//        storage.setSoundEffect(isActive)
-//    }
-//
-//    override fun getSoundEffect(): Boolean = storage.getSoundEffect() ?: run { false }
-//
-//    override fun setReminderMorning(isActive: Boolean) {
-//        storage.setReminderMorning(isActive)
-//    }
-//
-//    override fun getReminderMorning(): Boolean = storage.getReminderMorning() ?: run { false }
-//
-//    override fun setReminderDay(isActive: Boolean) {
-//        storage.setReminderDay(isActive)
-//    }
-//
-//    override fun getReminderDay(): Boolean = storage.getReminderDay() ?: run { false }
-//
-//    override fun setReminderEvening(isActive: Boolean) {
-//        storage.setReminderEvening(isActive)
-//    }
-//
-//    override fun getReminderEvening(): Boolean = storage.getReminderEvening() ?: run { false }
-//
-//    override fun setReminderNight(isActive: Boolean) {
-//        storage.setReminderNight(isActive)
-//    }
-//
-//    override fun getReminderNight(): Boolean = storage.getReminderNight() ?: run { false }
-//
-//    override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
-//        safeRequest { client.signUp(userRequest) }
-//
-//    override suspend fun sendAuthData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
-//        safeRequest { client.signIn(userRequest) }
-//
-//    override suspend fun sendFbAuthData(fbLoginModel: FbLoginModel): Either<Exception, AuthResponseModel> =
-//        safeRequest { client.signInFb(fbLoginModel) }
-//
-//    override suspend fun sendVkAuthData(vkLoginModel: VkLoginModel): Either<Exception, AuthResponseModel> =
-//        safeRequest { client.signInVk(vkLoginModel) }
-//
+    override suspend fun sendAuthData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
+        safeRequest { client.signIn(userRequest) }
+
 //    override suspend fun restorePassword(email: Email): Either<Exception, Unit?> =
 //        safeRequest { client.restorePassword(email) }
 //

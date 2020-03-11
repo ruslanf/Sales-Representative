@@ -1,8 +1,8 @@
 package studio.bz_soft.freightforwarder.root
 
 object Constants {
-    const val API_MAIN_URL = "https://"
-    const val BASE_API = "/api/v1"
+    const val API_MAIN_URL = "https://indoevropeist.site"
+    const val BASE_API = "/api"
 
     const val PLATFORM = "android"
 

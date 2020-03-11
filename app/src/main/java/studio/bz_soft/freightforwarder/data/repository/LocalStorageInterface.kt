@@ -7,6 +7,4 @@ interface LocalStorageInterface {
 
     fun setUserId(id: Int)
     fun deleteUserId()
-
-    fun setLegacyId(legacyId: Int)
 }

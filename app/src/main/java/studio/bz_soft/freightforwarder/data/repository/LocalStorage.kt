@@ -29,10 +29,6 @@ class LocalStorage(
         preferences.edit().remove(USER_ID).apply()
     }
 
-    override fun setLegacyId(legacyId: Int) {
-//        preferences.edit().putInt(USER_LEGACY_ID, legacyId).apply()
-    }
-//
 //    override fun setDifficultyLevel(level: DifficultyLevel) {
 //        preferences.edit().putInt(DIFFICULTY_LEVEL, level.ordinal).apply()
 //    }

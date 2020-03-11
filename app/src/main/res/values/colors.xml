@@ -4,7 +4,12 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="white">#FFFFFF</color>
     <color name="splashScreen">#3700B3</color>
 
     <color name="primaryTextColor">#ffffff</color>
+
+    <color name="auth_field_background">#ececec</color>
+    <color name="auth_filed_icon_background">#e0e0e0</color>
+    <color name="auth_field_icon_color">#4c555e</color>
 </resources>

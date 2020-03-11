@@ -3,10 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/routeFragment">
+    app:startDestination="@id/menuRoute">
+
     <fragment
-        android:id="@+id/routeFragment"
+        android:id="@+id/menuRoute"
         android:name="studio.bz_soft.freightforwarder.ui.route.RouteFragment"
         android:label="fragment_route"
         tools:layout="@layout/fragment_route" />
+    <fragment
+        android:id="@+id/menuReports"
+        android:name="studio.bz_soft.freightforwarder.ui.reports.ReportsFragment"
+        android:label="ReportsFragment" />
+    <fragment
+        android:id="@+id/menuProfile"
+        android:name="studio.bz_soft.freightforwarder.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

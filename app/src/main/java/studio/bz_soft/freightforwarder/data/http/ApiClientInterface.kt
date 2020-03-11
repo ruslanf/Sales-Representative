@@ -3,11 +3,9 @@ package studio.bz_soft.freightforwarder.data.http
 import studio.bz_soft.freightforwarder.data.models.*
 
 interface ApiClientInterface {
-//    suspend fun signUp(userRequest: UserRequest): AuthResponseModel
-//    suspend fun signIn(userRequest: UserRequest): AuthResponseModel
-//    suspend fun signInFb(fbLoginModel: FbLoginModel): AuthResponseModel
-//    suspend fun signInVk(vkLoginModel: VkLoginModel): AuthResponseModel
-//
+    suspend fun signUp(userRequest: UserRequest): AuthResponseModel
+    suspend fun signIn(userRequest: UserRequest): AuthResponseModel
+
 //    suspend fun restorePassword(email: Email): Unit?
 //    suspend fun changePassword(token: String, passwords: Passwords): Unit?
 //

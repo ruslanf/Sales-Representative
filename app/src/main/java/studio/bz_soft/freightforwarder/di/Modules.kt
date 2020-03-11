@@ -17,6 +17,7 @@ import studio.bz_soft.freightforwarder.data.repository.Repository
 import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
 import studio.bz_soft.freightforwarder.root.App
 import studio.bz_soft.freightforwarder.root.Constants.API_MAIN_URL
+import studio.bz_soft.freightforwarder.ui.auth.AuthPresenter
 
 val applicationModule = module {
     single { androidApplication() as App }
@@ -35,26 +36,10 @@ val storageModule = module {
 }
 
 val presenterModule = module {
-//    single { AuthPresenter(get()) }
-//    single { SignUpPresenter(get(), get()) }
-//    single { SignInPresenter(get(), get()) }
-//    single { TrainingsPresenter(get()) }
-//    single { StorePresenter(get()) }
-//    single { LessonVocabularyPresenter(get()) }
-//    single { LessonPresenter(get()) }
-//    single { DictionaryPresenter(get()) }
-//    single { GrammarPresenter(get()) }
-//    single { ProfilePresenter(get()) }
-//    single { SettingsPresenter(get()) }
-//    single { AboutPresenter() }
+    single { AuthPresenter(get()) }
 }
 
-val controllerModule = module {
-//    single { SplashController(get()) }
-//    single { RootController(get()) }
-//    single { FacebookController(get()) }
-//    single { VkController(get()) }
-}
+val controllerModule = module {  }
 
 val navigationModule = module {
     single { Cicerone.create() }
