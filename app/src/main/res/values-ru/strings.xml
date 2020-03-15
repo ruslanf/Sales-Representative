@@ -21,14 +21,20 @@
 
     <string name="auth_exit_title">Выход</string>
 
+    <string name="fragment_route_start_of_shift">Начало смены</string>
+    <string name="fragment_route_end_of_shift">Конец смены</string>
+    <string name="fragment_route_work_button_start">Начать</string>
+    <string name="fragment_route_work_button_end">Закончить</string>
+
     <string name="profile_message_exit_title">Выйти из аккаунта</string>
     <string name="profile_message_exit">Вы действительно хотите выйти?</string>
     <string name="profile_message_exit_button">Выход</string>
     <string name="profile_message_cancel_button">Отмена</string>
+    <string name="fragment_profile_manager_title">Менеджер</string>
+    <string name="fragment_profile_logout_button">Выход</string>
 
-    <string name="fragment_route_start_of_shift">Начало смены</string>
-    <string name="fragment_route_end_of_shift">Конец смены</string>
-
-    <string name="fragment_route_work_button_start">Начать</string>
-    <string name="fragment_route_work_button_end">Закончить</string>
+    <string name="content_settings_button">Настройки</string>
+    <string name="content_profile_button">Профиль</string>
+    <string name="content_profile_exit">Выход из профиля</string>
+    <string name="content_user_photo">Фото пользователя</string>
 </resources>

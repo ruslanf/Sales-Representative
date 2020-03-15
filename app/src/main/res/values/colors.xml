@@ -12,4 +12,9 @@
     <color name="auth_field_background">#ececec</color>
     <color name="auth_filed_icon_background">#e0e0e0</color>
     <color name="auth_field_icon_color">#4c555e</color>
+
+    <color name="profile_horizontal_divider">#b9b9b9</color>
+    <color name="profile_base_color">#50c2bc</color>
+    <color name="profile_text_title">#474a53</color>
+    <color name="profile_text_data">#7a7d80</color>
 </resources>
