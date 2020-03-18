@@ -5,6 +5,7 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
+import retrofit2.await
 import retrofit2.converter.gson.GsonConverterFactory
 import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.data.models.*
@@ -58,14 +59,13 @@ class ApiClient(
     override suspend fun signUp(userRequest: UserRequest): AuthResponseModel = apiClient.signUp(userRequest)
     override suspend fun signIn(userRequest: UserRequest): AuthResponseModel = apiClient.signIn(userRequest)
 
-//    override suspend fun restorePassword(email: Email): Unit? = apiClient.restorePassword(email).await()
-//    override suspend fun changePassword(token: String, passwords: Passwords): Unit? =
-//        apiClient.changePassword(modifiedToken(token), passwords).await()
-//
-//    override suspend fun loadUserProfile(token: String): UserProfileModel = apiClient.getUserProfile(modifiedToken(token))
-//    override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit? =
-//        apiClient.updateProfile(modifiedToken(token), userProfile).await()
-//
+    override suspend fun restorePassword(email: Email): Unit? = apiClient.restorePassword(email).await()
+    override suspend fun changePassword(token: String, passwords: Passwords): Unit? =
+        apiClient.changePassword(modifiedToken(token), passwords).await()
+
+    override suspend fun loadUserProfile(token: String): UserProfileModel = apiClient.getUserProfile(modifiedToken(token))
+    override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit? =
+        apiClient.updateProfile(modifiedToken(token), userProfile).await()
 
     private fun modifiedToken(token: String): String = "Bearer $token"
 }
