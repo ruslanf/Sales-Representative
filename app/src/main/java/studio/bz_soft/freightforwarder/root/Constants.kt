@@ -4,6 +4,8 @@ object Constants {
     const val API_MAIN_URL = "https://indoevropeist.site"
     const val BASE_API = "/api"
 
+    const val CONTRIBUTOR_URL = "https://www.openstreetmap.org/copyright"
+
     const val PLATFORM = "android"
 
     const val SPLASH_TIME_OUT: Long = 2000
@@ -15,6 +17,10 @@ object Constants {
     val MONTH = IntArray(12) { i -> i + 1 }
     val YEAR = IntArray(200) { i -> 1900 + i + 1}
 
+    const val PERMISSIONS_REQUEST_CODE_STORAGE = 0
+    const val PERMISSIONS_REQUEST_CODE_LOCATION = 1
+
+    const val COUNTRY_DEFAULT = "Россия"
     const val EMPTY_STRING = ""
     const val ZERO_STRING = "0"
 
