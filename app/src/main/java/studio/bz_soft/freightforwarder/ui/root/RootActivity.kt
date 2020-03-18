@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.dialog_logout.view.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
+import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 
 class RootActivity : AppCompatActivity() {
 
@@ -78,6 +79,6 @@ class RootActivity : AppCompatActivity() {
         controller.deleteToken()
         controller.deleteUserId()
         progressBar.visibility = View.GONE
-        startActivity(Intent(this@RootActivity, RootActivity::class.java))
+        startActivity(Intent(this@RootActivity, AuthActivity::class.java))
     }
 }
