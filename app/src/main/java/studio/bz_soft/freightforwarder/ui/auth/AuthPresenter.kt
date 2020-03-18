@@ -2,6 +2,7 @@ package studio.bz_soft.freightforwarder.ui.auth
 
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.AuthResponseModel
+import studio.bz_soft.freightforwarder.data.models.Email
 import studio.bz_soft.freightforwarder.data.models.UserRequest
 import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
 
@@ -25,4 +26,7 @@ class AuthPresenter(
 
     override suspend fun signInUser(eMail: String, pass: String): Either<Exception, AuthResponseModel> =
         repository.sendAuthData(UserRequest(eMail, pass))
+
+    override suspend fun restorePassword(eMail: String): Either<Exception, Unit?> =
+        repository.restorePassword(Email(eMail))
 }

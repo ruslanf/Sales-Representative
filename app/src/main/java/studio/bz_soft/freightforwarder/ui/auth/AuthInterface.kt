@@ -9,4 +9,5 @@ interface AuthInterface {
     fun setUserId(id: Int)
     suspend fun signUpUser(eMail: String, pass: String): Either<Exception, AuthResponseModel>
     suspend fun signInUser(eMail: String, pass: String): Either<Exception, AuthResponseModel>
+    suspend fun restorePassword(eMail: String): Either<Exception, Unit?>
 }
