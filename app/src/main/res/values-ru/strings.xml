@@ -10,6 +10,7 @@
     <string name="signIn">У меня уже есть аккаунт</string>
     <string name="fragment_sign_up_hint_email">Введите email</string>
     <string name="fragment_sign_up_hint_password">Введите пароль</string>
+    <string name="fragment_sign_up_restore_password">Напомнить пароль?</string>
 
     <string name="auth_message_enter_email">Введите email</string>
     <string name="auth_message_send">Отправить</string>
@@ -25,11 +26,19 @@
     <string name="fragment_route_end_of_shift">Конец смены</string>
     <string name="fragment_route_work_button_start">Начать</string>
     <string name="fragment_route_work_button_end">Закончить</string>
+    <string name="fragment_route_error_location">При получении текущего местоположения произошла ошибка</string>
 
     <string name="profile_message_exit_title">Выйти из аккаунта</string>
     <string name="profile_message_exit">Вы действительно хотите выйти?</string>
     <string name="profile_message_exit_button">Выход</string>
     <string name="profile_message_cancel_button">Отмена</string>
+    <string name="profile_message_password_title">Введите новый пароль</string>
+    <string name="profile_message_password_old">Старый пароль</string>
+    <string name="profile_message_password_new">Новый пароль</string>
+    <string name="profile_message_change">Поменять</string>
+    <string name="profile_load_data_message_error">Ошибка загрузки профайла пользователя</string>
+    <string name="profile_update_data_message_error">Ошибка обновления профайла пользователя</string>
+    <string name="profile_change_password_error">Ошибка во время смены пароля</string>
     <string name="fragment_profile_manager_title">Менеджер</string>
     <string name="fragment_profile_logout_button">Выход</string>
 

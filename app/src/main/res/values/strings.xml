@@ -7,9 +7,9 @@
 
     <string name="signUp">Sign Up</string>
     <string name="signIn">Sign In</string>
-
     <string name="fragment_sign_up_hint_email">Enter email</string>
     <string name="fragment_sign_up_hint_password">Enter password</string>
+    <string name="fragment_sign_up_restore_password">Restore password?</string>
 
     <string name="auth_message_enter_email">Email not entered</string>
     <string name="auth_message_send">Send</string>
@@ -25,12 +25,20 @@
     <string name="fragment_route_end_of_shift">End of shift</string>
     <string name="fragment_route_work_button_start">Start</string>
     <string name="fragment_route_work_button_end">Finish</string>
+    <string name="fragment_route_error_location">An error occurred while getting current location</string>
 
     <string name="profile_message_exit_title">Logout from account</string>
     <string name="profile_message_exit">Are you sure you want to logout?</string>
     <string name="profile_message_exit_button">Exit</string>
     <string name="profile_message_cancel_button">Cancel</string>
     <string name="profile_password_view" translatable="false">********</string>
+    <string name="profile_message_password_title">Enter new password</string>
+    <string name="profile_message_password_old">Old password</string>
+    <string name="profile_message_password_new">New password</string>
+    <string name="profile_message_change">Change</string>
+    <string name="profile_load_data_message_error">Error loading user profile</string>
+    <string name="profile_update_data_message_error">Error while updating user\'s profile</string>
+    <string name="profile_change_password_error">Error while changing password</string>
     <string name="fragment_profile_manager_title">Manager</string>
     <string name="fragment_profile_logout_button">Logout</string>
 
