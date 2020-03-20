@@ -21,12 +21,18 @@
 
     <string name="auth_exit_title">Exit</string>
 
+    <string name="fragment_route_title">Outlets</string>
     <string name="fragment_route_start_of_shift">Start of shift</string>
     <string name="fragment_route_end_of_shift">End of shift</string>
     <string name="fragment_route_work_button_start">Start</string>
     <string name="fragment_route_work_button_end">Finish</string>
     <string name="fragment_route_error_location">An error occurred while getting current location</string>
 
+    <string name="fragment_reports_title">Reports</string>
+
+    <string name="fragment_profile_title">Profile</string>
+    <string name="fragment_profile_manager_title">Manager</string>
+    <string name="fragment_profile_logout_button">Logout</string>
     <string name="profile_message_exit_title">Logout from account</string>
     <string name="profile_message_exit">Are you sure you want to logout?</string>
     <string name="profile_message_exit_button">Exit</string>
@@ -39,8 +45,6 @@
     <string name="profile_load_data_message_error">Error loading user profile</string>
     <string name="profile_update_data_message_error">Error while updating user\'s profile</string>
     <string name="profile_change_password_error">Error while changing password</string>
-    <string name="fragment_profile_manager_title">Manager</string>
-    <string name="fragment_profile_logout_button">Logout</string>
 
     <string name="content_settings_button">Settings</string>
     <string name="content_profile_button">Profile</string>

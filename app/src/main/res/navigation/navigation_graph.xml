@@ -8,14 +8,17 @@
     <fragment
         android:id="@+id/menuRoute"
         android:name="studio.bz_soft.freightforwarder.ui.route.RouteFragment"
-        android:label="fragment_route"
+        android:label="@string/fragment_route_title"
         tools:layout="@layout/fragment_route" />
     <fragment
         android:id="@+id/menuReports"
         android:name="studio.bz_soft.freightforwarder.ui.reports.ReportsFragment"
-        android:label="ReportsFragment" />
+        android:label="@string/fragment_reports_title"
+        tools:layout="@layout/fragment_reports">
+    </fragment>
     <fragment
         android:id="@+id/menuProfile"
         android:name="studio.bz_soft.freightforwarder.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="@string/fragment_profile_title"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>
