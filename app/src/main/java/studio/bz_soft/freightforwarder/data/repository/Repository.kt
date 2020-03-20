@@ -31,6 +31,12 @@ class Repository(
         storage.deleteUserId()
     }
 
+    override fun setWorkStarted(isStarted: Boolean) {
+        storage.setWorkStarted(isStarted)
+    }
+
+    override fun getWorkStarted(): Boolean? = storage.getWorkStarted()
+
     override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
         safeRequest { client.signUp(userRequest) }
 

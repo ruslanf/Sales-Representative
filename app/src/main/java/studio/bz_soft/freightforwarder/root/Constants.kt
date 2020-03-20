@@ -30,4 +30,5 @@ object Constants {
     const val IS_TOKEN_PRESENT = "is_user_token_present"
     const val USER_TOKEN = "user_token"
     const val USER_ID = "user_id"
+    const val IS_WORK_STARTED = "is_work_started"
 }

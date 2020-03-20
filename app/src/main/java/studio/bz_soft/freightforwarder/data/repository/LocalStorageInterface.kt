@@ -8,4 +8,7 @@ interface LocalStorageInterface {
     fun setUserId(id: Int)
     fun getUserId(): Int?
     fun deleteUserId()
+
+    fun setWorkStarted(isStarted: Boolean)
+    fun getWorkStarted(): Boolean?
 }

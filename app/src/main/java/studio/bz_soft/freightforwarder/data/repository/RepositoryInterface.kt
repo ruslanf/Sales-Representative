@@ -12,6 +12,9 @@ interface RepositoryInterface {
     fun getUserId(): Int?
     fun deleteUserId()
 
+    fun setWorkStarted(isStarted: Boolean)
+    fun getWorkStarted(): Boolean?
+
     suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
     suspend fun sendAuthData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
 
