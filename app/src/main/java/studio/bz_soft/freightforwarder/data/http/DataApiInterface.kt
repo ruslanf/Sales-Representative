@@ -20,10 +20,10 @@ interface DataApiInterface {
     fun changePassword(@Header("Authorization") token: String,
                        @Body passwords: Passwords): Call<Unit?>
 
-    @GET("$BASE_API/profile/me")
+    @GET("$BASE_API/users/profile")
     suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileModel
 
-    @PUT("$BASE_API/profile/me")
+    @PUT("$BASE_API/users/profile")
     fun updateProfile(@Header("Authorization") token: String,
                       @Body userProfile: UserProfileModel): Call<Unit?>
 }
