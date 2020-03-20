@@ -29,6 +29,8 @@
     <string name="fragment_route_work_button_end">Закончить</string>
     <string name="fragment_route_error_location">При получении текущего местоположения произошла ошибка</string>
 
+    <string name="fragment_addstore_title">Новая точка</string>
+
     <string name="fragment_reports_title">Отчёты</string>
 
     <string name="fragment_profile_title">Профиль</string>

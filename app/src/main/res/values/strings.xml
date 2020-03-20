@@ -28,6 +28,8 @@
     <string name="fragment_route_work_button_end">Finish</string>
     <string name="fragment_route_error_location">An error occurred while getting current location</string>
 
+    <string name="fragment_addstore_title">Add Store</string>
+
     <string name="fragment_reports_title">Reports</string>
 
     <string name="fragment_profile_title">Profile</string>
