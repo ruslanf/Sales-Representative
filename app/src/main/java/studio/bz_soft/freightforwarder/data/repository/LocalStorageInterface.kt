@@ -6,5 +6,6 @@ interface LocalStorageInterface {
     fun deleteToken()
 
     fun setUserId(id: Int)
+    fun getUserId(): Int?
     fun deleteUserId()
 }

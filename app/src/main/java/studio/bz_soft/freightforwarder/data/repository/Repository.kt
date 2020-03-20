@@ -25,6 +25,8 @@ class Repository(
         storage.setUserId(id)
     }
 
+    override fun getUserId(): Int? = storage.getUserId()
+
     override fun deleteUserId() {
         storage.deleteUserId()
     }

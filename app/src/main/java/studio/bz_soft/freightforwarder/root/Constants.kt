@@ -6,6 +6,9 @@ object Constants {
 
     const val CONTRIBUTOR_URL = "https://www.openstreetmap.org/copyright"
 
+    const val MIN_ZOOM_LEVEL: Double = 7.0
+    const val MAX_ZOOM_LEVEL: Double = 19.0
+
     const val PLATFORM = "android"
 
     const val SPLASH_TIME_OUT: Long = 2000

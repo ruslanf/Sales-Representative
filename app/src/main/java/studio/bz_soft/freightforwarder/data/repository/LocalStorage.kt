@@ -25,6 +25,8 @@ class LocalStorage(
         preferences.edit().putInt(USER_ID, id).apply()
     }
 
+    override fun getUserId(): Int? = preferences.getInt(USER_ID, 0)
+
     override fun deleteUserId() {
         preferences.edit().remove(USER_ID).apply()
     }

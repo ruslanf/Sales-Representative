@@ -9,6 +9,7 @@ interface RepositoryInterface {
     fun deleteToken()
 
     fun setUserId(id: Int)
+    fun getUserId(): Int?
     fun deleteUserId()
 
     suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
