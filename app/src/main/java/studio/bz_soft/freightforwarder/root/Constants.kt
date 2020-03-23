@@ -9,6 +9,13 @@ object Constants {
     const val MIN_ZOOM_LEVEL: Double = 7.0
     const val MAX_ZOOM_LEVEL: Double = 19.0
 
+    const val PREFS_NAME = "org.andnav.osm.prefs"
+    const val PREFS_TILE_SOURCE = "tile_source"
+    const val PREFS_LATITUDE = "latitude"
+    const val PREFS_LONGITUDE = "longitude"
+    const val PREFS_ORIENTATION = "orientation"
+    const val PREFS_ZOOM_LEVEL = "zoomLevel"
+
     const val PLATFORM = "android"
 
     const val SPLASH_TIME_OUT: Long = 2000

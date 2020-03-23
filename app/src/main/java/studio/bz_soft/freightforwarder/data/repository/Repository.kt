@@ -35,6 +35,36 @@ class Repository(
         storage.setWorkStarted(isStarted)
     }
 
+    override fun setTileSource(tileSource: String) {
+        storage.setTileSource(tileSource)
+    }
+
+    override fun getTileSource(): String? = storage.getTileSource()
+
+    override fun setOrientation(orientation: Float) {
+        storage.setOrientation(orientation)
+    }
+
+    override fun getOrientation(): Float? = storage.getOrientation()
+
+    override fun setLatitude(latitude: String) {
+        storage.setLatitude(latitude)
+    }
+
+    override fun getLatitude(): String? = storage.getLatitude()
+
+    override fun setLongitude(longitude: String) {
+        storage.setLongitude(longitude)
+    }
+
+    override fun getLongitude(): String? = storage.getLongitude()
+
+    override fun setZoomLevel(zoomLevel: Float) {
+        storage.setZoomLevel(zoomLevel)
+    }
+
+    override fun getZoomLevel(): Float? = storage.getZoomLevel()
+
     override fun getWorkStarted(): Boolean? = storage.getWorkStarted()
 
     override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
