@@ -35,6 +35,8 @@ class Repository(
         storage.setWorkStarted(isStarted)
     }
 
+    override fun getWorkStarted(): Boolean? = storage.getWorkStarted()
+
     override fun setTileSource(tileSource: String) {
         storage.setTileSource(tileSource)
     }
@@ -64,8 +66,6 @@ class Repository(
     }
 
     override fun getZoomLevel(): Float? = storage.getZoomLevel()
-
-    override fun getWorkStarted(): Boolean? = storage.getWorkStarted()
 
     override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
         safeRequest { client.signUp(userRequest) }
