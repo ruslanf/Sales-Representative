@@ -1,6 +1,7 @@
 package studio.bz_soft.freightforwarder.ui.profile
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,8 +11,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
+import kotlinx.android.synthetic.main.dialog_logout.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.progressBar
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
@@ -23,6 +27,7 @@ import studio.bz_soft.freightforwarder.root.Constants.COUNTRY_DEFAULT
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.GlideApp
 import studio.bz_soft.freightforwarder.root.showError
+import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import kotlin.coroutines.CoroutineContext
 
 class ProfileFragment : Fragment(), CoroutineScope {
@@ -50,6 +55,7 @@ class ProfileFragment : Fragment(), CoroutineScope {
             loadUserProfile(this)
 
             userPasswordTV.setOnClickListener { changePasswordListener(this) }
+            logoutButton.setOnClickListener { exitButtonListener() }
         }
     }
 
@@ -198,6 +204,27 @@ class ProfileFragment : Fragment(), CoroutineScope {
                     .into(userPhotoIV)
             }
         }
+    }
+
+    private fun exitButtonListener() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
+        val alertDialog = AlertDialog.Builder(context).create()
+        with(alertDialog) {
+            setView(dialogView)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialogView.exitButton.setOnClickListener { dialogExitButtonListener(this) }
+            dialogView.cancelButton.setOnClickListener { dismiss() }
+            show()
+        }
+    }
+
+    private fun dialogExitButtonListener(alertDialog: AlertDialog?) {
+        alertDialog?.dismiss()
+        progressBar.visibility = View.VISIBLE
+        presenter.deleteToken()
+        presenter.deleteUserId()
+        progressBar.visibility = View.GONE
+        startActivity(Intent(context, AuthActivity::class.java))
     }
 
     private fun getUserId(): Int = presenter.getUserId()?.let { it } ?: run { 0 }

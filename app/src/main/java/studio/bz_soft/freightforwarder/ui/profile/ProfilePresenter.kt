@@ -13,6 +13,14 @@ class ProfilePresenter(
 
     override fun getUserId(): Int? = repository.getUserId()
 
+    override fun deleteToken() {
+        repository.deleteToken()
+    }
+
+    override fun deleteUserId() {
+        repository.deleteUserId()
+    }
+
     override suspend fun changePassword(token: String, passwords: Passwords): Either<Exception, Unit?> =
         repository.changePassword(token, passwords)
 

@@ -8,6 +8,9 @@ interface ProfileInterface {
     fun getUserToken(): String?
     fun getUserId(): Int?
 
+    fun deleteToken()
+    fun deleteUserId()
+
     suspend fun changePassword(token: String, passwords: Passwords): Either<Exception, Unit?>
 
     suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel>
