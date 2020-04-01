@@ -29,7 +29,23 @@
     <string name="fragment_route_work_button_end">Закончить</string>
     <string name="fragment_route_error_location">При получении текущего местоположения произошла ошибка</string>
 
-    <string name="fragment_addstore_title">Новая точка</string>
+    <string name="fragment_add_store_title">Новая точка</string>
+    <string name="fragment_add_store_save_info_button">Сохранить информацию</string>
+    <string name="fragment_add_store_name_of_outlet">Торговая точка</string>
+    <string name="fragment_add_store_type">Тип организации</string>
+    <string name="fragment_add_store_tax_number">ИНН</string>
+    <string name="fragment_add_store_tax_number_1">ОГРН</string>
+    <string name="fragment_add_store_address_actual">Фактический адрес</string>
+    <string name="fragment_add_store_address_legal">Юридический адрес</string>
+    <string name="fragment_add_store_phone">Телефон</string>
+<!--    <string name="fragment_add_store_email">e-mail</string>-->
+    <string name="fragment_add_store_lpr">ЛПР</string>
+    <string name="fragment_add_store_payment_type">Форма оплаты</string>
+    <string name="fragment_add_store_products_range">Ассортимент</string>
+    <string name="fragment_add_store_market_type">Размер торговой точки</string>
+    <string name="fragment_add_store_company_type">Вид компании</string>
+    <string name="fragment_add_store_work_time">Рабочее время</string>
+    <string name="fragment_add_store_dealer">Поставщики</string>
 
     <string name="fragment_reports_title">Отчёты</string>
 

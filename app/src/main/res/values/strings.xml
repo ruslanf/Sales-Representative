@@ -28,7 +28,23 @@
     <string name="fragment_route_work_button_end">Finish</string>
     <string name="fragment_route_error_location">An error occurred while getting current location</string>
 
-    <string name="fragment_addstore_title">Add Store</string>
+    <string name="fragment_add_store_title">Add Store</string>
+    <string name="fragment_add_store_save_info_button">Save Info</string>
+    <string name="fragment_add_store_name_of_outlet">Name of outlet</string>
+    <string name="fragment_add_store_type">Type</string>
+    <string name="fragment_add_store_tax_number">ITN</string>
+    <string name="fragment_add_store_tax_number_1">OGRN</string>
+    <string name="fragment_add_store_address_actual">Actual address</string>
+    <string name="fragment_add_store_address_legal">Legal address</string>
+    <string name="fragment_add_store_phone">Phone</string>
+    <string name="fragment_add_store_email" translatable="false">e-mail</string>
+    <string name="fragment_add_store_lpr">LPR</string>
+    <string name="fragment_add_store_payment_type">Payment type</string>
+    <string name="fragment_add_store_products_range">Products range</string>
+    <string name="fragment_add_store_market_type">Market type</string>
+    <string name="fragment_add_store_company_type">Company type</string>
+    <string name="fragment_add_store_work_time">Work time</string>
+    <string name="fragment_add_store_dealer">Dealer</string>
 
     <string name="fragment_reports_title">Reports</string>
 

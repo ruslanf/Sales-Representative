@@ -16,6 +16,8 @@ import studio.bz_soft.freightforwarder.root.Constants.API_MAIN_URL
 import studio.bz_soft.freightforwarder.ui.auth.AuthPresenter
 import studio.bz_soft.freightforwarder.ui.profile.ProfilePresenter
 import studio.bz_soft.freightforwarder.ui.root.RootController
+import studio.bz_soft.freightforwarder.ui.route.RoutePresenter
+import studio.bz_soft.freightforwarder.ui.route.store.AddStorePresenter
 
 val applicationModule = module {
     single { androidApplication() as App }
@@ -33,6 +35,8 @@ val storageModule = module {
 
 val presenterModule = module {
     single { AuthPresenter(get()) }
+    single { RoutePresenter(get()) }
+    single { AddStorePresenter(get()) }
     single { ProfilePresenter(get()) }
 }
 
