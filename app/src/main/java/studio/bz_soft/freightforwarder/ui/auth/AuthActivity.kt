@@ -7,9 +7,9 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.android.synthetic.main.dialog_restore_password.view.*
 import kotlinx.android.synthetic.main.dialog_restore_password.view.dialogEmailET
@@ -91,14 +91,13 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun restorePasswordListener() {
-        val dialogView = LayoutInflater.from(applicationContext).inflate(R.layout.dialog_restore_password, null)
-        val alertDialog = AlertDialog.Builder(applicationContext).create()
-//        val dialogView = layoutInflater.inflate(R.layout.dialog_restore_password, null)
-//        val alertDialog = AlertDialog.Builder(this@AuthActivity).create()
+        val dialogView = layoutInflater.inflate(R.layout.dialog_restore_password, null)
+        val alertDialog = AlertDialog.Builder(this).create()
         with(alertDialog) {
             setView(dialogView)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialogView.dialogEmailET.text = emailET.text
+            val email = this@AuthActivity.findViewById<EditText>(R.id.emailET)
+            dialogView.dialogEmailET.text = email.text
             dialogView.sendButton.setOnClickListener {
                 sendButtonListener(this, dialogView.dialogEmailET.text.toString())
             }
@@ -146,6 +145,6 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
     }
 
     companion object {
-        fun instance() = AuthActivity()
+        fun instance(): AuthActivity = AuthActivity()
     }
 }
