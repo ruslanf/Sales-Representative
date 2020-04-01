@@ -12,13 +12,19 @@ import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalTime
+import org.threeten.bp.format.DateTimeFormatter.ofPattern
 import retrofit2.HttpException
 import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.parseError
 import studio.bz_soft.freightforwarder.data.http.parseHttpError
+import studio.bz_soft.freightforwarder.root.Constants.OUT_DATE_FORMATTER
+import studio.bz_soft.freightforwarder.root.Constants.TIME_FORMATTER
 import java.io.IOException
 import java.net.URL
+import java.util.*
 
 fun showToast(v: View, text: String) {
     Toast.makeText(v.context, biggerText(text), Toast.LENGTH_LONG).show()
@@ -61,6 +67,12 @@ fun readJsonFromAsset(c: Context?, file: String): String? =
     } catch (ex: IOException) {
         null
     }
+
+fun parseOutputDate(date: String): LocalDate =
+    LocalDate.parse(date, ofPattern(OUT_DATE_FORMATTER).withLocale(Locale.getDefault()))
+
+fun parseTime(time: String): LocalTime =
+    LocalTime.parse(time, ofPattern(TIME_FORMATTER))
 
 //fun parseChronometer(c: Context, milliseconds: Long): String =
 //    c.getString(R.string.chronometer_time).format(milliseconds / 1000 / 60, milliseconds / 1000 % 60)
