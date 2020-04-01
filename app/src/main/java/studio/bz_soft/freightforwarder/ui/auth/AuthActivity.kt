@@ -76,8 +76,10 @@ class AuthActivity : AppCompatActivity(), CoroutineScope {
                 progressBar.visibility = View.GONE
                 ex?.let {
                     showError(this@AuthActivity, it, R.string.auth_message_error, logTag)
+                    ex = null
                 } ?: run {
                     if (BuildConfig.DEBUG) Log.d(logTag, "response token => ${responseModel?.token}, user id => ${responseModel?.id}")
+                    if (!isRegistered) presenter.getUserToken()?.let { presenter.deleteToken() }
                     presenter.getUserToken()?.let {  } ?: run { responseModel?.token?.let { presenter.setUserToken(it) } }
                     saveUserData(responseModel)
                     loadApp()

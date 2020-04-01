@@ -17,6 +17,10 @@ class AuthPresenter(
         repository.setUserToken(token)
     }
 
+    override fun deleteToken() {
+        repository.deleteToken()
+    }
+
     override fun setUserId(id: Int) {
         repository.setUserId(id)
     }
