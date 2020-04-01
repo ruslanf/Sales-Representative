@@ -36,7 +36,7 @@ class RootActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.menuRoute, R.id.menuReports, R.id.menuProfile
+                R.id.menuWorkShift, R.id.menuReports, R.id.menuProfile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

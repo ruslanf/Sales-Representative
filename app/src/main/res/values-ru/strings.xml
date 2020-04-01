@@ -3,6 +3,7 @@
     <string name="app_name">Торговый представитель</string>
 
     <string name="main_menu_title_route">Маршрут</string>
+    <string name="main_menu_title_work_shift">Рабочая смена</string>
     <string name="main_menu_title_reports">Отчеты</string>
     <string name="main_menu_title_profile">Профиль</string>
 
@@ -28,6 +29,11 @@
     <string name="fragment_route_work_button_start">Начать</string>
     <string name="fragment_route_work_button_end">Закончить</string>
     <string name="fragment_route_error_location">При получении текущего местоположения произошла ошибка</string>
+
+    <string name="fragment_work_shift_title">Рабочая смена</string>
+    <string name="fragment_work_shift_sr_title">Торговый представитель</string>
+    <string name="fragment_work_shift_signin_title">Вы вошли как:</string>
+    <string name="fragment_work_shift_time_now">Сейчас:</string>
 
     <string name="fragment_add_store_title">Новая точка</string>
     <string name="fragment_add_store_save_info_button">Сохранить информацию</string>

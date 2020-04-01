@@ -3,7 +3,6 @@ package studio.bz_soft.freightforwarder.ui.route.store
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +11,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.dialog_add_store_et.view.*
-import kotlinx.android.synthetic.main.fragment_addstore.view.*
-import kotlinx.android.synthetic.main.fragment_addstore.view.progressBar
-import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.fragment_add_store.view.*
 import kotlinx.coroutines.*
 import org.osmdroid.util.GeoPoint
 import studio.bz_soft.freightforwarder.R
-import studio.bz_soft.freightforwarder.data.http.Left
-import studio.bz_soft.freightforwarder.data.http.Right
-import studio.bz_soft.freightforwarder.data.models.Passwords
 import studio.bz_soft.freightforwarder.root.Constants.GEO_POINT
-import studio.bz_soft.freightforwarder.root.showError
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -45,7 +38,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_addstore, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_add_store, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

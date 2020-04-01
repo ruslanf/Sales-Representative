@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/menuRoute">
+    app:startDestination="@id/menuWorkShift">
 
     <fragment
         android:id="@+id/menuRoute"
@@ -29,5 +29,14 @@
         android:id="@+id/addStoreFragment"
         android:name="studio.bz_soft.freightforwarder.ui.route.store.AddStoreFragment"
         android:label="AddStoreFragment"
-        tools:layout="@layout/fragment_addstore"/>
+        tools:layout="@layout/fragment_add_store"/>
+    <fragment
+        android:id="@+id/menuWorkShift"
+        android:name="studio.bz_soft.freightforwarder.ui.shift.WorkShiftFragment"
+        android:label="@string/fragment_work_shift_title"
+        tools:layout="@layout/fragment_work_shift">
+        <action
+            android:id="@+id/action_menuWorkShift_to_addStoreFragment"
+            app:destination="@id/addStoreFragment" />
+    </fragment>
 </navigation>

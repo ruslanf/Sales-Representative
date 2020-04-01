@@ -2,6 +2,7 @@
     <string name="app_name">Sales Representative</string>
 
     <string name="main_menu_title_route">Route</string>
+    <string name="main_menu_title_work_shift">Work Shift</string>
     <string name="main_menu_title_reports">Reports</string>
     <string name="main_menu_title_profile">Profile</string>
 
@@ -27,6 +28,11 @@
     <string name="fragment_route_work_button_start">Start</string>
     <string name="fragment_route_work_button_end">Finish</string>
     <string name="fragment_route_error_location">An error occurred while getting current location</string>
+
+    <string name="fragment_work_shift_title">Work Shift</string>
+    <string name="fragment_work_shift_sr_title">Sales Representative</string>
+    <string name="fragment_work_shift_signin_title">You sign in as:</string>
+    <string name="fragment_work_shift_time_now">Now:</string>
 
     <string name="fragment_add_store_title">Add Store</string>
     <string name="fragment_add_store_save_info_button">Save Info</string>
