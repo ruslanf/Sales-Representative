@@ -1,5 +1,6 @@
 package studio.bz_soft.freightforwarder.data.repository
 
+import okhttp3.MultipartBody
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.*
 
@@ -34,4 +35,6 @@ interface RepositoryInterface {
 
     suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel>
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?>
+
+    suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, ImageModel>
 }

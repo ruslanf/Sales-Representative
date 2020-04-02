@@ -1,5 +1,6 @@
 package studio.bz_soft.freightforwarder.data.http
 
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import studio.bz_soft.freightforwarder.data.models.*
@@ -26,4 +27,9 @@ interface DataApiInterface {
     @PUT("$BASE_API/users/profile")
     fun updateProfile(@Header("Authorization") token: String,
                       @Body userProfile: UserProfileModel): Call<Unit?>
+
+    @Multipart
+    @POST("$BASE_API/image/upload")
+    suspend fun uploadImage(@Header("Authorization") token: String,
+                            @Part image: MultipartBody.Part): ImageModel
 }

@@ -1,5 +1,6 @@
 package studio.bz_soft.freightforwarder.data.repository
 
+import okhttp3.MultipartBody
 import org.koin.core.KoinComponent
 import studio.bz_soft.freightforwarder.data.http.ApiClientInterface
 import studio.bz_soft.freightforwarder.data.http.Either
@@ -84,4 +85,7 @@ class Repository(
 
     override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?> =
         safeRequest { client.updateProfile(token, userProfile) }
+
+    override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, ImageModel> =
+        safeRequest { client.uploadImage(token, image) }
 }

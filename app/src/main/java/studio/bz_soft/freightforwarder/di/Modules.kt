@@ -17,7 +17,7 @@ import studio.bz_soft.freightforwarder.ui.auth.AuthPresenter
 import studio.bz_soft.freightforwarder.ui.profile.ProfilePresenter
 import studio.bz_soft.freightforwarder.ui.root.RootController
 import studio.bz_soft.freightforwarder.ui.route.RoutePresenter
-import studio.bz_soft.freightforwarder.ui.route.store.AddStorePresenter
+import studio.bz_soft.freightforwarder.ui.store.AddStorePresenter
 import studio.bz_soft.freightforwarder.ui.shift.WorkShiftPresenter
 
 val applicationModule = module {

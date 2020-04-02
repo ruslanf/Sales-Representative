@@ -1,5 +1,6 @@
 package studio.bz_soft.freightforwarder.data.http
 
+import okhttp3.MultipartBody
 import studio.bz_soft.freightforwarder.data.models.*
 
 interface ApiClientInterface {
@@ -11,4 +12,6 @@ interface ApiClientInterface {
 
     suspend fun loadUserProfile(token: String): UserProfileModel
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit?
+
+    suspend fun uploadImage(token: String, image: MultipartBody.Part): ImageModel
 }

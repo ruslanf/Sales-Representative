@@ -67,5 +67,8 @@ class ApiClient(
     override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit? =
         apiClient.updateProfile(modifiedToken(token), userProfile).await()
 
+    override suspend fun uploadImage(token: String, image: MultipartBody.Part): ImageModel =
+        apiClient.uploadImage(modifiedToken(token), image)
+
     private fun modifiedToken(token: String): String = "Bearer $token"
 }
