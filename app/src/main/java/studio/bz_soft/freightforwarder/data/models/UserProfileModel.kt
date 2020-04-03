@@ -9,7 +9,7 @@ data class UserProfileModel(
     @SerializedName("last_name") val lastName: String?,
     @SerializedName("s_name") val middleName: String?,
     @SerializedName("birthday") val birthday: String?,
-    @SerializedName("gender") val photo: String?,
+    @SerializedName("gender") val gender: String?,
     @SerializedName("phone") val phone: String?,
     @SerializedName("city") val city: String?,
     @SerializedName("manager") val manager: String?
