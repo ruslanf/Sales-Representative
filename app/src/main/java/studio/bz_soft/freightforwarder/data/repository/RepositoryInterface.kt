@@ -33,8 +33,9 @@ interface RepositoryInterface {
     suspend fun restorePassword(email: Email): Either<Exception, Unit?>
     suspend fun changePassword(token: String, passwords: Passwords): Either<Exception, Unit?>
 
+    suspend fun getManagersList(token: String): Either<Exception, List<ManagersModel>>
     suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel>
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?>
 
-    suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, ImageModel>
+    suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
 }

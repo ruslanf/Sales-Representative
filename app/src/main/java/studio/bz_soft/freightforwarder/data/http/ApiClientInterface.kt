@@ -10,8 +10,9 @@ interface ApiClientInterface {
     suspend fun restorePassword(email: Email): Unit?
     suspend fun changePassword(token: String, passwords: Passwords): Unit?
 
+    suspend fun getManagersList(token: String): List<ManagersModel>
     suspend fun loadUserProfile(token: String): UserProfileModel
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit?
 
-    suspend fun uploadImage(token: String, image: MultipartBody.Part): ImageModel
+    suspend fun uploadImage(token: String, image: MultipartBody.Part): List<ImageModel>
 }

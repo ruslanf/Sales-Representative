@@ -80,12 +80,15 @@ class Repository(
     override suspend fun changePassword(token: String, passwords: Passwords): Either<Exception, Unit?> =
         safeRequest { client.changePassword(token, passwords) }
 
+    override suspend fun getManagersList(token: String): Either<Exception, List<ManagersModel>> =
+        safeRequest { client.getManagersList(token) }
+
     override suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel> =
         safeRequest { client.loadUserProfile(token) }
 
     override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?> =
         safeRequest { client.updateProfile(token, userProfile) }
 
-    override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, ImageModel> =
+    override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>> =
         safeRequest { client.uploadImage(token, image) }
 }

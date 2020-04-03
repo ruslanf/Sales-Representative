@@ -21,6 +21,9 @@ interface DataApiInterface {
     fun changePassword(@Header("Authorization") token: String,
                        @Body passwords: Passwords): Call<Unit?>
 
+    @GET("$BASE_API/users/managers")
+    suspend fun getManagersList(@Header("Authorization") token: String): List<ManagersModel>
+
     @GET("$BASE_API/users/profile")
     suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileModel
 
@@ -31,5 +34,5 @@ interface DataApiInterface {
     @Multipart
     @POST("$BASE_API/image/upload")
     suspend fun uploadImage(@Header("Authorization") token: String,
-                            @Part image: MultipartBody.Part): ImageModel
+                            @Part image: MultipartBody.Part): List<ImageModel>
 }

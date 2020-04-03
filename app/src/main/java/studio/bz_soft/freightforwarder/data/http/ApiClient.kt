@@ -63,11 +63,12 @@ class ApiClient(
     override suspend fun changePassword(token: String, passwords: Passwords): Unit? =
         apiClient.changePassword(modifiedToken(token), passwords).await()
 
+    override suspend fun getManagersList(token: String): List<ManagersModel> = apiClient.getManagersList(modifiedToken(token))
     override suspend fun loadUserProfile(token: String): UserProfileModel = apiClient.getUserProfile(modifiedToken(token))
     override suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit? =
         apiClient.updateProfile(modifiedToken(token), userProfile).await()
 
-    override suspend fun uploadImage(token: String, image: MultipartBody.Part): ImageModel =
+    override suspend fun uploadImage(token: String, image: MultipartBody.Part): List<ImageModel> =
         apiClient.uploadImage(modifiedToken(token), image)
 
     private fun modifiedToken(token: String): String = "Bearer $token"
