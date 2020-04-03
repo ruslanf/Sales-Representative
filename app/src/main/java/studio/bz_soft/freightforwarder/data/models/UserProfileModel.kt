@@ -11,6 +11,6 @@ data class UserProfileModel(
     @SerializedName("birthday") val birthday: String?,
     @SerializedName("gender") val gender: String?,
     @SerializedName("phone") val phone: String?,
-    @SerializedName("city") val city: String?,
+    @SerializedName("city") val address: String?,
     @SerializedName("manager") val manager: String?
 )
