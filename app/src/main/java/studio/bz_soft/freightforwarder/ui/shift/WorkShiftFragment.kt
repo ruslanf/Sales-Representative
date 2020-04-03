@@ -9,11 +9,16 @@ import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.fragment_work_shift.view.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
+import studio.bz_soft.freightforwarder.root.formattedTime
+import studio.bz_soft.freightforwarder.root.parseTime
 import studio.bz_soft.freightforwarder.root.showError
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
@@ -41,9 +46,11 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
             loadUserProfile(this)
+//            getCurrentTime(this)
 
             workButtonState(this)
             workButton.setOnClickListener { workButtonListener(this) }
+//            timeTV.text = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toString()
         }
     }
 
@@ -75,6 +82,12 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                     }
                 }
             }
+        }
+    }
+
+    private fun getCurrentTime(v: View) {
+        v.apply {
+            timeTV.text = formattedTime(parseTime(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toString()))
         }
     }
 

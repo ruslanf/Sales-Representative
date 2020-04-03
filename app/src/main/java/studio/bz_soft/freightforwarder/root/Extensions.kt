@@ -24,6 +24,7 @@ import retrofit2.HttpException
 import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.data.http.parseError
 import studio.bz_soft.freightforwarder.data.http.parseHttpError
+import studio.bz_soft.freightforwarder.root.Constants.IN_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.OUT_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.TIME_FORMATTER
 import java.io.File
@@ -94,6 +95,9 @@ fun parseTime(time: String): LocalTime =
 
 fun formattedInputDate(date: LocalDate): String =
     date.format(ofPattern(OUT_DATE_FORMATTER).withLocale(Locale.getDefault()))
+
+fun formattedOutputDate(date: LocalDate): String =
+    date.format(ofPattern(IN_DATE_FORMATTER).withLocale(Locale.getDefault()))
 
 fun formattedTime(time: LocalTime): String =
     time.format(ofPattern(TIME_FORMATTER).withLocale(Locale.getDefault()))

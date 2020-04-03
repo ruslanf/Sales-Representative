@@ -15,28 +15,36 @@
             app:destination="@id/addStoreFragment" />
     </fragment>
     <fragment
-        android:id="@+id/menuReports"
-        android:name="studio.bz_soft.freightforwarder.ui.reports.ReportsFragment"
-        android:label="@string/fragment_reports_title"
-        tools:layout="@layout/fragment_reports">
+        android:id="@+id/menuWorkShift"
+        android:name="studio.bz_soft.freightforwarder.ui.shift.WorkShiftFragment"
+        android:label="@string/fragment_work_shift_title"
+        tools:layout="@layout/fragment_work_shift"/>
+    <fragment
+        android:id="@+id/menuStores"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.StoresFragment"
+        android:label="@string/fragment_stores_title"
+        tools:layout="@layout/fragment_stores">
+        <action
+            android:id="@+id/action_menuReports_to_addStoreFragment"
+            app:destination="@id/addStoreFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addStoreFragment"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.store.AddStoreFragment"
+        android:label="@string/fragment_add_store_title"
+        tools:layout="@layout/fragment_add_store">
+        <action
+            android:id="@+id/action_addStoreFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.image.ImageFragment"
+        android:label="@string/fragment_image_title"
+        tools:layout="@layout/fragment_image" />
     <fragment
         android:id="@+id/menuProfile"
         android:name="studio.bz_soft.freightforwarder.ui.profile.ProfileFragment"
         android:label="@string/fragment_profile_title"
         tools:layout="@layout/fragment_profile"/>
-    <fragment
-        android:id="@+id/addStoreFragment"
-        android:name="studio.bz_soft.freightforwarder.ui.route.store.AddStoreFragment"
-        android:label="AddStoreFragment"
-        tools:layout="@layout/fragment_add_store"/>
-    <fragment
-        android:id="@+id/menuWorkShift"
-        android:name="studio.bz_soft.freightforwarder.ui.shift.WorkShiftFragment"
-        android:label="@string/fragment_work_shift_title"
-        tools:layout="@layout/fragment_work_shift">
-        <action
-            android:id="@+id/action_menuWorkShift_to_addStoreFragment"
-            app:destination="@id/addStoreFragment" />
-    </fragment>
 </navigation>

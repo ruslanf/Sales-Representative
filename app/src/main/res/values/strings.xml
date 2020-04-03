@@ -3,7 +3,7 @@
 
     <string name="main_menu_title_route">Route</string>
     <string name="main_menu_title_work_shift">Work Shift</string>
-    <string name="main_menu_title_reports">Reports</string>
+    <string name="main_menu_title_stores">Stores</string>
     <string name="main_menu_title_profile">Profile</string>
 
     <string name="signUp">Sign Up</string>
@@ -52,22 +52,35 @@
     <string name="fragment_add_store_work_time">Work time</string>
     <string name="fragment_add_store_dealer">Dealer</string>
 
-    <string name="fragment_reports_title">Reports</string>
+    <string name="fragment_image_title">Image</string>
+    <string name="fragment_image_upload_error">Error while uploading image</string>
+
+    <string name="fragment_stores_title">Stores</string>
 
     <string name="fragment_profile_title">Profile</string>
     <string name="fragment_profile_manager_title">Manager</string>
     <string name="fragment_profile_logout_button">Logout</string>
+    <string name="fragment_profile_birthday">Birthday</string>
+    <string name="fragment_profile_sex">Sex</string>
+    <string name="fragment_profile_sex_m">M</string>
+    <string name="fragment_profile_sex_f">F</string>
+    <string name="fragment_profile_phone">Phone</string>
+    <string name="fragment_profile_address">Address</string>
     <string name="profile_message_exit_title">Logout from account</string>
     <string name="profile_message_exit">Are you sure you want to logout?</string>
     <string name="profile_message_exit_button">Exit</string>
     <string name="profile_message_cancel_button">Cancel</string>
     <string name="profile_password_view" translatable="false">********</string>
+    <string name="profile_message_birthday_title">Birthday</string>
+    <string name="profile_message_birthday_button">Set</string>
     <string name="profile_message_password_title">Enter new password</string>
     <string name="profile_message_password_old">Old password</string>
     <string name="profile_message_password_new">New password</string>
     <string name="profile_message_change">Change</string>
+    <string name="profile_load_data_mangers_error">Error loading managers list</string>
     <string name="profile_load_data_message_error">Error loading user profile</string>
     <string name="profile_update_data_message_error">Error while updating user\'s profile</string>
+    <string name="profile_change_password_successfull">Password was changed successfully</string>
     <string name="profile_change_password_error">Error while changing password</string>
 
     <string name="content_settings_button">Settings</string>

@@ -35,7 +35,8 @@
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toEndOf="@+id/userPhotoIV"
                 app:layout_constraintTop_toTopOf="@+id/userPhotoIV"
-                tools:text="Ivan Ivanov" />
+                tools:text="Иван Иванов"
+                android:importantForAutofill="no" />
 
             <View
                 android:id="@+id/dividerView00"
@@ -52,7 +53,8 @@
                 android:inputType="textEmailAddress"
                 app:layout_constraintStart_toEndOf="@+id/userPhotoIV"
                 app:layout_constraintTop_toBottomOf="@+id/dividerView00"
-                tools:text="i.ivanov@test.com" />
+                tools:text="i.ivanov@test.com"
+                android:importantForAutofill="no" />
 
             <View
                 android:id="@+id/dividerView01"
@@ -78,12 +80,152 @@
                 app:layout_constraintTop_toBottomOf="@+id/userPasswordTV" />
 
             <TextView
-                android:id="@+id/managerTV"
+                android:id="@+id/birthdayTitleTV"
+                style="@style/UserProfileText"
+                android:text="@string/fragment_profile_birthday"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView" />
+
+            <TextView
+                android:id="@+id/userBirthdayTV"
+                style="@style/UserProfileTextData"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/birthdayTitleTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/birthdayTitleTV"
+                app:layout_constraintTop_toTopOf="@+id/birthdayTitleTV"
+                tools:text="01.01.1990" />
+
+            <View
+                android:id="@+id/dividerView1"
+                style="@style/ProfileHorizontalDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthdayTitleTV" />
+
+            <TextView
+                android:id="@+id/sexTitleTV"
+                style="@style/UserProfileText"
+                android:text="@string/fragment_profile_sex"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView1" />
+
+            <RadioGroup
+                android:id="@+id/sexRG"
+                style="@style/SexRadioStyle"
+                android:checkedButton="@id/sexMRB"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/sexTitleTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sexTitleTV">
+
+                <RadioButton
+                    android:id="@+id/sexMRB"
+                    style="@style/SexRadioStyle"
+                    android:text="@string/fragment_profile_sex_m"
+                    app:layout_constraintBottom_toBottomOf="@+id/sexTitleTV"
+                    app:layout_constraintEnd_toStartOf="@+id/sexFRB"
+                    app:layout_constraintTop_toTopOf="@+id/sexTitleTV" />
+
+                <RadioButton
+                    android:id="@+id/sexFRB"
+                    style="@style/SexRadioStyle"
+                    android:text="@string/fragment_profile_sex_f"
+                    app:layout_constraintBottom_toBottomOf="@+id/sexTitleTV"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sexTitleTV" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/dividerView2"
+                style="@style/ProfileHorizontalDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sexTitleTV" />
+
+            <TextView
+                android:id="@+id/phoneTitleTV"
+                style="@style/UserProfileText"
+                android:text="@string/fragment_profile_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView2" />
+
+            <EditText
+                android:id="@+id/phoneET"
+                style="@style/UserProfileInfo"
+                android:inputType="phone"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAlignment="textEnd"
+                app:layout_constraintBottom_toBottomOf="@+id/phoneTitleTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/phoneTitleTV"
+                app:layout_constraintTop_toTopOf="@+id/phoneTitleTV"
+                tools:text="+7 XXX XXX XX XX"
+                android:importantForAutofill="no" />
+
+            <View
+                android:id="@+id/dividerView3"
+                style="@style/ProfileHorizontalDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneTitleTV" />
+
+            <TextView
+                android:id="@+id/addressTitleTV"
+                style="@style/UserProfileText"
+                android:text="@string/fragment_profile_address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView3" />
+
+            <EditText
+                android:id="@+id/addressET"
+                style="@style/UserProfileInfo"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:inputType="text|textMultiLine"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/addressTitleTV"
+                app:layout_constraintTop_toTopOf="@+id/addressTitleTV"
+                tools:text="Пенза"
+                android:importantForAutofill="no" />
+
+            <View
+                android:id="@+id/dividerView4"
+                style="@style/ProfileHorizontalDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addressET" />
+
+            <TextView
+                android:id="@+id/managerTitleTV"
                 style="@style/UserProfileText"
                 android:layout_marginTop="14dp"
                 android:text="@string/fragment_profile_manager_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dividerView" />
+                app:layout_constraintTop_toBottomOf="@+id/dividerView4" />
+
+            <TextView
+                android:id="@+id/managerTV"
+                style="@style/UserProfileTextData"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/managerTitleTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/managerTitleTV"
+                app:layout_constraintTop_toTopOf="@+id/managerTitleTV"
+                tools:text="Иванов" />
+
+            <View
+                android:id="@+id/dividerView5"
+                style="@style/ProfileHorizontalDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/managerTitleTV" />
 
             <Button
                 android:id="@+id/logoutButton"
@@ -91,10 +233,12 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="16dp"
                 android:text="@string/fragment_profile_logout_button"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/managerTV" />
+                app:layout_constraintTop_toBottomOf="@+id/dividerView5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -1,10 +1,12 @@
 package studio.bz_soft.freightforwarder.ui.profile
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,22 +14,24 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import kotlinx.android.synthetic.main.activity_root.*
+import kotlinx.android.synthetic.main.activity_root.progressBar
+import kotlinx.android.synthetic.main.dialog_birthday.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
 import kotlinx.android.synthetic.main.dialog_logout.view.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
-import kotlinx.android.synthetic.main.fragment_profile.view.progressBar
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
+import studio.bz_soft.freightforwarder.data.models.ManagersModel
 import studio.bz_soft.freightforwarder.data.models.Passwords
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
-import studio.bz_soft.freightforwarder.root.Constants.COUNTRY_DEFAULT
-import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
-import studio.bz_soft.freightforwarder.root.GlideApp
-import studio.bz_soft.freightforwarder.root.showError
+import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
+import studio.bz_soft.freightforwarder.ui.root.RootActivity
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class ProfileFragment : Fragment(), CoroutineScope {
@@ -41,7 +45,13 @@ class ProfileFragment : Fragment(), CoroutineScope {
 
     private var token: String = ""
     private var userProfile: UserProfileModel? = null
+    private var managersList: List<ManagersModel>? = null
     private var ex: Exception? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter.getUserToken()?.let { token = it }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,9 +62,14 @@ class ProfileFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
+//            loadManagersList(this)
             loadUserProfile(this)
 
             userPasswordTV.setOnClickListener { changePasswordListener(this) }
+            userBirthdayTV.setOnClickListener { birthdayListener(this) }
+            sexRG.setOnCheckedChangeListener { _, checkedId -> radioGroupListener(checkedId) }
+            managerTV.setOnClickListener {  }
+
             logoutButton.setOnClickListener { exitButtonListener() }
         }
     }
@@ -64,10 +79,35 @@ class ProfileFragment : Fragment(), CoroutineScope {
         view?.let { updateProfile(it) }
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as RootActivity).mainBottomNavigationMenu.visibility = View.VISIBLE
+    }
+
+    private fun loadManagersList(v: View) {
+        v.apply {
+            progressBar.visibility = View.VISIBLE
+            launch {
+                val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                    when (val r = presenter.getManagersList(token)) {
+                        is Right -> { managersList = r.value }
+                        is Left -> { ex = r.value }
+                    }
+                }
+                request.await()
+                progressBar.visibility = View.GONE
+                ex?.let {
+                    showError(context, it, R.string.profile_load_data_mangers_error, logTag)
+                } ?: run {
+
+                }
+            }
+        }
+    }
+
     private fun loadUserProfile(v: View) {
         v.apply {
             progressBar.visibility = View.VISIBLE
-            presenter.getUserToken()?.let { token = it }
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
                     when (val r = presenter.loadUserProfile(token)) {
@@ -88,13 +128,18 @@ class ProfileFragment : Fragment(), CoroutineScope {
                         userNameET.setText(name, TextView.BufferType.EDITABLE)
                         userEmailET.setText(it.email)
                         userPasswordTV.setText(R.string.profile_password_view)
-                        loadPhoto(this@apply, it.photo)
+                        userBirthdayTV.text = it.birthday
+                        setRadioGroup(it.gender.toString().toUpperCase())
+                        phoneET.setText(it.phone)
+                        addressET.setText(it.address)
+                        managerTV.text = it.manager
                     }
                 }
             }
         }
     }
 
+    @SuppressLint("NewApi")
     private fun updateProfile(v: View): Boolean {
         var result = false
         v.apply {
@@ -115,7 +160,12 @@ class ProfileFragment : Fragment(), CoroutineScope {
                     middleName = ""
                     lastName = name[1]
                 }
-                val photo = userProfile?.photo
+                val birthday = try {
+                    formattedOutputDate(parseOutputDate(userBirthdayTV.text.toString()))
+                } catch (ex: Exception) {
+                    "20200202"
+                }
+                val manager = ""
                 launch {
                     val request = async(SupervisorJob(job) + Dispatchers.IO) {
                         when (val r = presenter.updateProfile(
@@ -126,12 +176,11 @@ class ProfileFragment : Fragment(), CoroutineScope {
                                 firstName,
                                 middleName,
                                 lastName,
-                                null,
-                                photo,
-                                "20200202",
-                                COUNTRY_DEFAULT,
-                                EMPTY_STRING,
-                                EMPTY_STRING
+                                birthday,
+                                radioGroupListener(sexRG.checkedRadioButtonId).name,
+                                phoneET.text.toString(),
+                                addressET.text.toString(),
+                                manager
                             )
                         )) {
                             is Right -> {  }
@@ -147,10 +196,25 @@ class ProfileFragment : Fragment(), CoroutineScope {
                     }
                 }
             } catch (ex: Exception) {
+                progressBar.visibility = View.GONE
                 result = false
             }
         }
         return result
+    }
+
+    private fun radioGroupListener(checkedId: Int): Sex =
+        when (checkedId) {
+            R.id.sexMRB -> { Sex.MALE }
+            R.id.sexFRB -> { Sex.FEMALE }
+            else -> Sex.MALE
+        }
+
+    private fun setRadioGroup(sex: String) {
+        when (sex) {
+            Sex.MALE.name -> { sexMRB.isChecked = true }
+            Sex.FEMALE.name -> { sexFRB.isChecked = true }
+        }
     }
 
     private fun changePasswordListener(v: View) {
@@ -186,9 +250,70 @@ class ProfileFragment : Fragment(), CoroutineScope {
                 ex?.let {
                     showError(context, it, R.string.profile_change_password_error, logTag)
                 } ?: run {
-
+                    showToast(this@apply, getString(R.string.profile_change_password_successfull))
                 }
             }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun birthdayListener(v: View) {
+        val calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+        v.apply {
+            val dialogView = layoutInflater.inflate(R.layout.dialog_birthday, null)
+            val alertDialog = AlertDialog.Builder(context).create()
+            with(alertDialog) {
+                setView(dialogView)
+                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialogView.daysNP.apply {
+                    /*(getChildAt(dialogView.daysNP.value) as EditText).apply {
+                        setTextColor(resources.getColor(R.color.colorPrimary, null))
+                        textSize = 24F
+                    }*/
+                    gravity = Gravity.CENTER_HORIZONTAL
+                    minValue = 1
+                    maxValue = 31
+                    value = day
+                    wrapSelectorWheel = false
+                    isClickable = false
+                }
+                dialogView.monthNP.apply {
+                    gravity = Gravity.CENTER_HORIZONTAL
+                    minValue = 1
+                    maxValue = 12
+                    value = month + 1
+                    wrapSelectorWheel = false
+                    isClickable = false
+                }
+                dialogView.yearNP.apply {
+                    gravity = Gravity.CENTER_HORIZONTAL
+                    minValue = 1900
+                    maxValue = 2020
+                    value = year - 3
+                    wrapSelectorWheel = false
+                    isClickable = false
+                }
+                dialogView.setBirthdayButton.setOnClickListener {
+                    setBirthdayListener(this@apply, this,
+                        dialogView.daysNP.value,
+                        dialogView.monthNP.value,
+                        dialogView.yearNP.value)
+                }
+                show()
+            }
+        }
+    }
+
+    private fun setBirthdayListener(v: View, alertDialog: AlertDialog?, day: Int, month: Int, year: Int) {
+        v.apply {
+            alertDialog?.dismiss()
+            val d = if ("$day".length < 2) "0$day" else "$day"
+            val m = if ("$month".length < 2) "0$month" else "$month"
+            val birthday = "$d.$m.$year"
+            userBirthdayTV.text = birthday
         }
     }
 

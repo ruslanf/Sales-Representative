@@ -3,11 +3,11 @@
     <item
         android:id="@+id/menuWorkShift"
         android:title="@string/main_menu_title_work_shift"
-        android:icon="@drawable/ic_route"/>
-    <item
-        android:id="@+id/menuReports"
-        android:title="@string/main_menu_title_reports"
         android:icon="@drawable/ic_reports"/>
+    <item
+        android:id="@+id/menuStores"
+        android:title="@string/main_menu_title_stores"
+        android:icon="@drawable/ic_store"/>
     <item
         android:id="@+id/menuProfile"
         android:title="@string/main_menu_title_profile"

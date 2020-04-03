@@ -1,8 +1,9 @@
-package studio.bz_soft.freightforwarder.ui.route.store
+package studio.bz_soft.freightforwarder.ui.stores.store
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,16 @@ import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.dialog_add_store_et.view.*
 import kotlinx.android.synthetic.main.fragment_add_store.view.*
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 import org.osmdroid.util.GeoPoint
 import studio.bz_soft.freightforwarder.R
+import studio.bz_soft.freightforwarder.data.http.Left
+import studio.bz_soft.freightforwarder.data.http.Right
+import studio.bz_soft.freightforwarder.data.models.ImageModel
 import studio.bz_soft.freightforwarder.root.Constants.GEO_POINT
+import studio.bz_soft.freightforwarder.root.fileName
+import studio.bz_soft.freightforwarder.root.getRequestBody
+import studio.bz_soft.freightforwarder.root.showError
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -23,8 +31,14 @@ class AddStoreFragment : Fragment(), CoroutineScope {
 
     private val logTag = AddStoreFragment::class.java.simpleName
 
+    private val presenter by inject<AddStorePresenter>()
+
     private var job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
+
+    private var token: String = ""
+    private var imageModel: List<ImageModel>? = null
+    private var ex: Exception? = null
 
     private var storeGeoPoint: GeoPoint? = null
     private var isStoreSaved: Boolean = false
@@ -32,6 +46,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.getParcelable<GeoPoint>(GEO_POINT)?.let { storeGeoPoint = it }
+        presenter.getUserToken()?.let { token = it }
     }
 
     override fun onCreateView(
@@ -43,7 +58,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
-            saveStoreInfoButton.setOnClickListener { saveStoreButtonListener() }
+            saveStoreInfoButton.setOnClickListener { saveStoreButtonListener(this) }
 
             nameOutletTV.setOnClickListener { editFieldListener(this, nameOutletTV) }
             typeTV.setOnClickListener { editFieldListener(this, typeTV) }
@@ -70,8 +85,30 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         // Place check for store info saved or not
     }
 
-    private fun saveStoreButtonListener() {
+    private fun saveStoreButtonListener(v: View) {
         isStoreSaved = true
+        v.apply {
+            progressBar.visibility = View.VISIBLE
+            val imagePath = "DCIM/Camera/IMG_20200312_120947.jpg"
+            Log.d(logTag, "File name is => ${fileName(imagePath)}")
+            launch {
+                val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                    when (val r = presenter.uploadImage(token, getRequestBody(imagePath))) {
+                        is Right -> { imageModel = r.value }
+                        is Left -> { ex = r.value }
+                    }
+                }
+                request.await()
+                progressBar.visibility = View.GONE
+                ex?.let {
+                    showError(context, it, R.string.fragment_image_upload_error, logTag)
+                    ex = null
+                } ?: run {
+                    Log.d(logTag, "Image uploaded => successfully...")
+                    imageModel?.forEach { Log.d(logTag, "Image url => ${it.imageURL}") }
+                }
+            }
+        }
     }
 
     private fun editFieldListener(v: View, fieldTV: TextView) {
