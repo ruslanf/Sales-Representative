@@ -32,6 +32,15 @@ object Constants {
     const val PERMISSIONS_REQUEST_CODE_STORAGE = 0
     const val PERMISSIONS_REQUEST_CODE_LOCATION = 1
 
+    const val MIN_TIME = 0L
+    const val MIN_DISTANCE = 0f
+
+    const val SERVICE_GPS_MESSAGE = "GPS Service started..."
+    const val SERVICE_GPS_BROADCAST = "broadcast.service.gps"
+    const val SERVICE_GPS_BROADCAST_RECEIVE = "broadcast.service.gps.received"
+
+    const val SERVICE_INTENT_MESSAGE = "inputServiceMessage"
+
     const val COUNTRY_DEFAULT = "Россия"
     const val EMPTY_STRING = ""
     const val ZERO_STRING = "0"

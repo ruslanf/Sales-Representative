@@ -88,6 +88,8 @@
     <string name="content_profile_exit">Profile exit</string>
     <string name="content_user_photo">User photo</string>
 
+    <string name="gps_service_error_message_no_location_permission">Enable LOCATION ACCESS in settings.</string>
+
     <!--  -->
     <string name="open_map_contributors" translatable="false">© OpenStreetMap contributors</string>
     <string name="latin_alphabet" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@_-</string>
