@@ -21,32 +21,67 @@
             <TextView
                 android:id="@+id/nameOutletTV"
                 style="@style/AddStoreStyle"
+                android:layout_width="0dp"
                 android:text="@string/fragment_add_store_name_of_outlet"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/noCorrectIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameOutletTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameOutletTV"
+                app:srcCompat="@drawable/ic_incorrect" />
 
             <TextView
                 android:id="@+id/typeTV"
                 style="@style/AddStoreStyle"
                 android:layout_width="0dp"
-                android:gravity="end"
+                android:layout_marginEnd="16dp"
                 android:text="@string/fragment_add_store_type"
+                app:layout_constraintEnd_toStartOf="@+id/typeCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameOutletTV" />
+
+            <ImageView
+                android:id="@+id/typeCorrectIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/typeTV"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nameOutletTV"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/typeTV"
+                app:srcCompat="@drawable/ic_incorrect" />
 
             <TextView
                 android:id="@+id/taxNumberTV"
                 style="@style/AddStoreStyle"
+                android:layout_marginStart="16dp"
                 android:text="@string/fragment_add_store_tax_number"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/innCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/typeTV" />
+
+            <ImageView
+                android:id="@+id/innCorrectIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/taxNumberTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/taxNumberTV"
+                app:srcCompat="@drawable/ic_incorrect" />
 
             <TextView
                 android:id="@+id/taxNumber_1_TV"
                 style="@style/AddStoreStyle"
+                android:layout_marginStart="16dp"
                 android:text="@string/fragment_add_store_tax_number_1"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/taxNumberTV" />
 
             <TextView
@@ -54,9 +89,8 @@
                 style="@style/AddStoreStyle"
                 android:layout_width="0dp"
                 android:text="@string/fragment_add_store_address_actual"
-                app:layout_constraintEnd_toStartOf="@+id/taxNumberTV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameOutletTV" />
+                app:layout_constraintTop_toBottomOf="@+id/taxNumber_1_TV" />
 
             <TextView
                 android:id="@+id/legalAddressTV"

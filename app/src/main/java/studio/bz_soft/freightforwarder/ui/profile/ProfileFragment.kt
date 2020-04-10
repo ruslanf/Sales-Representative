@@ -10,14 +10,20 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.google.gson.internal.bind.ArrayTypeAdapter
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.activity_root.progressBar
 import kotlinx.android.synthetic.main.dialog_birthday.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
+import kotlinx.android.synthetic.main.dialog_change_password.view.changeButton
 import kotlinx.android.synthetic.main.dialog_logout.view.*
+import kotlinx.android.synthetic.main.dialog_managers.*
+import kotlinx.android.synthetic.main.dialog_managers.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.coroutines.*
@@ -46,6 +52,8 @@ class ProfileFragment : Fragment(), CoroutineScope {
     private var token: String = ""
     private var userProfile: UserProfileModel? = null
     private var managersList: List<ManagersModel>? = null
+    private lateinit var managers: Array<String>
+    private lateinit var adapter: ArrayAdapter<String>
     private var ex: Exception? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +70,13 @@ class ProfileFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
-//            loadManagersList(this)
+            loadManagersList(this)
             loadUserProfile(this)
 
             userPasswordTV.setOnClickListener { changePasswordListener(this) }
             userBirthdayTV.setOnClickListener { birthdayListener(this) }
             sexRG.setOnCheckedChangeListener { _, checkedId -> radioGroupListener(checkedId) }
-            managerTV.setOnClickListener {  }
+            managerTV.setOnClickListener { setManagerListener(this) }
 
             logoutButton.setOnClickListener { exitButtonListener() }
         }
@@ -99,7 +107,11 @@ class ProfileFragment : Fragment(), CoroutineScope {
                 ex?.let {
                     showError(context, it, R.string.profile_load_data_mangers_error, logTag)
                 } ?: run {
-
+                    managersList?.let { m ->
+                        managers = Array(m.size) { _ -> "" }
+                        var i = 0
+                        m.forEach { managers[i++] = it.manager!! }
+                    }
                 }
             }
         }
@@ -314,6 +326,30 @@ class ProfileFragment : Fragment(), CoroutineScope {
             val m = if ("$month".length < 2) "0$month" else "$month"
             val birthday = "$d.$m.$year"
             userBirthdayTV.text = birthday
+        }
+    }
+
+    private fun setManagerListener(v: View) {
+        v.apply {
+            val dialogView = layoutInflater.inflate(R.layout.dialog_managers, null)
+            val alertDialog = AlertDialog.Builder(context).create()
+            with(alertDialog) {
+                setView(dialogView)
+                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                adapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, managers)
+                dialogView.managerSpinner.adapter = adapter
+                dialogView.changeButton.setOnClickListener {
+                    changeButtonListener(this@apply, this, managerSpinner.selectedItem.toString())
+                }
+                show()
+            }
+        }
+    }
+
+    private fun changeButtonListener(v: View, alertDialog: AlertDialog?, manager: String) {
+        v.apply {
+            alertDialog?.dismiss()
+
         }
     }
 
