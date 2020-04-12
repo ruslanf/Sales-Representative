@@ -6,6 +6,8 @@ object Constants {
 
     const val CONTRIBUTOR_URL = "https://www.openstreetmap.org/copyright"
 
+    const val DB_NAME = "ff_database.db"
+
     const val MIN_ZOOM_LEVEL: Double = 7.0
     const val MAX_ZOOM_LEVEL: Double = 19.0
 
@@ -32,7 +34,7 @@ object Constants {
     const val PERMISSIONS_REQUEST_CODE_STORAGE = 0
     const val PERMISSIONS_REQUEST_CODE_LOCATION = 1
 
-    const val MIN_TIME = 0L
+    const val MIN_TIME = 30 * 1000L
     const val MIN_DISTANCE = 0f
 
     const val SERVICE_GPS_MESSAGE = "GPS Service started..."

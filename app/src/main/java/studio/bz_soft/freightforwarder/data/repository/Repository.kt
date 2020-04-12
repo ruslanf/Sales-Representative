@@ -6,8 +6,10 @@ import studio.bz_soft.freightforwarder.data.http.ApiClientInterface
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.http.safeRequest
 import studio.bz_soft.freightforwarder.data.models.*
+import studio.bz_soft.freightforwarder.data.models.db.Location
 
 class Repository(
+    private val database: DatabaseRepositoryInterface,
     private val storage: LocalStorageInterface,
     private val client: ApiClientInterface
 ) : RepositoryInterface, KoinComponent {
@@ -91,4 +93,18 @@ class Repository(
 
     override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>> =
         safeRequest { client.uploadImage(token, image) }
+
+    override suspend fun insertLocation(location: Location) {
+        database.insertLocation(location)
+    }
+
+    override suspend fun deleteLocation(location: Location) {
+        database.deleteLocation(location)
+    }
+
+    override suspend fun updateLocation(location: Location) {
+        database.updateLocation(location)
+    }
+
+    override suspend fun getAllFromLocations(): List<Location> = database.getAllFromLocations()
 }

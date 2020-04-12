@@ -3,6 +3,7 @@ package studio.bz_soft.freightforwarder.data.repository
 import okhttp3.MultipartBody
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.*
+import studio.bz_soft.freightforwarder.data.models.db.Location
 
 interface RepositoryInterface {
     fun setUserToken(userToken: String)
@@ -38,4 +39,9 @@ interface RepositoryInterface {
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?>
 
     suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
+
+    suspend fun insertLocation(location: Location)
+    suspend fun deleteLocation(location: Location)
+    suspend fun updateLocation(location: Location)
+    suspend fun getAllFromLocations(): List<Location>
 }
