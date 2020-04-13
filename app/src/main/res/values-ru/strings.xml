@@ -88,5 +88,5 @@
     <string name="content_profile_exit">Выход из профиля</string>
     <string name="content_user_photo">Фото пользователя</string>
 
-    <string name="gps_service_error_message_no_location_permission">Включите LOCATION ACCESS в настройках.</string>
+    <string name="gps_service_error_message_no_location_permission">Включите ДОСТУП К МЕСТОПОЛОЖЕНИЮ в настройках.</string>
 </resources>
