@@ -5,6 +5,7 @@ import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.*
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 interface RepositoryInterface {
     fun setUserToken(userToken: String)
@@ -50,4 +51,9 @@ interface RepositoryInterface {
     suspend fun deleteOutlet(outlet: Outlet)
     suspend fun updateOutlet(outlet: Outlet)
     suspend fun getAllFromOutlet(): List<Outlet>
+
+    suspend fun insertWorkShift(workShift: WorkShift)
+    suspend fun deleteWorkShift(workShift: WorkShift)
+    suspend fun updateWorkShift(workShift: WorkShift)
+    suspend fun getAllFromWorkShift(): List<WorkShift>
 }

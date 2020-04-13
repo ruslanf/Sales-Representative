@@ -3,12 +3,14 @@ package studio.bz_soft.freightforwarder.data.db
 import android.app.Application
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 class DbClient(application: Application) : DbClientInterface {
 
     private val db by lazy { RoomDB.getDataBase(application) }
     private val locationDao by lazy { db.locationDao() }
     private val outletDao by lazy { db.outletDao() }
+    private val workShiftDao by lazy { db.workShiftDao() }
 
     override suspend fun insertLocation(location: Location) {
         locationDao.insert(location)
@@ -36,5 +38,19 @@ class DbClient(application: Application) : DbClientInterface {
         outletDao.update(outlet)
     }
 
-    override suspend fun getAllFromOutlet() = outletDao.getAllFromOutlet()
+    override suspend fun getAllFromOutlet(): List<Outlet> = outletDao.getAllFromOutlet()
+
+    override suspend fun insertWorkShift(workShift: WorkShift) {
+        workShiftDao.insert(workShift)
+    }
+
+    override suspend fun deleteWorkShift(workShift: WorkShift) {
+        workShiftDao.delete(workShift)
+    }
+
+    override suspend fun updateWorkShift(workShift: WorkShift) {
+        workShiftDao.update(workShift)
+    }
+
+    override suspend fun getAllFromWorkShift(): List<WorkShift> = workShiftDao.getAllFromWorkShift()
 }

@@ -8,6 +8,7 @@ import studio.bz_soft.freightforwarder.data.http.safeRequest
 import studio.bz_soft.freightforwarder.data.models.*
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 class Repository(
     private val database: DatabaseRepositoryInterface,
@@ -122,4 +123,18 @@ class Repository(
     }
 
     override suspend fun getAllFromOutlet(): List<Outlet> = database.getAllFromOutlet()
+
+    override suspend fun insertWorkShift(workShift: WorkShift) {
+        database.insertWorkShift(workShift)
+    }
+
+    override suspend fun deleteWorkShift(workShift: WorkShift) {
+        database.deleteWorkShift(workShift)
+    }
+
+    override suspend fun updateWorkShift(workShift: WorkShift) {
+        database.updateWorkShift(workShift)
+    }
+
+    override suspend fun getAllFromWorkShift(): List<WorkShift> = database.getAllFromWorkShift()
 }

@@ -3,6 +3,7 @@ package studio.bz_soft.freightforwarder.data.repository
 import studio.bz_soft.freightforwarder.data.db.DbClientInterface
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepositoryInterface {
 
@@ -33,4 +34,18 @@ class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepo
     }
 
     override suspend fun getAllFromOutlet(): List<Outlet> = dbClient.getAllFromOutlet()
+
+    override suspend fun insertWorkShift(workShift: WorkShift) {
+        dbClient.insertWorkShift(workShift)
+    }
+
+    override suspend fun deleteWorkShift(workShift: WorkShift) {
+        dbClient.deleteWorkShift(workShift)
+    }
+
+    override suspend fun updateWorkShift(workShift: WorkShift) {
+        dbClient.updateWorkShift(workShift)
+    }
+
+    override suspend fun getAllFromWorkShift(): List<WorkShift> = dbClient.getAllFromWorkShift()
 }
