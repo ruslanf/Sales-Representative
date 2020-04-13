@@ -27,5 +27,5 @@ class Outlet(
     @ColumnInfo(name = "photo_outside") val photoOutside: String, // image url
     @ColumnInfo(name = "photo_inside") val photoInside: String,   // image url
     @ColumnInfo(name = "photo_goods") val photoGoods: String,     // image url
-    @ColumnInfo(name = "photo_corner") val photoCorner: String?
+    @ColumnInfo(name = "photo_corner") val photoCorner: String
 )
