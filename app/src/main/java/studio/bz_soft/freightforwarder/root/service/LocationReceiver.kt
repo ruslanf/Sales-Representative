@@ -26,12 +26,12 @@ class LocationReceiver : BroadcastReceiver(), CoroutineScope, KoinComponent {
             Constants.SERVICE_GPS_BROADCAST_RECEIVE -> {
                 val longitude = intent.getDoubleExtra(Constants.LONGITUDE, 0.0)
                 val latitude = intent.getDoubleExtra(Constants.LATITUDE, 0.0)
-                insertLocation(context, longitude, latitude)
+                insertLocation(longitude, latitude)
             }
         }
     }
 
-    private fun insertLocation(context: Context, longitude: Double, latitude: Double) {
+    private fun insertLocation(longitude: Double, latitude: Double) {
         launch {
             val request = async(SupervisorJob(job) + Dispatchers.IO) {
                 if (BuildConfig.DEBUG) Log.d(logTag, "Longitude => $longitude, Latitude => $latitude")

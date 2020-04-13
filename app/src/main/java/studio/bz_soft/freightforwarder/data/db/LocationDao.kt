@@ -6,13 +6,13 @@ import studio.bz_soft.freightforwarder.data.models.db.Location
 @Dao
 interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertLocation(location: Location)
+    suspend fun insert(location: Location)
 
     @Update
-    suspend fun updateLocation(location: Location)
+    suspend fun update(location: Location)
 
     @Delete
-    suspend fun deleteLocation(location: Location)
+    suspend fun delete(location: Location)
 
     @Query("Select * from location")
     suspend fun getAllFromLocation(): List<Location>
