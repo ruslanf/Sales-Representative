@@ -7,6 +7,7 @@ import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.http.safeRequest
 import studio.bz_soft.freightforwarder.data.models.*
 import studio.bz_soft.freightforwarder.data.models.db.Location
+import studio.bz_soft.freightforwarder.data.models.db.Outlet
 
 class Repository(
     private val database: DatabaseRepositoryInterface,
@@ -107,4 +108,18 @@ class Repository(
     }
 
     override suspend fun getAllFromLocations(): List<Location> = database.getAllFromLocations()
+
+    override suspend fun insertOutlet(outlet: Outlet) {
+        database.insertOutlet(outlet)
+    }
+
+    override suspend fun deleteOutlet(outlet: Outlet) {
+        database.deleteOutlet(outlet)
+    }
+
+    override suspend fun updateOutlet(outlet: Outlet) {
+        database.updateOutlet(outlet)
+    }
+
+    override suspend fun getAllFromOutlet(): List<Outlet> = database.getAllFromOutlet()
 }

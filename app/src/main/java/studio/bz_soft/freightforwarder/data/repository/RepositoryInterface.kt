@@ -4,6 +4,7 @@ import okhttp3.MultipartBody
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.*
 import studio.bz_soft.freightforwarder.data.models.db.Location
+import studio.bz_soft.freightforwarder.data.models.db.Outlet
 
 interface RepositoryInterface {
     fun setUserToken(userToken: String)
@@ -44,4 +45,9 @@ interface RepositoryInterface {
     suspend fun deleteLocation(location: Location)
     suspend fun updateLocation(location: Location)
     suspend fun getAllFromLocations(): List<Location>
+
+    suspend fun insertOutlet(outlet: Outlet)
+    suspend fun deleteOutlet(outlet: Outlet)
+    suspend fun updateOutlet(outlet: Outlet)
+    suspend fun getAllFromOutlet(): List<Outlet>
 }

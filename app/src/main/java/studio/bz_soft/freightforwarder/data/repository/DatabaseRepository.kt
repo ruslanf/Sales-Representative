@@ -2,6 +2,7 @@ package studio.bz_soft.freightforwarder.data.repository
 
 import studio.bz_soft.freightforwarder.data.db.DbClientInterface
 import studio.bz_soft.freightforwarder.data.models.db.Location
+import studio.bz_soft.freightforwarder.data.models.db.Outlet
 
 class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepositoryInterface {
 
@@ -18,4 +19,18 @@ class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepo
     }
 
     override suspend fun getAllFromLocations(): List<Location> = dbClient.getAllFromLocations()
+
+    override suspend fun insertOutlet(outlet: Outlet) {
+        dbClient.insertOutlet(outlet)
+    }
+
+    override suspend fun deleteOutlet(outlet: Outlet) {
+        dbClient.deleteOutlet(outlet)
+    }
+
+    override suspend fun updateOutlet(outlet: Outlet) {
+        dbClient.updateOutlet(outlet)
+    }
+
+    override suspend fun getAllFromOutlet(): List<Outlet> = dbClient.getAllFromOutlet()
 }

@@ -36,5 +36,5 @@ class DbClient(application: Application) : DbClientInterface {
         outletDao.update(outlet)
     }
 
-    override suspend fun getAllFromOutlet(outlet: Outlet) = outletDao.getAllFromOutlet()
+    override suspend fun getAllFromOutlet() = outletDao.getAllFromOutlet()
 }

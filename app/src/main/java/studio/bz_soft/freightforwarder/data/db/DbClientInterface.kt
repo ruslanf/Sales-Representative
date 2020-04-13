@@ -12,5 +12,5 @@ interface DbClientInterface {
     suspend fun insertOutlet(outlet: Outlet)
     suspend fun deleteOutlet(outlet: Outlet)
     suspend fun updateOutlet(outlet: Outlet)
-    suspend fun getAllFromOutlet(outlet: Outlet): List<Outlet>
+    suspend fun getAllFromOutlet(): List<Outlet>
 }
