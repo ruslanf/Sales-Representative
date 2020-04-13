@@ -96,10 +96,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-            <TextView
-                android:id="@+id/timeTV"
+            <TextClock
+                android:id="@+id/timeTC"
                 style="@style/WorkShiftStyle"
                 android:layout_marginTop="16dp"
+                android:format12Hour="HH:mm"
+                android:format24Hour="HH:mm:ss"
                 tools:text="12:30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +114,7 @@
                 tools:text="25.03.2020"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/timeTV" />
+                app:layout_constraintTop_toBottomOf="@+id/timeTC" />
 
             <Button
                 android:id="@+id/workButton"
