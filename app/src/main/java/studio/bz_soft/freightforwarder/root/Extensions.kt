@@ -17,13 +17,15 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
+import org.threeten.bp.*
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 import org.threeten.bp.format.DateTimeFormatter.ofPattern
 import retrofit2.HttpException
 import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.data.http.parseError
 import studio.bz_soft.freightforwarder.data.http.parseHttpError
+import studio.bz_soft.freightforwarder.root.Constants.DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.IN_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.OUT_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.TIME_FORMATTER
@@ -87,11 +89,16 @@ fun requestBody(file: String): RequestBody = file(file).asRequestBody("multipart
 fun getRequestBody(file: String): MultipartBody.Part =
     MultipartBody.Part.createFormData("image", fileName(file), requestBody(file))
 
+fun getCurrentDT(): String = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toString()
+
 fun parseOutputDate(date: String): LocalDate =
     LocalDate.parse(date, ofPattern(OUT_DATE_FORMATTER).withLocale(Locale.getDefault()))
 
+fun parseDate(date: String): LocalDate =
+    LocalDate.parse(date, ISO_ZONED_DATE_TIME)
+
 fun parseTime(time: String): LocalTime =
-    LocalTime.parse(time, ofPattern(TIME_FORMATTER))
+    LocalTime.parse(time, ISO_ZONED_DATE_TIME)
 
 fun formattedInputDate(date: LocalDate): String =
     date.format(ofPattern(OUT_DATE_FORMATTER).withLocale(Locale.getDefault()))
@@ -101,6 +108,9 @@ fun formattedOutputDate(date: LocalDate): String =
 
 fun formattedTime(time: LocalTime): String =
     time.format(ofPattern(TIME_FORMATTER).withLocale(Locale.getDefault()))
+
+fun formattedDate(date: LocalDate): String =
+    date.format(ofPattern(DATE_FORMATTER))
 
 //fun parseChronometer(c: Context, milliseconds: Long): String =
 //    c.getString(R.string.chronometer_time).format(milliseconds / 1000 / 60, milliseconds / 1000 % 60)

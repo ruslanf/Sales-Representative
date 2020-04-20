@@ -25,6 +25,7 @@ object Constants {
 
     const val OUT_DATE_FORMATTER = "dd.MM.yyyy"
     const val IN_DATE_FORMATTER = "yyyy-MM-dd"
+    const val DATE_FORMATTER = "dd.MM.yyyy"
     const val TIME_FORMATTER = "HH:mm"
 
     val DAYS = IntArray(31) { i -> i + 1 }
