@@ -171,9 +171,10 @@ class ProfileFragment : Fragment(), CoroutineScope {
                     lastName = name[1]
                 }
                 val birthday = try {
+//                    formattedDate(parseDate(userBirthdayTV.text.toString()))
                     formattedOutputDate(parseOutputDate(userBirthdayTV.text.toString()))
                 } catch (ex: Exception) {
-                    "20200202"
+                    "2020-02-02"
                 }
                 val manager = ""
                 launch {

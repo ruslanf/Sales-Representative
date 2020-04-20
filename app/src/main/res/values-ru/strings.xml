@@ -22,6 +22,7 @@
     <string name="auth_message_not_filled">Не заполнены все необходимые поля</string>
 
     <string name="auth_exit_title">Выход</string>
+    <string name="db_synchronize">Синхронизировать</string>
 
     <string name="fragment_route_title">Торговые точки</string>
     <string name="fragment_route_start_of_shift">Начало смены</string>
@@ -34,6 +35,10 @@
     <string name="fragment_work_shift_sr_title">Торговый представитель</string>
     <string name="fragment_work_shift_signin_title">Вы вошли как:</string>
     <string name="fragment_work_shift_time_now">Сейчас:</string>
+
+    <string name="fragment_outlet_title">Торговые точки</string>
+    <string name="fragment_outlet_add_store_button">Добавить торговую точку</string>
+    <string name="fragment_outlet_work_shift_title">Смена</string>
 
     <string name="fragment_add_store_title">Новая точка</string>
     <string name="fragment_add_store_save_info_button">Сохранить информацию</string>
@@ -55,8 +60,6 @@
 
     <string name="fragment_image_title">Фото</string>
     <string name="fragment_image_upload_error">Ошибка загрузки фото</string>
-
-    <string name="fragment_stores_title">Магазины</string>
 
     <string name="fragment_profile_title">Профиль</string>
     <string name="fragment_profile_manager_title">Менеджер</string>

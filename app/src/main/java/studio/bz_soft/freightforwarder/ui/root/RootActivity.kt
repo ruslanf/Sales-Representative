@@ -87,7 +87,10 @@ class RootActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         NavigationUI.onNavDestinationSelected(item, navController)
-        if (item.itemId == R.id.menuLogout) { exitButtonListener() }
+        when (item.itemId) {
+            R.id.menuLogout -> exitButtonListener()
+            R.id.menuSync -> syncButtonListener()
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -110,5 +113,9 @@ class RootActivity : AppCompatActivity() {
         controller.deleteUserId()
         progressBar.visibility = View.GONE
         startActivity(Intent(this@RootActivity, AuthActivity::class.java))
+    }
+
+    private fun syncButtonListener() {
+
     }
 }

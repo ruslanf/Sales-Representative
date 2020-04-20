@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menuProfile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/ic_profile_dark"
         android:title="@string/main_menu_title_profile"
         app:showAsAction="never" />
 
