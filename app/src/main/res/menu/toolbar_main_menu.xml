@@ -4,25 +4,20 @@
 
     <item
         android:id="@+id/menuProfile"
-        android:title="@string/main_menu_title_profile"
         android:icon="@drawable/ic_profile"
+        android:title="@string/main_menu_title_profile"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuSync"
+        android:icon="@drawable/ic_sync"
+        android:title="@string/db_synchronize"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/menuLogout"
-        android:title="@string/auth_exit_title"
         android:icon="@drawable/ic_exit_light"
+        android:title="@string/auth_exit_title"
         app:showAsAction="ifRoom" />
 
-<!--    <item-->
-<!--        android:id="@+id/menuSettings"-->
-<!--        android:title="@string/fragment_settings_title"-->
-<!--        android:icon="@drawable/ic_settings"-->
-<!--        app:showAsAction="never" />-->
-
-<!--    <item-->
-<!--        android:id="@+id/menuAbout"-->
-<!--        android:title="@string/fragment_about_title"-->
-<!--        android:icon="@drawable/ic_info"-->
-<!--        app:showAsAction="never" />-->
 </menu>
