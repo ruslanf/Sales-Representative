@@ -209,16 +209,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerView4" />
 
-            <TextView
-                android:id="@+id/managerTV"
-                style="@style/UserProfileTextData"
+            <Spinner
+                android:id="@+id/managerSpinner"
+                style="@style/SpinnerStyle"
                 android:layout_width="0dp"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/managerTitleTV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/managerTitleTV"
-                app:layout_constraintTop_toTopOf="@+id/managerTitleTV"
-                tools:text="Иванов" />
+                app:layout_constraintBottom_toBottomOf="@+id/managerTitleTV"
+                app:layout_constraintTop_toTopOf="@+id/managerTitleTV" />
 
             <View
                 android:id="@+id/dividerView5"

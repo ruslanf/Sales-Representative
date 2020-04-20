@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.dialog_birthday.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.changeButton
 import kotlinx.android.synthetic.main.dialog_logout.view.*
-import kotlinx.android.synthetic.main.dialog_managers.*
-import kotlinx.android.synthetic.main.dialog_managers.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.managerSpinner
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.coroutines.*
@@ -33,6 +32,7 @@ import studio.bz_soft.freightforwarder.data.models.ManagersModel
 import studio.bz_soft.freightforwarder.data.models.Passwords
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
 import studio.bz_soft.freightforwarder.root.*
+import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import java.util.*
@@ -47,12 +47,14 @@ class ProfileFragment : Fragment(), CoroutineScope {
     private var job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
-    private var token: String = ""
+    private var token: String = EMPTY_STRING
     private var userProfile: UserProfileModel? = null
     private var managersList: List<ManagersModel>? = null
     private lateinit var managers: Array<String>
-    private lateinit var adapter: ArrayAdapter<String>
+    private var manager = EMPTY_STRING
     private var ex: Exception? = null
+    private var exUP: Exception? = null
+    private var exLM: Exception? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,13 +70,11 @@ class ProfileFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
-            loadManagersList(this)
-            loadUserProfile(this)
+            loadProfileInfo(this)
 
             userPasswordTV.setOnClickListener { changePasswordListener(this) }
             userBirthdayTV.setOnClickListener { birthdayListener(this) }
             sexRG.setOnCheckedChangeListener { _, checkedId -> radioGroupListener(checkedId) }
-            managerTV.setOnClickListener { setManagerListener(this) }
 
             logoutButton.setOnClickListener { exitButtonListener() }
         }
@@ -90,44 +90,27 @@ class ProfileFragment : Fragment(), CoroutineScope {
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.VISIBLE
     }
 
-    private fun loadManagersList(v: View) {
+    private fun loadProfileInfo(v: View) {
         v.apply {
             progressBar.visibility = View.VISIBLE
             launch {
-                val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.getManagersList(token)) {
-                        is Right -> { managersList = r.value }
-                        is Left -> { ex = r.value }
+                coroutineScope {
+                    val up = async(SupervisorJob(job) + Dispatchers.IO) {
+                        when (val r = presenter.loadUserProfile(token)) {
+                            is Right -> { userProfile = r.value }
+                            is Left -> { exUP = r.value }
+                        }
                     }
-                }
-                request.await()
-                progressBar.visibility = View.GONE
-                ex?.let {
-                    showError(context, it, R.string.profile_load_data_mangers_error, logTag)
-                } ?: run {
-                    managersList?.let { m ->
-                        managers = Array(m.size) { _ -> "" }
-                        var i = 0
-                        m.forEach { managers[i++] = it.manager!! }
+                    val ml = async(SupervisorJob(job) + Dispatchers.IO) {
+                        when (val r = presenter.getManagersList(token)) {
+                            is Right -> { managersList = r.value }
+                            is Left -> { exLM = r.value }
+                        }
                     }
+                    up.await()
+                    ml.await()
                 }
-            }
-        }
-    }
-
-    private fun loadUserProfile(v: View) {
-        v.apply {
-            progressBar.visibility = View.VISIBLE
-            launch {
-                val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.loadUserProfile(token)) {
-                        is Right -> { userProfile = r.value }
-                        is Left -> { ex = r.value }
-                    }
-                }
-                request.await()
-                progressBar.visibility = View.GONE
-                ex?.let {
+                exUP?.let {
                     showError(context, it, R.string.profile_load_data_message_error, logTag)
                 } ?: run {
                     userProfile?.let {
@@ -142,9 +125,28 @@ class ProfileFragment : Fragment(), CoroutineScope {
                         setRadioGroup(it.gender.toString().toUpperCase())
                         phoneET.setText(it.phone)
                         addressET.setText(it.address)
-                        managerTV.text = it.manager
+                        it.manager?.let { m -> manager = m }
                     }
                 }
+
+                exLM?.let {
+                    showError(context, it, R.string.profile_load_data_mangers_error, logTag)
+                } ?: run {
+                    managersList?.let { m ->
+                        managers = Array(m.size) { _ -> "" }
+                        var i = 0
+                        m.forEach { managers[i++] = it.manager!! }
+                        managerSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item, managers)
+                    }
+                }
+
+                try {
+                    if (manager.isNotEmpty() && managers.isNotEmpty())
+                        managerSpinner.setSelection(managers.indexOf(manager))
+                } catch (e: UninitializedPropertyAccessException) {
+                    showError(context, e, R.string.profile_load_data_mangers_error, logTag)
+                }
+                progressBar.visibility = View.GONE
             }
         }
     }
@@ -176,7 +178,7 @@ class ProfileFragment : Fragment(), CoroutineScope {
                 } catch (ex: Exception) {
                     "2020-02-02"
                 }
-                val manager = ""
+                val manager = managerSpinner.selectedItem.toString()
                 launch {
                     val request = async(SupervisorJob(job) + Dispatchers.IO) {
                         when (val r = presenter.updateProfile(
@@ -328,30 +330,6 @@ class ProfileFragment : Fragment(), CoroutineScope {
         }
     }
 
-    private fun setManagerListener(v: View) {
-        v.apply {
-            val dialogView = layoutInflater.inflate(R.layout.dialog_managers, null)
-            val alertDialog = AlertDialog.Builder(context).create()
-            with(alertDialog) {
-                setView(dialogView)
-                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                adapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, managers)
-                dialogView.managerSpinner.adapter = adapter
-                dialogView.changeButton.setOnClickListener {
-                    changeButtonListener(this@apply, this, managerSpinner.selectedItem.toString())
-                }
-                show()
-            }
-        }
-    }
-
-    private fun changeButtonListener(v: View, alertDialog: AlertDialog?, manager: String) {
-        v.apply {
-            alertDialog?.dismiss()
-
-        }
-    }
-
     // TODO Add make photo function
 
     private fun loadPhoto(v: View, photo: String?) {
@@ -387,7 +365,7 @@ class ProfileFragment : Fragment(), CoroutineScope {
         startActivity(Intent(context, AuthActivity::class.java))
     }
 
-    private fun getUserId(): Int = presenter.getUserId()?.let { it } ?: run { 0 }
+    private fun getUserId(): Int = presenter.getUserId() ?: run { 0 }
 
     companion object {
         fun instance() = ProfileFragment()

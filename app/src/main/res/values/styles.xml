@@ -106,6 +106,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="SpinnerStyle" parent="BaseStyle">
+        <item name="android:spinnerMode">dialog</item>
+        <item name="android:layout_marginStart">@dimen/app_base_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/app_base_margin_end</item>
+    </style>
+
     <style name="DialogPasswordChangeStyle" parent="BaseStyle">
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:textColor">@color/colorPrimary</item>
