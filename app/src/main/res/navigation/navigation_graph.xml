@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/menuStores"
         android:name="studio.bz_soft.freightforwarder.ui.stores.StoresFragment"
-        android:label="@string/fragment_stores_title"
+        android:label="@string/fragment_outlet_title"
         tools:layout="@layout/fragment_stores">
         <action
             android:id="@+id/action_menuReports_to_addStoreFragment"
