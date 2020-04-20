@@ -55,5 +55,7 @@ interface RepositoryInterface {
     suspend fun insertWorkShift(workShift: WorkShift)
     suspend fun deleteWorkShift(workShift: WorkShift)
     suspend fun updateWorkShift(workShift: WorkShift)
+    suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int)
     suspend fun getAllFromWorkShift(): List<WorkShift>
+    suspend fun getLastData(): WorkShift
 }

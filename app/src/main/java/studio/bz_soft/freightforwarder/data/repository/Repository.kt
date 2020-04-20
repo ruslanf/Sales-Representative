@@ -136,5 +136,11 @@ class Repository(
         database.updateWorkShift(workShift)
     }
 
+    override suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int) {
+        database.updateWorkShift(endDate, endTime, _id)
+    }
+
     override suspend fun getAllFromWorkShift(): List<WorkShift> = database.getAllFromWorkShift()
+
+    override suspend fun getLastData(): WorkShift = database.getLastData()
 }

@@ -9,17 +9,13 @@ import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.fragment_work_shift.view.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
+import studio.bz_soft.freightforwarder.data.models.db.WorkShift
+import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
-import studio.bz_soft.freightforwarder.root.formattedTime
-import studio.bz_soft.freightforwarder.root.parseTime
-import studio.bz_soft.freightforwarder.root.showError
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -35,6 +31,11 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
     private var token: String = ""
     private var userProfile: UserProfileModel? = null
     private var ex: Exception? = null
+    private var userId = 0
+    private var fName = EMPTY_STRING
+    private var sName = EMPTY_STRING
+    private var lName = EMPTY_STRING
+    private var workShift: WorkShift? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,11 +47,11 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
             loadUserProfile(this)
-//            getCurrentTime(this)
+            getCurrentTime(this)
+            getCurrentDate(this)
 
             workButtonState(this)
             workButton.setOnClickListener { workButtonListener(this) }
-//            timeTV.text = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toString()
         }
     }
 
@@ -74,11 +75,16 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                 progressBar.visibility = View.GONE
                 ex?.let {
                     showError(context, it, R.string.profile_load_data_message_error, logTag)
+                    ex = null
                 } ?: run {
                     userProfile?.let {
-                        lNameTV.text = it.lastName?.let { l -> l } ?: EMPTY_STRING
-                        fNameTV.text = it.firstName?.let { f -> f } ?: EMPTY_STRING
-                        sNameTV.text = it.middleName?.let { m -> m } ?: EMPTY_STRING
+                        userId = it.userId
+                        fName = it.firstName ?: EMPTY_STRING
+                        sName = it.firstName ?: EMPTY_STRING
+                        lName = it.firstName ?: EMPTY_STRING
+                        lNameTV.text = it.lastName ?: EMPTY_STRING
+                        fNameTV.text = it.firstName ?: EMPTY_STRING
+                        sNameTV.text = it.middleName ?: EMPTY_STRING
                     }
                 }
             }
@@ -87,7 +93,13 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
 
     private fun getCurrentTime(v: View) {
         v.apply {
-            timeTV.text = formattedTime(parseTime(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toString()))
+            timeTC.text = currentTime()
+        }
+    }
+
+    private fun getCurrentDate(v: View) {
+        v.apply {
+            dateTV.text = currentDate()
         }
     }
 
@@ -96,6 +108,13 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
             presenter.getWorkStarted()?.let {
                 presenter.setWorkStarted(!it)
                 workButtonState(this)
+                when (it) {
+                    true -> { endWorkShift() }
+                    false -> {
+                        startWorkShift()
+                        getLastData()
+                    }
+                }
             }
         }
     }
@@ -110,4 +129,40 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
             } ?: run { workButton.text = resources.getString(R.string.fragment_route_work_button_start) }
         }
     }
+
+    private fun startWorkShift() {
+        launch {
+            val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                presenter.startWorkShift(
+                    WorkShift(0, userId, fName, sName, lName, currentDate(), EMPTY_STRING, currentTime(), EMPTY_STRING))
+            }
+            request.await()
+        }
+    }
+
+    private fun getLastData() {
+        launch {
+            val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                workShift = presenter.getLastData()
+            }
+            request.await()
+        }
+    }
+
+    private fun endWorkShift() {
+        launch {
+            val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                workShift?.let {
+                    presenter.updateWorkShift(currentDate(), currentTime(), it.id)
+                }
+            }
+            request.await()
+        }
+    }
+
+    private fun currentTime(): String =
+        formattedTime(parseTime(getCurrentDT()))
+
+    private fun currentDate(): String =
+        formattedDate(parseDate(getCurrentDT()))
 }

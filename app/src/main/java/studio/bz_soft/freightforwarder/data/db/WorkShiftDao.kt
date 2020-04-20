@@ -16,4 +16,10 @@ interface WorkShiftDao {
 
     @Query("Select * from work_shift")
     suspend fun getAllFromWorkShift(): List<WorkShift>
+
+    @Query("Select * from work_shift order by id desc limit 1")
+    suspend fun getLastData(): WorkShift
+
+    @Query("Update work_shift set end_date = :endDate, end_time = :endTime where id = :recordId")
+    suspend fun updateWorkShift(endDate: String, endTime: String, recordId: Int)
 }

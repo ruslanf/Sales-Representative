@@ -53,4 +53,10 @@ class DbClient(application: Application) : DbClientInterface {
     }
 
     override suspend fun getAllFromWorkShift(): List<WorkShift> = workShiftDao.getAllFromWorkShift()
+
+    override suspend fun getLastData(): WorkShift = workShiftDao.getLastData()
+
+    override suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int) {
+        workShiftDao.updateWorkShift(endDate, endTime, _id)
+    }
 }

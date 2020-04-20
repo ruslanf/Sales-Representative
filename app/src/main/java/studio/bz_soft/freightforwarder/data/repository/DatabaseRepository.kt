@@ -47,5 +47,11 @@ class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepo
         dbClient.updateWorkShift(workShift)
     }
 
+    override suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int) {
+        dbClient.updateWorkShift(endDate, endTime, _id)
+    }
+
     override suspend fun getAllFromWorkShift(): List<WorkShift> = dbClient.getAllFromWorkShift()
+
+    override suspend fun getLastData(): WorkShift = dbClient.getLastData()
 }

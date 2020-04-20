@@ -19,4 +19,6 @@ interface DbClientInterface {
     suspend fun deleteWorkShift(workShift: WorkShift)
     suspend fun updateWorkShift(workShift: WorkShift)
     suspend fun getAllFromWorkShift(): List<WorkShift>
+    suspend fun getLastData(): WorkShift
+    suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int)
 }
