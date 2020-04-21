@@ -1,4 +1,4 @@
-package studio.bz_soft.freightforwarder.root
+package studio.bz_soft.freightforwarder.root.extensions
 
 enum class Sex {
     MALE,
