@@ -28,7 +28,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
     private var job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
-    private var token: String = ""
+    private var token: String = EMPTY_STRING
     private var userProfile: UserProfileModel? = null
     private var ex: Exception? = null
     private var userId = 0
