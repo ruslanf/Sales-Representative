@@ -3,6 +3,7 @@ package studio.bz_soft.freightforwarder.data.models
 import com.google.gson.annotations.SerializedName
 
 data class StorePointModel(
+    @SerializedName("id") val id: Int?,
     @SerializedName("sale_point") val storePoint: String?,
     @SerializedName("type") val type: String?,                  // Enum ["ИП", "ООО", "ПАО"]
     @SerializedName("tax_number") val taxNumber: String?,       // ИНН
