@@ -134,6 +134,7 @@ class Repository(
 
     override suspend fun getAllFromTradePoint(): List<TradePoint> = database.getAllFromTradePoint()
     override suspend fun getTradePointById(id: Int): TradePoint = database.getTradePointById(id)
+    override suspend fun getLastRecordId(): Int = database.getLastRecordId()
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
         database.insertWorkShift(workShift)

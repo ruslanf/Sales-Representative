@@ -19,4 +19,7 @@ interface TradePointDao {
 
     @Query("Select * from trade_point where id = :recordId")
     suspend fun getTradePointById(recordId: Int): TradePoint
+
+    @Query("Select id from trade_point order by id desc limit 1")
+    suspend fun getLastRecordId(): Int
 }

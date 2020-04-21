@@ -41,6 +41,7 @@ class DbClient(application: Application) : DbClientInterface {
 
     override suspend fun getAllFromTradePoint(): List<TradePoint> = tradePointDao.getAllFromTradePoint()
     override suspend fun getTradePointById(recordId: Int): TradePoint = tradePointDao.getTradePointById(recordId)
+    override suspend fun getLastRecordId(): Int = tradePointDao.getLastRecordId()
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
         workShiftDao.insert(workShift)

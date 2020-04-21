@@ -57,6 +57,7 @@ interface RepositoryInterface {
     suspend fun updateTradePoint(tradePoint: TradePoint)
     suspend fun getAllFromTradePoint(): List<TradePoint>
     suspend fun getTradePointById(id: Int): TradePoint
+    suspend fun getLastRecordId(): Int
 
     suspend fun insertWorkShift(workShift: WorkShift)
     suspend fun deleteWorkShift(workShift: WorkShift)

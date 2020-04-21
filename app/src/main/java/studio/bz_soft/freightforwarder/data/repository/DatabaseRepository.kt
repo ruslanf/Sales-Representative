@@ -21,6 +21,7 @@ class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepo
 
     override suspend fun getAllFromLocations(): List<Location> = dbClient.getAllFromLocations()
     override suspend fun getLastLocation(): Location = dbClient.getLastLocation()
+    override suspend fun getLastRecordId(): Int = dbClient.getLastRecordId()
 
     override suspend fun insertTradePoint(tradePoint: TradePoint) {
         dbClient.insertTradePoint(tradePoint)
