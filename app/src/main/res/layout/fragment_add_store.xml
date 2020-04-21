@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/saveStoreInfoButton"
+        app:layout_constraintBottom_toTopOf="@+id/addPhotoButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,11 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/nameOutletTV"
-                style="@style/AddStoreStyle"
+            <EditText
+                android:id="@+id/nameOutletET"
+                style="@style/AddStoreET"
                 android:layout_width="0dp"
-                android:text="@string/fragment_add_store_name_of_outlet"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_name_of_outlet"
                 app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -32,167 +33,310 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/nameOutletTV"
+                app:layout_constraintBottom_toBottomOf="@+id/nameOutletET"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/nameOutletTV"
+                app:layout_constraintTop_toTopOf="@+id/nameOutletET"
                 app:srcCompat="@drawable/ic_incorrect" />
 
-            <TextView
-                android:id="@+id/typeTV"
-                style="@style/AddStoreStyle"
+            <Spinner
+                android:id="@+id/typeSpinner"
+                style="@style/SpinnerStyle"
                 android:layout_width="0dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/fragment_add_store_type"
-                app:layout_constraintEnd_toStartOf="@+id/typeCorrectIV"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameOutletTV" />
+                app:layout_constraintTop_toBottomOf="@+id/nameOutletET" />
 
             <ImageView
                 android:id="@+id/typeCorrectIV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/typeTV"
+                app:layout_constraintBottom_toBottomOf="@+id/typeSpinner"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/typeTV"
+                app:layout_constraintTop_toTopOf="@+id/typeSpinner"
                 app:srcCompat="@drawable/ic_incorrect" />
 
-            <TextView
-                android:id="@+id/taxNumberTV"
-                style="@style/AddStoreStyle"
-                android:layout_marginStart="16dp"
-                android:text="@string/fragment_add_store_tax_number"
-                app:layout_constraintEnd_toStartOf="@+id/innCorrectIV"
+            <EditText
+                android:id="@+id/taxNumberET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_tax_number"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/typeTV" />
+                app:layout_constraintTop_toBottomOf="@+id/typeSpinner" />
 
             <ImageView
-                android:id="@+id/innCorrectIV"
+                android:id="@+id/taxNumberIV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/taxNumberTV"
+                app:layout_constraintBottom_toBottomOf="@+id/taxNumberET"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/taxNumberTV"
+                app:layout_constraintTop_toTopOf="@+id/taxNumberET"
                 app:srcCompat="@drawable/ic_incorrect" />
 
-            <TextView
-                android:id="@+id/taxNumber_1_TV"
-                style="@style/AddStoreStyle"
-                android:layout_marginStart="16dp"
-                android:text="@string/fragment_add_store_tax_number_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taxNumberTV" />
-
-            <TextView
-                android:id="@+id/actualAddressTV"
-                style="@style/AddStoreStyle"
+            <EditText
+                android:id="@+id/taxNumber_1_ET"
+                style="@style/AddStoreET"
                 android:layout_width="0dp"
-                android:text="@string/fragment_add_store_address_actual"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_tax_number_1"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/taxNumber_1_TV" />
+                app:layout_constraintTop_toBottomOf="@+id/taxNumberET" />
 
-            <TextView
-                android:id="@+id/legalAddressTV"
-                style="@style/AddStoreStyle"
-                android:layout_width="0dp"
-                android:text="@string/fragment_add_store_address_legal"
-                app:layout_constraintEnd_toStartOf="@+id/taxNumber_1_TV"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actualAddressTV" />
-
-            <TextView
-                android:id="@+id/phoneTV"
-                style="@style/AddStoreStyle"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_phone"
+            <ImageView
+                android:id="@+id/taxNumber_1_IV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/taxNumber_1_ET"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/legalAddressTV" />
+                app:layout_constraintTop_toTopOf="@+id/taxNumber_1_ET"
+                app:srcCompat="@drawable/ic_incorrect" />
 
-            <TextView
-                android:id="@+id/emailTV"
-                style="@style/AddStoreStyle"
+            <EditText
+                android:id="@+id/actualAddressET"
+                style="@style/AddStoreET"
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_email"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_address_actual"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneTV" />
+                app:layout_constraintTop_toBottomOf="@+id/taxNumber_1_ET" />
 
-            <TextView
-                android:id="@+id/lprTV"
-                style="@style/AddStoreStyle"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_lpr"
+            <ImageView
+                android:id="@+id/actualAddressIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/actualAddressET"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailTV" />
+                app:layout_constraintTop_toTopOf="@+id/actualAddressET"
+                app:srcCompat="@drawable/ic_incorrect" />
 
-            <TextView
-                android:id="@+id/paymentsTV"
-                style="@style/AddStoreStyle"
+            <EditText
+                android:id="@+id/legalAddressET"
+                style="@style/AddStoreET"
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_payment_type"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_address_legal"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lprTV" />
+                app:layout_constraintTop_toBottomOf="@+id/actualAddressET" />
 
-            <TextView
-                android:id="@+id/productsTV"
-                style="@style/AddStoreStyle"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_products_range"
+            <ImageView
+                android:id="@+id/legalAddressIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/legalAddressET"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/paymentsTV" />
+                app:layout_constraintTop_toTopOf="@+id/legalAddressET"
+                app:srcCompat="@drawable/ic_incorrect" />
 
-            <TextView
-                android:id="@+id/marketTypeTV"
-                style="@style/AddStoreStyle"
+            <EditText
+                android:id="@+id/phoneET"
+                style="@style/AddStoreET"
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_market_type"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_phone"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productsTV" />
+                app:layout_constraintTop_toBottomOf="@+id/legalAddressET" />
 
-            <TextView
-                android:id="@+id/companyTypeTV"
-                style="@style/AddStoreStyle"
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_company_type"
+            <ImageView
+                android:id="@+id/phoneIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/phoneET"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/phoneET"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <EditText
+                android:id="@+id/emailET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_email"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/marketTypeTV" />
+                app:layout_constraintTop_toBottomOf="@+id/phoneET" />
+
+            <ImageView
+                android:id="@+id/emailIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/emailET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/emailET"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <EditText
+                android:id="@+id/lprET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_lpr"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailET" />
+
+            <ImageView
+                android:id="@+id/lprIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/lprET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lprET"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <Spinner
+                android:id="@+id/paymentsSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lprET" />
+
+            <ImageView
+                android:id="@+id/paymentsIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/paymentsSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/paymentsSpinner"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <Spinner
+                android:id="@+id/productsSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lprET" />
+
+            <ImageView
+                android:id="@+id/productsIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/productsSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/productsSpinner"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <Spinner
+                android:id="@+id/marketTypeSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productsSpinner" />
+
+            <ImageView
+                android:id="@+id/marketTypeIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/marketTypeSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/marketTypeSpinner"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <Spinner
+                android:id="@+id/companyTypeSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/marketTypeSpinner" />
+
+            <ImageView
+                android:id="@+id/companyTypeIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/companyTypeSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/companyTypeSpinner"
+                app:srcCompat="@drawable/ic_incorrect" />
 
             <TextView
                 android:id="@+id/workTimeTV"
                 style="@style/AddStoreStyle"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:text="@string/fragment_add_store_work_time"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/companyTypeTV" />
+                app:layout_constraintTop_toBottomOf="@+id/companyTypeIV" />
 
-            <TextView
-                android:id="@+id/dealerTV"
-                style="@style/AddStoreStyle"
+            <EditText
+                android:id="@+id/dealerET"
+                style="@style/AddStoreET"
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:text="@string/fragment_add_store_dealer"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_dealer"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/workTimeTV" />
 
+            <ImageView
+                android:id="@+id/dealerIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/dealerET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dealerET"
+                app:srcCompat="@drawable/ic_incorrect" />
+
+            <EditText
+                android:id="@+id/noteET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_note"
+                app:layout_constraintEnd_toStartOf="@+id/noCorrectIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dealerET" />
+
+            <ImageView
+                android:id="@+id/noteIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/noteET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/noteET"
+                app:srcCompat="@drawable/ic_incorrect" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/addPhotoButton"
+        style="@style/AuthButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_rounded_standard"
+        android:text="@string/fragment_add_store_add_photo_button"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/saveStoreInfoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/saveStoreInfoButton"
