@@ -4,7 +4,7 @@ import okhttp3.MultipartBody
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.*
 import studio.bz_soft.freightforwarder.data.models.db.Location
-import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 interface RepositoryInterface {
@@ -41,16 +41,20 @@ interface RepositoryInterface {
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?>
 
     suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
+    suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?>
+    suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>>
+    suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?>
 
+    // DB functions
     suspend fun insertLocation(location: Location)
     suspend fun deleteLocation(location: Location)
     suspend fun updateLocation(location: Location)
     suspend fun getAllFromLocations(): List<Location>
 
-    suspend fun insertOutlet(outlet: Outlet)
-    suspend fun deleteOutlet(outlet: Outlet)
-    suspend fun updateOutlet(outlet: Outlet)
-    suspend fun getAllFromOutlet(): List<Outlet>
+    suspend fun insertOutlet(tradePoint: TradePoint)
+    suspend fun deleteOutlet(tradePoint: TradePoint)
+    suspend fun updateOutlet(tradePoint: TradePoint)
+    suspend fun getAllFromOutlet(): List<TradePoint>
 
     suspend fun insertWorkShift(workShift: WorkShift)
     suspend fun deleteWorkShift(workShift: WorkShift)

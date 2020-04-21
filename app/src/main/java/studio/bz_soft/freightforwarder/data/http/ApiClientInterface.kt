@@ -15,4 +15,7 @@ interface ApiClientInterface {
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Unit?
 
     suspend fun uploadImage(token: String, image: MultipartBody.Part): List<ImageModel>
+    suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Unit?
+    suspend fun getTradePointList(token: String): List<StorePointModel>
+    suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Unit?
 }

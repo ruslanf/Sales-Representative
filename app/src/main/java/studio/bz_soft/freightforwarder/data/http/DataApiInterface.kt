@@ -35,4 +35,16 @@ interface DataApiInterface {
     @POST("$BASE_API/image/upload")
     suspend fun uploadImage(@Header("Authorization") token: String,
                             @Part image: MultipartBody.Part): List<ImageModel>
+
+    @POST("$BASE_API/trade_point")
+    fun saveTradePoint(@Header("Authorization") token: String,
+                       @Body storePoint: StorePointModel): Call<Unit?>
+
+    @GET("$BASE_API/trade_point")
+    suspend fun getTradePointList(@Header("Authorization") token: String): List<StorePointModel>
+
+    @PUT("$BASE_API/trade_point/{id}")
+    fun updateTradePoint(@Header("Authorization") token: String,
+                         @Path("id") id: Int,
+                         @Body storePoint: StorePointModel): Call<Unit?>
 }

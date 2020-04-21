@@ -7,7 +7,7 @@ import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.http.safeRequest
 import studio.bz_soft.freightforwarder.data.models.*
 import studio.bz_soft.freightforwarder.data.models.db.Location
-import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 class Repository(
@@ -96,6 +96,15 @@ class Repository(
     override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>> =
         safeRequest { client.uploadImage(token, image) }
 
+    override suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?> =
+        safeRequest { client.saveTradePoint(token, storePoint) }
+
+    override suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>> =
+        safeRequest { client.getTradePointList(token) }
+
+    override suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?> =
+        safeRequest { client.updateTradePoint(token, id, storePoint) }
+
     override suspend fun insertLocation(location: Location) {
         database.insertLocation(location)
     }
@@ -110,19 +119,19 @@ class Repository(
 
     override suspend fun getAllFromLocations(): List<Location> = database.getAllFromLocations()
 
-    override suspend fun insertOutlet(outlet: Outlet) {
-        database.insertOutlet(outlet)
+    override suspend fun insertOutlet(tradePoint: TradePoint) {
+        database.insertTradePoint(tradePoint)
     }
 
-    override suspend fun deleteOutlet(outlet: Outlet) {
-        database.deleteOutlet(outlet)
+    override suspend fun deleteOutlet(tradePoint: TradePoint) {
+        database.deleteTradePoint(tradePoint)
     }
 
-    override suspend fun updateOutlet(outlet: Outlet) {
-        database.updateOutlet(outlet)
+    override suspend fun updateOutlet(tradePoint: TradePoint) {
+        database.updateTradePoint(tradePoint)
     }
 
-    override suspend fun getAllFromOutlet(): List<Outlet> = database.getAllFromOutlet()
+    override suspend fun getAllFromOutlet(): List<TradePoint> = database.getAllFromTradePoint()
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
         database.insertWorkShift(workShift)

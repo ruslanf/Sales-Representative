@@ -2,7 +2,7 @@ package studio.bz_soft.freightforwarder.data.repository
 
 import studio.bz_soft.freightforwarder.data.db.DbClientInterface
 import studio.bz_soft.freightforwarder.data.models.db.Location
-import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepositoryInterface {
@@ -21,19 +21,21 @@ class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepo
 
     override suspend fun getAllFromLocations(): List<Location> = dbClient.getAllFromLocations()
 
-    override suspend fun insertOutlet(outlet: Outlet) {
-        dbClient.insertOutlet(outlet)
+    override suspend fun insertTradePoint(tradePoint: TradePoint) {
+        dbClient.insertTradePoint(tradePoint)
     }
 
-    override suspend fun deleteOutlet(outlet: Outlet) {
-        dbClient.deleteOutlet(outlet)
+    override suspend fun deleteTradePoint(tradePoint: TradePoint) {
+        dbClient.deleteTradePoint(tradePoint)
     }
 
-    override suspend fun updateOutlet(outlet: Outlet) {
-        dbClient.updateOutlet(outlet)
+    override suspend fun updateTradePoint(tradePoint: TradePoint) {
+        dbClient.updateTradePoint(tradePoint)
     }
 
-    override suspend fun getAllFromOutlet(): List<Outlet> = dbClient.getAllFromOutlet()
+    override suspend fun getAllFromTradePoint(): List<TradePoint> = dbClient.getAllFromTradePoint()
+
+    override suspend fun getTradePointById(id: Int): TradePoint = dbClient.getTradePointById(id)
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
         dbClient.insertWorkShift(workShift)

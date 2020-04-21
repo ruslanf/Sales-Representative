@@ -1,7 +1,7 @@
 package studio.bz_soft.freightforwarder.data.db
 
 import studio.bz_soft.freightforwarder.data.models.db.Location
-import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 interface DbClientInterface {
@@ -10,10 +10,11 @@ interface DbClientInterface {
     suspend fun updateLocation(location: Location)
     suspend fun getAllFromLocations(): List<Location>
 
-    suspend fun insertOutlet(outlet: Outlet)
-    suspend fun deleteOutlet(outlet: Outlet)
-    suspend fun updateOutlet(outlet: Outlet)
-    suspend fun getAllFromOutlet(): List<Outlet>
+    suspend fun insertTradePoint(tradePoint: TradePoint)
+    suspend fun deleteTradePoint(tradePoint: TradePoint)
+    suspend fun updateTradePoint(tradePoint: TradePoint)
+    suspend fun getAllFromTradePoint(): List<TradePoint>
+    suspend fun getTradePointById(recordId: Int): TradePoint
 
     suspend fun insertWorkShift(workShift: WorkShift)
     suspend fun deleteWorkShift(workShift: WorkShift)

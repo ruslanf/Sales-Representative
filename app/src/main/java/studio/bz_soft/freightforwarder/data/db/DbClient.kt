@@ -2,14 +2,14 @@ package studio.bz_soft.freightforwarder.data.db
 
 import android.app.Application
 import studio.bz_soft.freightforwarder.data.models.db.Location
-import studio.bz_soft.freightforwarder.data.models.db.Outlet
+import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 class DbClient(application: Application) : DbClientInterface {
 
     private val db by lazy { RoomDB.getDataBase(application) }
     private val locationDao by lazy { db.locationDao() }
-    private val outletDao by lazy { db.outletDao() }
+    private val tradePointDao by lazy { db.tradePointDao() }
     private val workShiftDao by lazy { db.workShiftDao() }
 
     override suspend fun insertLocation(location: Location) {
@@ -26,19 +26,21 @@ class DbClient(application: Application) : DbClientInterface {
 
     override suspend fun getAllFromLocations(): List<Location> = locationDao.getAllFromLocation()
 
-    override suspend fun insertOutlet(outlet: Outlet) {
-        outletDao.insert(outlet)
+    override suspend fun insertTradePoint(tradePoint: TradePoint) {
+        tradePointDao.insert(tradePoint)
     }
 
-    override suspend fun deleteOutlet(outlet: Outlet) {
-        outletDao.delete(outlet)
+    override suspend fun deleteTradePoint(tradePoint: TradePoint) {
+        tradePointDao.delete(tradePoint)
     }
 
-    override suspend fun updateOutlet(outlet: Outlet) {
-        outletDao.update(outlet)
+    override suspend fun updateTradePoint(tradePoint: TradePoint) {
+        tradePointDao.update(tradePoint)
     }
 
-    override suspend fun getAllFromOutlet(): List<Outlet> = outletDao.getAllFromOutlet()
+    override suspend fun getAllFromTradePoint(): List<TradePoint> = tradePointDao.getAllFromTradePoint()
+
+    override suspend fun getTradePointById(recordId: Int): TradePoint = tradePointDao.getTradePointById(recordId)
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
         workShiftDao.insert(workShift)

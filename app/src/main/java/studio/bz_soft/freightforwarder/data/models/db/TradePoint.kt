@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "outlet")
-class Outlet(
+@Entity(tableName = "trade_point")
+class TradePoint(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "sale_point") val storePoint: String,
     @ColumnInfo(name = "type") val type: String,                  // Enum ["ИП", "ООО", "ПАО"]
