@@ -136,7 +136,7 @@ class ProfileFragment : Fragment(), CoroutineScope {
                         managers = Array(m.size) { _ -> "" }
                         var i = 0
                         m.forEach { managers[i++] = it.manager!! }
-                        managerSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item, managers)
+                        managerSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_end, managers)
                     }
                 }
 
