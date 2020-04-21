@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/fragment_outlet_work_shift_title"
+        android:text="@string/fragment_stores_work_shift_title"
         app:layout_constraintBottom_toBottomOf="@+id/dateTV"
         app:layout_constraintEnd_toStartOf="@+id/dateTV"
         app:layout_constraintTop_toTopOf="@+id/dateTV" />
@@ -43,7 +43,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_rounded_standard"
-        android:text="@string/fragment_outlet_add_store_button"
+        android:text="@string/fragment_stores_add_store_button"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
