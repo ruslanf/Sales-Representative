@@ -35,11 +35,13 @@
     <string name="fragment_work_shift_signin_title">You sign in as:</string>
     <string name="fragment_work_shift_time_now">Now:</string>
 
-    <string name="fragment_outlet_title">Outlets</string>
-    <string name="fragment_outlet_add_store_button">Add Store</string>
-    <string name="fragment_outlet_work_shift_title">Work Shift</string>
+    <string name="fragment_stores_title">Outlets</string>
+    <string name="fragment_stores_add_store_button">Add Store</string>
+    <string name="fragment_stores_work_shift_title">Work Shift</string>
+    <string name="fragment_stores_shift_message_error">Work Shift not started!</string>
 
     <string name="fragment_add_store_title">Add Store</string>
+    <string name="fragment_add_store_add_photo_button">Add photo</string>
     <string name="fragment_add_store_save_info_button">Save Info</string>
     <string name="fragment_add_store_name_of_outlet">Name of outlet</string>
     <string name="fragment_add_store_type">Type</string>
@@ -56,6 +58,7 @@
     <string name="fragment_add_store_company_type">Company type</string>
     <string name="fragment_add_store_work_time">Work time</string>
     <string name="fragment_add_store_dealer">Dealer</string>
+    <string name="fragment_add_store_note">Note</string>
 
     <string name="fragment_image_title">Image</string>
     <string name="fragment_image_upload_error">Error while uploading image</string>

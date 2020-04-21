@@ -19,6 +19,7 @@ import studio.bz_soft.freightforwarder.ui.root.RootController
 import studio.bz_soft.freightforwarder.ui.route.RoutePresenter
 import studio.bz_soft.freightforwarder.ui.stores.store.AddStorePresenter
 import studio.bz_soft.freightforwarder.ui.shift.WorkShiftPresenter
+import studio.bz_soft.freightforwarder.ui.stores.StoresPresenter
 
 val applicationModule = module {
     single { androidApplication() as App }
@@ -40,6 +41,7 @@ val presenterModule = module {
     single { AuthPresenter(get()) }
     single { RoutePresenter(get()) }
     single { WorkShiftPresenter(get()) }
+    single { StoresPresenter(get()) }
     single { AddStorePresenter(get()) }
     single { ProfilePresenter(get()) }
     single { LocationPresenter(get()) }

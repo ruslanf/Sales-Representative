@@ -52,4 +52,8 @@ object Constants {
     const val USER_TOKEN = "user_token"
     const val USER_ID = "user_id"
     const val IS_WORK_STARTED = "is_work_started"
+
+    const val KEY_WORK_STARTED = "work_started"
+    const val KEY_LATITUDE = "latitude"
+    const val KEY_LONGITUDE = "longitude"
 }
