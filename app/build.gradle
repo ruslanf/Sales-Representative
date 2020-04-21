@@ -92,6 +92,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    // OSM Droid
-    implementation "org.osmdroid:osmdroid-android:$osmdroid_version"
+    // SQL Scout
+    debugImplementation 'com.idescout.sql:sqlscout-server:4.1'
+    releaseImplementation 'com.idescout.sql:sqlscout-server-noop:4.1'
 }

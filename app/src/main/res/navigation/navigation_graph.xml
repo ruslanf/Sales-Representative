@@ -6,15 +6,6 @@
     app:startDestination="@id/menuWorkShift">
 
     <fragment
-        android:id="@+id/menuRoute"
-        android:name="studio.bz_soft.freightforwarder.ui.route.RouteFragment"
-        android:label="@string/fragment_route_title"
-        tools:layout="@layout/fragment_route" >
-        <action
-            android:id="@+id/action_menuRoute_to_addStoreFragment"
-            app:destination="@id/addStoreFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/menuWorkShift"
         android:name="studio.bz_soft.freightforwarder.ui.shift.WorkShiftFragment"
         android:label="@string/fragment_work_shift_title"
@@ -22,7 +13,7 @@
     <fragment
         android:id="@+id/menuStores"
         android:name="studio.bz_soft.freightforwarder.ui.stores.StoresFragment"
-        android:label="@string/fragment_outlet_title"
+        android:label="@string/fragment_stores_title"
         tools:layout="@layout/fragment_stores">
         <action
             android:id="@+id/action_menuReports_to_addStoreFragment"
