@@ -51,10 +51,11 @@ interface RepositoryInterface {
     suspend fun updateLocation(location: Location)
     suspend fun getAllFromLocations(): List<Location>
 
-    suspend fun insertOutlet(tradePoint: TradePoint)
-    suspend fun deleteOutlet(tradePoint: TradePoint)
-    suspend fun updateOutlet(tradePoint: TradePoint)
-    suspend fun getAllFromOutlet(): List<TradePoint>
+    suspend fun insertTradePoint(tradePoint: TradePoint)
+    suspend fun deleteTradePoint(tradePoint: TradePoint)
+    suspend fun updateTradePoint(tradePoint: TradePoint)
+    suspend fun getAllFromTradePoint(): List<TradePoint>
+    suspend fun getTradePointById(id: Int): TradePoint
 
     suspend fun insertWorkShift(workShift: WorkShift)
     suspend fun deleteWorkShift(workShift: WorkShift)

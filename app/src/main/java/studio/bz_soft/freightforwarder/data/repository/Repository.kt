@@ -119,19 +119,20 @@ class Repository(
 
     override suspend fun getAllFromLocations(): List<Location> = database.getAllFromLocations()
 
-    override suspend fun insertOutlet(tradePoint: TradePoint) {
+    override suspend fun insertTradePoint(tradePoint: TradePoint) {
         database.insertTradePoint(tradePoint)
     }
 
-    override suspend fun deleteOutlet(tradePoint: TradePoint) {
+    override suspend fun deleteTradePoint(tradePoint: TradePoint) {
         database.deleteTradePoint(tradePoint)
     }
 
-    override suspend fun updateOutlet(tradePoint: TradePoint) {
+    override suspend fun updateTradePoint(tradePoint: TradePoint) {
         database.updateTradePoint(tradePoint)
     }
 
-    override suspend fun getAllFromOutlet(): List<TradePoint> = database.getAllFromTradePoint()
+    override suspend fun getAllFromTradePoint(): List<TradePoint> = database.getAllFromTradePoint()
+    override suspend fun getTradePointById(id: Int): TradePoint = database.getTradePointById(id)
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
         database.insertWorkShift(workShift)
