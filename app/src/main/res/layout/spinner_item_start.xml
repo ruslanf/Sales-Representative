@@ -5,4 +5,4 @@
     android:textSize="@dimen/spinner_text_size"
     android:textColor="@color/colorPrimary"
     android:gravity="start"
-    android:padding="16dp" />
+    android:padding="8dp"/>
