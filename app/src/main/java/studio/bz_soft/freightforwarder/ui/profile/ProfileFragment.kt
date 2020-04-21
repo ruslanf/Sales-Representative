@@ -33,6 +33,7 @@ import studio.bz_soft.freightforwarder.data.models.Passwords
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
 import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
+import studio.bz_soft.freightforwarder.root.extensions.Sex
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import java.util.*
@@ -133,7 +134,7 @@ class ProfileFragment : Fragment(), CoroutineScope {
                     showError(context, it, R.string.profile_load_data_mangers_error, logTag)
                 } ?: run {
                     managersList?.let { m ->
-                        managers = Array(m.size) { _ -> "" }
+                        managers = Array(m.size) { "" }
                         var i = 0
                         m.forEach { managers[i++] = it.manager!! }
                         managerSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_end, managers)
