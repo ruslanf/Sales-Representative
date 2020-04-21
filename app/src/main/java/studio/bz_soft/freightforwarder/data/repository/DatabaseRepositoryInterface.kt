@@ -9,6 +9,7 @@ interface DatabaseRepositoryInterface {
     suspend fun deleteLocation(location: Location)
     suspend fun updateLocation(location: Location)
     suspend fun getAllFromLocations(): List<Location>
+    suspend fun getLastLocation(): Location
 
     suspend fun insertTradePoint(tradePoint: TradePoint)
     suspend fun deleteTradePoint(tradePoint: TradePoint)

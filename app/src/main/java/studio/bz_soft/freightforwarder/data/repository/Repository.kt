@@ -118,6 +118,7 @@ class Repository(
     }
 
     override suspend fun getAllFromLocations(): List<Location> = database.getAllFromLocations()
+    override suspend fun getLastLocation(): Location = database.getLastLocation()
 
     override suspend fun insertTradePoint(tradePoint: TradePoint) {
         database.insertTradePoint(tradePoint)

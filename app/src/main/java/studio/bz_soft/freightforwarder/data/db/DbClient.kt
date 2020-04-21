@@ -25,6 +25,7 @@ class DbClient(application: Application) : DbClientInterface {
     }
 
     override suspend fun getAllFromLocations(): List<Location> = locationDao.getAllFromLocation()
+    override suspend fun getLastLocation(): Location = locationDao.getLastLocation()
 
     override suspend fun insertTradePoint(tradePoint: TradePoint) {
         tradePointDao.insert(tradePoint)
@@ -39,7 +40,6 @@ class DbClient(application: Application) : DbClientInterface {
     }
 
     override suspend fun getAllFromTradePoint(): List<TradePoint> = tradePointDao.getAllFromTradePoint()
-
     override suspend fun getTradePointById(recordId: Int): TradePoint = tradePointDao.getTradePointById(recordId)
 
     override suspend fun insertWorkShift(workShift: WorkShift) {
@@ -55,7 +55,6 @@ class DbClient(application: Application) : DbClientInterface {
     }
 
     override suspend fun getAllFromWorkShift(): List<WorkShift> = workShiftDao.getAllFromWorkShift()
-
     override suspend fun getLastData(): WorkShift = workShiftDao.getLastData()
 
     override suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int) {
