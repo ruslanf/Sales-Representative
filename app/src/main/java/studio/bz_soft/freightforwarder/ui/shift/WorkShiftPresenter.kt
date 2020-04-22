@@ -28,6 +28,10 @@ class WorkShiftPresenter(
         repository.updateWorkShift(workShift)
     }
 
+    override suspend fun update(workShift: WorkShift) {
+        repository.updateWorkShift(workShift)
+    }
+
     override suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int) {
         repository.updateWorkShift(endDate, endTime, _id)
     }

@@ -13,6 +13,7 @@ interface WorkShiftInterface {
 
     suspend fun startWorkShift(workShift: WorkShift)
     suspend fun stopWorkShift(workShift: WorkShift)
+    suspend fun update(workShift: WorkShift)
     suspend fun updateWorkShift(endDate: String, endTime: String, _id: Int)
     suspend fun getLastData(): WorkShift
 }
