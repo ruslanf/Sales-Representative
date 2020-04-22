@@ -9,8 +9,6 @@ data class StorePointModel(
     @SerializedName("tax_number") val taxNumber: String?,       // ИНН
     @SerializedName("tax_number_1") val taxNumber_1: String?,   // ОГРН
     @SerializedName("address_actual") val addressActual: String?, // Фактический адрес
-    @SerializedName("latitude") val latitude: Double?,
-    @SerializedName("longitude") val longitude: Double?,
     @SerializedName("address_legal") val addressLegal: String?,   // Юридический адрес
     @SerializedName("contact_phone") val phone: String?,
     @SerializedName("contact_mail") val email: String?,
@@ -21,6 +19,9 @@ data class StorePointModel(
     @SerializedName("company_type") val companyType: String?,   // Enum []
     @SerializedName("work_time") val workTime: String?,
     @SerializedName("dealer") val dealer: String?,
+    @SerializedName("note") val note: String?,
+    @SerializedName("latitude") val latitude: Double?,
+    @SerializedName("longitude") val longitude: Double?,
     @SerializedName("photo_outside") val photoOutside: String?, // image url
     @SerializedName("photo_inside") val photoInside: String?,   // image url
     @SerializedName("photo_goods") val photoGoods: String?,     // image url
