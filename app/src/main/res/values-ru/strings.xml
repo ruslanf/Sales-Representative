@@ -40,6 +40,7 @@
     <string name="fragment_stores_add_store_button">Добавить торговую точку</string>
     <string name="fragment_stores_work_shift_title">Смена</string>
     <string name="fragment_stores_shift_message_error">Рабочая смена не начата! Вначале начните смену</string>
+    <string name="fragment_store_error_load_trade_point">Ошибка загрузки списка торговых точек</string>
 
     <string name="fragment_add_store_title">Новая точка</string>
     <string name="fragment_add_store_add_photo_button">Добавить фото</string>
@@ -60,6 +61,7 @@
     <string name="fragment_add_store_work_time">Рабочее время</string>
     <string name="fragment_add_store_dealer">Поставщики</string>
     <string name="fragment_add_store_note">Примечание</string>
+    <string name="fragment_add_store_not_filled_error_message">Ошибка! Не заполнены все необходимые поля…</string>
 
     <string name="fragment_image_title">Фото</string>
     <string name="fragment_image_upload_error">Ошибка загрузки фото</string>

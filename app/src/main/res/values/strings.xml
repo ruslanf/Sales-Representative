@@ -39,6 +39,7 @@
     <string name="fragment_stores_add_store_button">Add Store</string>
     <string name="fragment_stores_work_shift_title">Work Shift</string>
     <string name="fragment_stores_shift_message_error">Work Shift not started!</string>
+    <string name="fragment_store_error_load_trade_point">Error loading trade points list</string>
 
     <string name="fragment_add_store_title">Add Store</string>
     <string name="fragment_add_store_add_photo_button">Add photo</string>
@@ -59,6 +60,7 @@
     <string name="fragment_add_store_work_time">Work time</string>
     <string name="fragment_add_store_dealer">Dealer</string>
     <string name="fragment_add_store_note">Note</string>
+    <string name="fragment_add_store_not_filled_error_message">Error! Not filled all required fields…</string>
 
     <string name="fragment_image_title">Image</string>
     <string name="fragment_image_upload_error">Error while uploading image</string>
