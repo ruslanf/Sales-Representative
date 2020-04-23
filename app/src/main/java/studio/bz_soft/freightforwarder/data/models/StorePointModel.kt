@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class StorePointModel(
     @SerializedName("id") val id: Int?,
-    @SerializedName("sale_point") val storePoint: String?,
+    @SerializedName("trade_point") val storePoint: String?,
     @SerializedName("type") val type: String?,                  // Enum ["ИП", "ООО", "ПАО"]
     @SerializedName("tax_number") val taxNumber: String?,       // ИНН
     @SerializedName("tax_number_1") val taxNumber_1: String?,   // ОГРН
@@ -26,4 +26,14 @@ data class StorePointModel(
     @SerializedName("photo_inside") val photoInside: String?,   // image url
     @SerializedName("photo_goods") val photoGoods: String?,     // image url
     @SerializedName("photo_corner") val photoCorner: String?
-)
+) {
+    constructor(storePoint: String?, type: String?, taxNumber: String?, taxNumber_1: String?,
+                addressActual: String?, addressLegal: String?, phone: String?, email: String?,
+                lprName: String?, paymentType: String?, productsRange: String?, marketType: String?,
+                companyType: String?, workTime: String?, dealer: String?, note: String?,
+                latitude: Double?, longitude: Double?, photoOutside: String?, photoInside: String?,
+                photoGoods: String?, photoCorner: String?) : this(
+        null, storePoint, type, taxNumber, taxNumber_1, addressActual, addressLegal, phone, email,
+        lprName, paymentType, productsRange, marketType, companyType, workTime, dealer, note,
+        latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner)
+}
