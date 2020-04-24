@@ -1,5 +1,6 @@
 package studio.bz_soft.freightforwarder.ui.shift
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.fragment_work_shift.view.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
+import retrofit2.HttpException
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
@@ -16,6 +18,7 @@ import studio.bz_soft.freightforwarder.data.models.UserProfileModel
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
+import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -77,6 +80,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                 progressBar.visibility = View.GONE
                 ex?.let {
                     showError(context, it, R.string.profile_load_data_message_error, logTag)
+                    if ((ex as HttpException).code() == 401) logout(this@apply)
                     ex = null
                 } ?: run {
                     userProfile?.let {
@@ -163,6 +167,16 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                 }
             }
             request.await()
+        }
+    }
+
+    private fun logout(v: View) {
+        v.apply {
+            progressBar.visibility = View.VISIBLE
+            presenter.deleteToken()
+            presenter.deleteUserId()
+            progressBar.visibility = View.GONE
+            startActivity(Intent(context, AuthActivity::class.java))
         }
     }
 

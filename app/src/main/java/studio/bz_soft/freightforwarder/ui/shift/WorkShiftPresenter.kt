@@ -17,6 +17,14 @@ class WorkShiftPresenter(
 
     override fun getWorkStarted(): Boolean? = repository.getWorkStarted()
 
+    override fun deleteToken() {
+        repository.deleteToken()
+    }
+
+    override fun deleteUserId() {
+        repository.deleteUserId()
+    }
+
     override suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel> =
         repository.loadUserProfile(token)
 

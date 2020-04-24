@@ -9,6 +9,9 @@ interface WorkShiftInterface {
     fun setWorkStarted(isStarted: Boolean)
     fun getWorkStarted(): Boolean?
 
+    fun deleteToken()
+    fun deleteUserId()
+
     suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel>
 
     suspend fun startWorkShift(workShift: WorkShift)
