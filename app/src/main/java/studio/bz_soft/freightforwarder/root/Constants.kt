@@ -6,6 +6,13 @@ object Constants {
 
     const val CONTRIBUTOR_URL = "https://www.openstreetmap.org/copyright"
 
+    const val PERMISSION_REQUEST_CAMERA = 2
+    const val PERMISSION_REQUEST_LOCATION = 0
+    const val PERMISSION_REQUEST_STORAGE = 1
+
+    const val CHANNEL_ID = "Location_Service"
+    const val CHANNEL_NAME = "Background Location service"
+
     const val DB_NAME = "ff_database.db"
 
     const val MIN_ZOOM_LEVEL: Double = 7.0
