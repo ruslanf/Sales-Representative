@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.dialog_logout.view.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_LOCATION
+import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_STORAGE
 import studio.bz_soft.freightforwarder.root.Constants.SERVICE_GPS_BROADCAST
 import studio.bz_soft.freightforwarder.root.Constants.SERVICE_GPS_MESSAGE
 import studio.bz_soft.freightforwarder.root.service.LocationReceiver
@@ -63,6 +64,7 @@ class RootActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         checkLocationPermission()
+        checkStoragePermission()
     }
 
     override fun onPause() {
@@ -107,6 +109,24 @@ class RootActivity : AppCompatActivity() {
                     startService()
                 } else showToast(this, getString(R.string.gps_service_error_message_no_location_permission))
             }
+        }
+    }
+
+    private fun checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            requestStoragePermission()
+    }
+
+    private fun requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_STORAGE)
+        } else {
+            // No explanation needed, we can request the permission.
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_STORAGE)
         }
     }
 
