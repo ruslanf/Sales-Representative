@@ -14,28 +14,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
-        android:id="@+id/daysNP"
-        style="@style/DialogBirthdayStyleNP"
-        app:layout_constraintBottom_toBottomOf="@+id/monthNP"
-        app:layout_constraintEnd_toStartOf="@+id/monthNP"
+        android:id="@+id/startHourNP"
+        style="@style/DialogStyleNP"
+        app:layout_constraintBottom_toBottomOf="@+id/startMinNP"
+        app:layout_constraintEnd_toStartOf="@+id/startMinNP"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/monthNP" />
+        app:layout_constraintTop_toTopOf="@+id/startMinNP" />
 
     <NumberPicker
-        android:id="@+id/monthNP"
-        style="@style/DialogBirthdayStyleNP"
+        android:id="@+id/startMinNP"
+        style="@style/DialogStyleNP"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toStartOf="@+id/yearNP"
-        app:layout_constraintStart_toEndOf="@+id/daysNP"
+        app:layout_constraintStart_toEndOf="@+id/startHourNP"
         app:layout_constraintTop_toBottomOf="@+id/dialogTitleTV" />
 
     <NumberPicker
         android:id="@+id/yearNP"
-        style="@style/DialogBirthdayStyleNP"
-        app:layout_constraintBottom_toBottomOf="@+id/monthNP"
+        style="@style/DialogStyleNP"
+        app:layout_constraintBottom_toBottomOf="@+id/startMinNP"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/monthNP"
-        app:layout_constraintTop_toTopOf="@+id/monthNP" />
+        app:layout_constraintStart_toEndOf="@+id/startMinNP"
+        app:layout_constraintTop_toTopOf="@+id/startMinNP" />
 
     <Button
         android:id="@+id/setBirthdayButton"
@@ -48,6 +48,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthNP" />
+        app:layout_constraintTop_toBottomOf="@+id/startMinNP" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
