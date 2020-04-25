@@ -6,7 +6,6 @@ import studio.bz_soft.freightforwarder.data.models.ImageModel
 
 interface ImageInterface {
     fun getUserToken(): String?
-    fun setImagesSaved(isImagesSaved: Boolean)
     fun setImageOutside(image: String)
     fun setImageInside(image: String)
     fun setImageAssortment(image: String)

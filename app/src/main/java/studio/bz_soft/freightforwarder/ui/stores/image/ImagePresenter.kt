@@ -10,10 +10,6 @@ class ImagePresenter(
 ) : ImageInterface {
     override fun getUserToken(): String? = repository.getUserToken()
 
-    override fun setImagesSaved(isImagesSaved: Boolean) {
-        repository.setImagesSaved(isImagesSaved)
-    }
-
     override fun setImageOutside(image: String) {
         repository.setImageOutside(image)
     }
