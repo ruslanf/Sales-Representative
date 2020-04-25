@@ -127,7 +127,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="DialogBirthdayStyleNP" parent="BaseStyle">
+    <style name="DialogStyleNP" parent="BaseStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
