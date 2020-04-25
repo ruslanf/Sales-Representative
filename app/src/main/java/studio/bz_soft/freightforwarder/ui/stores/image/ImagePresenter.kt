@@ -10,6 +10,26 @@ class ImagePresenter(
 ) : ImageInterface {
     override fun getUserToken(): String? = repository.getUserToken()
 
+    override fun setImagesSaved(isImagesSaved: Boolean) {
+        repository.setImagesSaved(isImagesSaved)
+    }
+
+    override fun setImageOutside(image: String) {
+        repository.setImageOutside(image)
+    }
+
+    override fun setImageInside(image: String) {
+        repository.setImageInside(image)
+    }
+
+    override fun setImageAssortment(image: String) {
+        repository.setImageAssortment(image)
+    }
+
+    override fun setImageCorner(image: String) {
+        repository.setImageCorner(image)
+    }
+
     override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>> =
         repository.uploadImage(token, image)
 }

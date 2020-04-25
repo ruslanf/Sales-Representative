@@ -24,6 +24,12 @@ object Constants {
     const val ORIENTATION = "orientation"
     const val ZOOM_LEVEL = "zoom_level"
 
+    const val IS_IMAGES_SAVED = "is_images_saved"
+    const val IMAGE_OUTSIDE = "image_outside"
+    const val IMAGE_INSIDE = "image_inside"
+    const val IMAGE_ASSORTMENT = "image_assortment"
+    const val IMAGE_CORNER = "image_corner"
+
     const val GEO_POINT = "geo_point"
 
     const val PLATFORM = "android"
@@ -34,13 +40,21 @@ object Constants {
     const val IN_DATE_FORMATTER = "yyyy-MM-dd"
     const val DATE_FORMATTER = "dd.MM.yyyy"
     const val TIME_FORMATTER = "HH:mm"
+    const val TIME_STAMP_FORMATTER = "yyyy-MM-dd_HHmm"
 
     val DAYS = IntArray(31) { i -> i + 1 }
     val MONTH = IntArray(12) { i -> i + 1 }
     val YEAR = IntArray(200) { i -> 1900 + i + 1}
 
-    const val PERMISSIONS_REQUEST_CODE_STORAGE = 0
-    const val PERMISSIONS_REQUEST_CODE_LOCATION = 1
+    const val IMAGE_SUFFIX = ".png"
+    const val FILE_PATH = "file://"
+
+    const val CAMERA_REQUEST_CODE = 0
+
+    const val IMAGE_DESC_OUT = 0
+    const val IMAGE_DESC_IN = 1
+    const val IMAGE_DESC_ASSORTMENT = 2
+    const val IMAGE_DESC_CORNER = 3
 
     const val MIN_TIME = 30 * 1000L
     const val MIN_DISTANCE = 0f

@@ -62,9 +62,18 @@
     <string name="fragment_add_store_dealer">Поставщики</string>
     <string name="fragment_add_store_note">Примечание</string>
     <string name="fragment_add_store_not_filled_error_message">Ошибка! Не заполнены все необходимые поля…</string>
+    <string name="fragment_add_store_image_outside">Снаружи</string>
+    <string name="fragment_add_store_image_inside">Внутри</string>
+    <string name="fragment_add_store_image_assortment">Асортимент</string>
+    <string name="fragment_add_store_image_corner">Уголок</string>
+    <string name="fragment_add_store_image_finish_button">Закончить</string>
+    <string name="fragment_add_store_image_cancel_button">Отменить</string>
+
+    <string name="fragment_edit_store_title">Редактирование торговой точки</string>
 
     <string name="fragment_image_title">Фото</string>
     <string name="fragment_image_upload_error">Ошибка загрузки фото</string>
+    <string name="fragment_image_error">Ошибка! Не сделаны все необходимые фотографии</string>
 
     <string name="fragment_profile_title">Профиль</string>
     <string name="fragment_profile_manager_title">Менеджер</string>

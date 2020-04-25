@@ -5,7 +5,9 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
+import android.text.Editable
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.View
@@ -29,10 +31,22 @@ import studio.bz_soft.freightforwarder.root.Constants.DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.IN_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.OUT_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.TIME_FORMATTER
+import studio.bz_soft.freightforwarder.root.Constants.TIME_STAMP_FORMATTER
 import java.io.File
 import java.io.IOException
 import java.net.URL
 import java.util.*
+
+fun textWatcher(afterTextChanged: (String) -> Unit): TextWatcher =
+    object : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
+            afterTextChanged(s.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    }
 
 fun showToast(v: View, text: String) {
     Toast.makeText(v.context, biggerText(text), Toast.LENGTH_LONG).show()
@@ -75,6 +89,16 @@ fun readJsonFromAsset(c: Context?, file: String): String? =
     } catch (ex: IOException) {
         null
     }
+
+// get DCIM path
+fun storagePath(): File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera")
+
+fun formattedTimestamp(date: LocalDateTime): String =
+    date.format(ofPattern(TIME_STAMP_FORMATTER))
+
+fun imageFileName(): String = "IMG_"
+    .plus(formattedTimestamp(ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toLocalDateTime()))
+    .plus("_")
 
 // get sdcard path
 fun path(): String = Environment.getExternalStorageDirectory().path

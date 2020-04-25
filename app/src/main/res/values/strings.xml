@@ -61,9 +61,18 @@
     <string name="fragment_add_store_dealer">Dealer</string>
     <string name="fragment_add_store_note">Note</string>
     <string name="fragment_add_store_not_filled_error_message">Error! Not filled all required fields…</string>
+    <string name="fragment_add_store_image_outside">Outside</string>
+    <string name="fragment_add_store_image_inside">Inside</string>
+    <string name="fragment_add_store_image_assortment">Assortment</string>
+    <string name="fragment_add_store_image_corner">Corner</string>
+    <string name="fragment_add_store_image_finish_button">Finish</string>
+    <string name="fragment_add_store_image_cancel_button">Cancel</string>
+
+    <string name="fragment_edit_store_title">Edit trade point</string>
 
     <string name="fragment_image_title">Image</string>
     <string name="fragment_image_upload_error">Error while uploading image</string>
+    <string name="fragment_image_error">Error! Not pictured all necessary photos</string>
 
     <string name="fragment_profile_title">Profile</string>
     <string name="fragment_profile_manager_title">Manager</string>

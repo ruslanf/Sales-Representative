@@ -6,5 +6,10 @@ import studio.bz_soft.freightforwarder.data.models.ImageModel
 
 interface ImageInterface {
     fun getUserToken(): String?
+    fun setImagesSaved(isImagesSaved: Boolean)
+    fun setImageOutside(image: String)
+    fun setImageInside(image: String)
+    fun setImageAssortment(image: String)
+    fun setImageCorner(image: String)
     suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
 }

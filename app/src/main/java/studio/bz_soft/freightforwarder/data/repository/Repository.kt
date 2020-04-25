@@ -42,17 +42,35 @@ class Repository(
 
     override fun getWorkStarted(): Boolean? = storage.getWorkStarted()
 
-    override fun setTileSource(tileSource: String) {
-        storage.setTileSource(tileSource)
+    override fun setImagesSaved(isImagesSaved: Boolean) {
+        storage.setImagesSaved(isImagesSaved)
     }
 
-    override fun getTileSource(): String? = storage.getTileSource()
+    override fun getImagesSaved(): Boolean? = storage.getImagesSaved()
 
-    override fun setOrientation(orientation: Float) {
-        storage.setOrientation(orientation)
+    override fun setImageOutside(image: String) {
+        storage.setImageOutside(image)
     }
 
-    override fun getOrientation(): Float? = storage.getOrientation()
+    override fun getImageOutside(): String? = storage.getImageOutside()
+
+    override fun setImageInside(image: String) {
+        storage.setImageInside(image)
+    }
+
+    override fun getImageInside(): String? = storage.getImageInside()
+
+    override fun setImageAssortment(image: String) {
+        storage.setImageAssortment(image)
+    }
+
+    override fun getImageAssortment(): String? = storage.getImageAssortment()
+
+    override fun setImageCorner(image: String) {
+        storage.setImageCorner(image)
+    }
+
+    override fun getImageCorner(): String? = storage.getImageCorner()
 
     override fun setLatitude(latitude: String) {
         storage.setLatitude(latitude)
@@ -65,12 +83,6 @@ class Repository(
     }
 
     override fun getLongitude(): String? = storage.getLongitude()
-
-    override fun setZoomLevel(zoomLevel: Float) {
-        storage.setZoomLevel(zoomLevel)
-    }
-
-    override fun getZoomLevel(): Float? = storage.getZoomLevel()
 
     override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
         safeRequest { client.signUp(userRequest) }
