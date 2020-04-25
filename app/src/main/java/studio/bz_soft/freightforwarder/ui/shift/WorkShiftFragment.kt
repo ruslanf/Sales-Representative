@@ -161,9 +161,10 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
         launch {
             val request = async(SupervisorJob(job) + Dispatchers.IO) {
                 workShift?.let {
-                    presenter.update(WorkShift(it.id, userId, fName, sName, lName,
-                        startDate, currentDate(),
-                        startTime, currentTime()))
+//                    presenter.update(WorkShift(it.id, userId, fName, sName, lName,
+//                        startDate, currentDate(),
+//                        startTime, currentTime()))
+                    presenter.updateWorkShift(currentDate(), currentTime(), it.id)
                 }
             }
             request.await()
