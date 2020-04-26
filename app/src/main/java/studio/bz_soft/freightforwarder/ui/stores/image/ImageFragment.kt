@@ -35,7 +35,10 @@ import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_IN
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_OUT
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_SUFFIX
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class ImageFragment : Fragment(), CoroutineScope {
@@ -79,7 +82,7 @@ class ImageFragment : Fragment(), CoroutineScope {
             assortmentIV.setOnClickListener { photoButtonListener(this, 2) }
             cornerIV.setOnClickListener { photoButtonListener(this, 3) }
 
-            finishButton.setOnClickListener { finishButtonListener(this) }
+            addPhotoButton.setOnClickListener { finishButtonListener(this) }
         }
     }
 

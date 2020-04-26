@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -20,7 +21,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.threeten.bp.*
-import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeFormatter.ISO_ZONED_DATE_TIME
 import org.threeten.bp.format.DateTimeFormatter.ofPattern
 import retrofit2.HttpException
@@ -46,6 +46,12 @@ fun textWatcher(afterTextChanged: (String) -> Unit): TextWatcher =
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    }
+
+var EditText.value: String
+    get() = this.text.toString()
+    set(value) {
+        this.setText(value)
     }
 
 fun showToast(v: View, text: String) {

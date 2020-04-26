@@ -1,16 +1,12 @@
-package studio.bz_soft.freightforwarder.ui.stores.store
+package studio.bz_soft.freightforwarder.ui.stores.edit
 
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
-import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
 
-class AddStorePresenter(
+class EditStorePresenter(
     private val repository: RepositoryInterface
-) : AddStoreInterface {
-
-    override fun getUserToken(): String? = repository.getUserToken()
-
+) : EditStoreInterface {
     override fun getImageOutside(): String? = repository.getImageOutside()
     override fun deleteImageOutside() {
         repository.deleteImageOutside()
@@ -31,9 +27,9 @@ class AddStorePresenter(
         repository.deleteImageCorner()
     }
 
-    override suspend fun saveSalesPoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?> =
-        repository.saveTradePoint(token, storePoint)
+    override suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel> =
+        repository.getTradePoint(token, id)
 
-    override suspend fun saveSalesPointToDB(tradePoint: TradePoint) =
-        repository.insertTradePoint(tradePoint)
+    override suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?> =
+        repository.updateTradePoint(token, id, storePoint)
 }

@@ -134,6 +134,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="DialogStyleCB" parent="BaseStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="ProfileHorizontalDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

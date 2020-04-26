@@ -42,17 +42,15 @@ class Repository(
 
     override fun getWorkStarted(): Boolean? = storage.getWorkStarted()
 
-    override fun setImagesSaved(isImagesSaved: Boolean) {
-        storage.setImagesSaved(isImagesSaved)
-    }
-
-    override fun getImagesSaved(): Boolean? = storage.getImagesSaved()
-
     override fun setImageOutside(image: String) {
         storage.setImageOutside(image)
     }
 
     override fun getImageOutside(): String? = storage.getImageOutside()
+
+    override fun deleteImageOutside() {
+        storage.deleteImageOutside()
+    }
 
     override fun setImageInside(image: String) {
         storage.setImageInside(image)
@@ -60,17 +58,29 @@ class Repository(
 
     override fun getImageInside(): String? = storage.getImageInside()
 
+    override fun deleteImageInside() {
+        storage.deleteImageInside()
+    }
+
     override fun setImageAssortment(image: String) {
         storage.setImageAssortment(image)
     }
 
     override fun getImageAssortment(): String? = storage.getImageAssortment()
 
+    override fun deleteImageAssortment() {
+        storage.deleteImageAssortment()
+    }
+
     override fun setImageCorner(image: String) {
         storage.setImageCorner(image)
     }
 
     override fun getImageCorner(): String? = storage.getImageCorner()
+
+    override fun deleteImageCorner() {
+        storage.deleteImageCorner()
+    }
 
     override fun setLatitude(latitude: String) {
         storage.setLatitude(latitude)
@@ -114,9 +124,16 @@ class Repository(
     override suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>> =
         safeRequest { client.getTradePointList(token) }
 
+    override suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel> =
+        safeRequest { client.getTradePoint(token, id) }
+
     override suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?> =
         safeRequest { client.updateTradePoint(token, id, storePoint) }
 
+    override suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Either<Exception, Unit?> =
+        safeRequest { client.syncTradePoint(token, listStorePoint) }
+
+    // DB functions
     override suspend fun insertLocation(location: Location) {
         database.insertLocation(location)
     }

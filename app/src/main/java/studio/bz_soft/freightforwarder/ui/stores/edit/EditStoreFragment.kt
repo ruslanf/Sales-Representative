@@ -1,4 +1,4 @@
-package studio.bz_soft.freightforwarder.ui.stores.store
+package studio.bz_soft.freightforwarder.ui.stores.edit
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -17,36 +17,36 @@ import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.dialog_products_range.view.*
 import kotlinx.android.synthetic.main.dialog_work_time.view.*
-import kotlinx.android.synthetic.main.fragment_add_store.*
-import kotlinx.android.synthetic.main.fragment_add_store.view.*
+import kotlinx.android.synthetic.main.fragment_edit_store.*
+import kotlinx.android.synthetic.main.fragment_edit_store.view.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
-import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
-import studio.bz_soft.freightforwarder.root.Constants.KEY_LATITUDE
-import studio.bz_soft.freightforwarder.root.Constants.KEY_LONGITUDE
-import studio.bz_soft.freightforwarder.root.Constants.KEY_WORK_STARTED
+import studio.bz_soft.freightforwarder.root.Constants.KEY_TOKEN
+import studio.bz_soft.freightforwarder.root.Constants.KEY_TRADE_POINT_ID
 import studio.bz_soft.freightforwarder.root.drawable
 import studio.bz_soft.freightforwarder.root.showError
-import studio.bz_soft.freightforwarder.root.showToast
 import studio.bz_soft.freightforwarder.root.textWatcher
+import studio.bz_soft.freightforwarder.root.value
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
-class AddStoreFragment : Fragment(), CoroutineScope {
+class EditStoreFragment : Fragment(), CoroutineScope {
 
-    private val logTag = AddStoreFragment::class.java.simpleName
+    private val logTag = EditStoreFragment::class.java.simpleName
 
-    private val presenter by inject<AddStorePresenter>()
+    private val presenter by inject<EditStorePresenter>()
 
     private var job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
-    private var token: String = EMPTY_STRING
+    private var token = EMPTY_STRING
+    private var tpId = 0
+    private var storePointModel: StorePointModel? = null
     private var ex: Exception? = null
 
     private var isStorePoint = false
@@ -100,24 +100,27 @@ class AddStoreFragment : Fragment(), CoroutineScope {
 
     private var storeName: String = EMPTY_STRING
     private var taxType: String = EMPTY_STRING
-    private var taxNumber: String = EMPTY_STRING
-    private var taxNumber1: String = EMPTY_STRING
+    private var taxNumberV: String = EMPTY_STRING
+    private var taxNumber1V: String = EMPTY_STRING
     private var actualAddress: String = EMPTY_STRING
     private var legalAddress: String = EMPTY_STRING
-    private var phone: String = EMPTY_STRING
-    private var email: String = EMPTY_STRING
-    private var lpr: String = EMPTY_STRING
-    private var payment: String = EMPTY_STRING
-    private var product: String = EMPTY_STRING
-    private var marketType: String = EMPTY_STRING
-    private var companyType: String = EMPTY_STRING
-    private var workTime: String = EMPTY_STRING
-    private var dealer: String = EMPTY_STRING
-    private var note: String = EMPTY_STRING
-    private var photoOutside: String = EMPTY_STRING
-    private var photoInside: String = EMPTY_STRING
-    private var photoGoods: String = EMPTY_STRING
-    private var photoCorner: String = EMPTY_STRING
+    private var phoneV: String = EMPTY_STRING
+    private var emailV: String = EMPTY_STRING
+    private var lprV: String = EMPTY_STRING
+    private var paymentV: String = EMPTY_STRING
+    private var productV: String = EMPTY_STRING
+    private var marketTypeV: String = EMPTY_STRING
+    private var companyTypeV: String = EMPTY_STRING
+    private var workTimeV: String = EMPTY_STRING
+    private var dealerV: String = EMPTY_STRING
+    private var noteV: String = EMPTY_STRING
+    private var photoOutsideV: String = EMPTY_STRING
+    private var photoInsideV: String = EMPTY_STRING
+    private var photoGoodsV: String = EMPTY_STRING
+    private var photoCornerV: String = EMPTY_STRING
+    private var latitudeV = 0.0
+    private var longitudeV = 0.0
+
 
     private val types: Array<String> = arrayOf("ИНН", "ООО", "ПАО", "ЗАО")
     private val payments: Array<String> = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
@@ -137,24 +140,17 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         "Сеть магазинов фереральная"
     )
 
-    private var isStoreSaved: Boolean = false
-    private var isWorkStarted: Boolean = false
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getBoolean(KEY_WORK_STARTED)?.let { isWorkStarted = it }
-        arguments?.getDouble(KEY_LATITUDE)?.let { latitude = it }
-        arguments?.getDouble(KEY_LONGITUDE)?.let { longitude = it }
-        presenter.getUserToken()?.let { token = it }
+        arguments?.getInt(KEY_TRADE_POINT_ID)?.let { tpId = it }
+        arguments?.getString(KEY_TOKEN)?.let { token = it }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_add_store, container, false)
+    ): View?  = inflater.inflate(R.layout.fragment_edit_store, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -171,6 +167,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             addTextWatcher(this, lprET, lprWatcher)
             addTextWatcher(this, dealerET, dealerWatcher)
 
+            loadTradePoint(this)
             productsRangeTV.setOnClickListener { productsRangeListener(this) }
             workTimeTV.setOnClickListener { workTimeListener(this) }
 
@@ -182,12 +179,6 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     override fun onResume() {
         super.onResume()
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.GONE
-        isStoreSaved = false
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // TODO Place check for store info saved or not if was started editing fields load from DB into fields
     }
 
     private fun loadSpinnersInfo(v: View) {
@@ -196,6 +187,190 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             paymentsSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, payments)
             marketTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, tradePointSize)
             companyTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, companyTypeArray)
+        }
+    }
+
+    private fun loadTradePoint(v: View) {
+        v.apply {
+            progressBar.visibility = View.VISIBLE
+            launch {
+                val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                    when (val r = presenter.getTradePoint(token, tpId)) {
+                        is Right -> { storePointModel = r.value }
+                        is Left -> { ex = r.value }
+                    }
+                }
+                request.await()
+                progressBar.visibility = View.GONE
+                ex?.let {
+                    showError(context, it, R.string.fragment_store_error_load_trade_point, logTag)
+                } ?: run {
+                    storePointModel?.let { fillTradePoint(this@apply, it) }
+                }
+            }
+        }
+    }
+
+    private fun fillTradePoint(v: View, model: StorePointModel) {
+        v.apply {
+            model.apply {
+                storePoint?.let {
+                    storeName = it
+                    nameStoreET.value = it
+                }
+                type?.let {
+                    taxType = it
+                    types.forEachIndexed { index, t ->
+                        if (t == it) typeSpinner.setSelection(index)
+                    }
+                }
+                taxNumber?.let {
+                    taxNumberV = it
+                    taxNumberET.value = it
+                }
+                taxNumber_1?.let {
+                    taxNumber1V = it
+                    taxNumber_1_ET.value = it
+                }
+                addressActual?.let {
+                    actualAddress = it
+                    actualAddressET.value = it
+                }
+                addressLegal?.let {
+                    legalAddress = it
+                    legalAddressET.value = it
+                }
+                phone?.let {
+                    phoneV = it
+                    phoneET.value = it
+                }
+                email?.let {
+                    emailV = it
+                    emailET.value = it
+                }
+                lprName?.let {
+                    lprV = it
+                    lprET.value = it
+                }
+                paymentType?.let {
+                    paymentV = it
+                    payments.forEachIndexed { index, t ->
+                        if (t == it) paymentsSpinner.setSelection(index)
+                    }
+                }
+                productsRange?.let {
+                    productV = it
+                    productsRangeTV.text = it
+                }
+                marketType?.let {
+                    marketTypeV = it
+                    tradePointSize.forEachIndexed { index, t ->
+                        if (t == it) marketTypeSpinner.setSelection(index)
+                    }
+                }
+                companyType?.let {
+                    companyTypeV = it
+                    companyTypeArray.forEachIndexed { index, t ->
+                        if (t == it) companyTypeSpinner.setSelection(index)
+                    }
+                }
+                workTime?.let {
+                    workTimeV = it
+                    workTimeTV.text = it
+                }
+                dealer?.let {
+                    dealerV = it
+                    dealerET.value = it
+                }
+                latitude?.let { latitudeV = it }
+                longitude?.let { longitudeV = it }
+                photoOutside?.let { photoOutsideV = it }
+                photoInside?.let { photoInsideV = it }
+                photoGoods?.let { photoGoodsV = it }
+                photoCorner?.let { photoCornerV = it }
+            }
+        }
+    }
+
+    private fun addPhotoListener(v: View) {
+        v.apply {
+            findNavController().navigate(R.id.imageFragment)
+        }
+    }
+
+    private fun saveStoreButtonListener(v: View) {
+        v.apply {
+            saveStoreInfoButton.isEnabled = false
+//            if (isStorePoint && isTax && isTax1 && isActualAddress &&
+//                isLegalAddress && isPhone && isEmail && isLpr && isDealer && isProductsRange &&
+//                isWorkTime) {
+                updateImageUrl()
+                setFields(this)
+                updateStoreIntoServer(this)
+//                removeImageUrl()
+                findNavController().navigateUp()
+//            } else showToast(this, getString(R.string.fragment_add_store_not_filled_error_message))
+            saveStoreInfoButton.isEnabled = true
+        }
+    }
+
+    private fun updateImageUrl() {
+        presenter.getImageOutside()?.let { photoOutsideV = it }
+        presenter.getImageInside()?.let { photoInsideV = it }
+        presenter.getImageAssortment()?.let { photoGoodsV = it }
+        presenter.getImageCorner()?.let { photoCornerV = it }
+    }
+
+    private fun removeImageUrl() {
+        presenter.deleteImageOutside()
+        presenter.deleteImageInside()
+        presenter.deleteImageAssortment()
+        presenter.deleteImageCorner()
+    }
+
+    private fun setFields(v: View) {
+        v.apply {
+            storeName = nameStoreET.text.toString()
+            taxType = typeSpinner.selectedItem.toString()
+            taxNumberV = taxNumberET.text.toString()
+            taxNumber1V = taxNumber_1_ET.text.toString()
+            actualAddress = actualAddressET.text.toString()
+            legalAddress = legalAddressET.text.toString()
+            phoneV = phoneET.text.toString()
+            emailV = emailET.text.toString()
+            lprV = lprET.text.toString()
+            paymentV = paymentsSpinner.selectedItem.toString()
+            marketTypeV = marketTypeSpinner.selectedItem.toString()
+            companyTypeV = companyTypeSpinner.selectedItem.toString()
+            dealerV = dealerET.text.toString()
+            noteV = noteET.text.toString()
+            productV = productsRangeTV.text.toString()
+            workTimeV = workTimeTV.text.toString()
+        }
+    }
+
+    private fun updateStoreIntoServer(v: View) {
+        v.apply {
+            ex = null
+            progressBar.visibility = View.VISIBLE
+            launch {
+                val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                    when (val r = presenter.updateTradePoint(token, tpId, StorePointModel(storeName, taxType,
+                        taxNumberV, taxNumber1V, actualAddress, legalAddress, phoneV, emailV, lprV,
+                        paymentV, productV, marketTypeV, companyTypeV, workTimeV, dealerV, noteV,
+                        latitudeV, longitudeV, photoOutsideV, photoInsideV, photoGoodsV, photoCornerV))) {
+                        is Right -> {  }
+                        is Left -> { ex = r.value }
+                    }
+                }
+                request.await()
+                progressBar.visibility = View.GONE
+                ex?.let {
+                    showError(context, it, R.string.fragment_add_store_update_error_message, logTag)
+                } ?: run {
+
+                }
+            }
         }
     }
 
@@ -218,104 +393,6 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                     }
                 )
             )
-        }
-    }
-
-    private fun addPhotoListener(v: View) {
-        v.apply {
-            findNavController().navigate(R.id.imageFragment)
-        }
-    }
-
-    private fun saveStoreButtonListener(v: View) {
-        v.apply {
-            saveStoreInfoButton.isEnabled = false
-            if (isStorePoint && isTax && isTax1 && isActualAddress &&
-                isLegalAddress && isPhone && isEmail && isLpr && isDealer && isProductsRange &&
-                    isWorkTime) {
-                updateImageUrl()
-                setFields(this)
-                saveStoreIntoServer(this)
-                saveStoreIntoDB(this)
-//                removeImageUrl()
-                findNavController().navigateUp()
-            } else showToast(this, getString(R.string.fragment_add_store_not_filled_error_message))
-            saveStoreInfoButton.isEnabled = true
-        }
-    }
-
-    private fun updateImageUrl() {
-        presenter.getImageOutside()?.let { photoOutside = it }
-        presenter.getImageInside()?.let { photoInside = it }
-        presenter.getImageAssortment()?.let { photoGoods = it }
-        presenter.getImageCorner()?.let { photoCorner = it }
-    }
-
-    private fun removeImageUrl() {
-        presenter.deleteImageOutside()
-        presenter.deleteImageInside()
-        presenter.deleteImageAssortment()
-        presenter.deleteImageCorner()
-    }
-
-    private fun setFields(v: View) {
-        v.apply {
-            storeName = nameStoreET.text.toString()
-            taxType = typeSpinner.selectedItem.toString()
-            taxNumber = taxNumberET.text.toString()
-            taxNumber1 = taxNumber_1_ET.text.toString()
-            actualAddress = actualAddressET.text.toString()
-            legalAddress = legalAddressET.text.toString()
-            phone = phoneET.text.toString()
-            email = emailET.text.toString()
-            lpr = lprET.text.toString()
-            payment = paymentsSpinner.selectedItem.toString()
-            product = productsRangeTV.text.toString()
-            marketType = marketTypeSpinner.selectedItem.toString()
-            companyType = companyTypeSpinner.selectedItem.toString()
-            workTime = workTimeTV.text.toString()
-            dealer = dealerET.text.toString()
-            note = noteET.text.toString()
-        }
-    }
-
-    private fun saveStoreIntoServer(v: View) {
-        v.apply {
-            ex = null
-            progressBar.visibility = View.VISIBLE
-            launch {
-                val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.saveSalesPoint(token, StorePointModel(storeName, taxType,
-                        taxNumber, taxNumber1, actualAddress, legalAddress, phone, email, lpr,
-                        payment, product, marketType, companyType, workTime, dealer, note,
-                        latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner))) {
-                        is Right -> {  }
-                        is Left -> { ex = r.value }
-                    }
-                }
-                request.await()
-                progressBar.visibility = View.GONE
-                ex?.let {
-                    showError(context, it, R.string.fragment_add_store_update_error_message, logTag)
-                } ?: run {
-
-                }
-            }
-        }
-    }
-
-    private fun saveStoreIntoDB(v: View) {
-        v.apply {
-            launch {
-                val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    presenter.saveSalesPointToDB(TradePoint(0, storeName, taxType, taxNumber,
-                        taxNumber1, actualAddress, legalAddress, phone, email, lpr,
-                        payment, product, marketType, companyType, workTime, dealer, note,
-                        latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner
-                    ))
-                }
-                request.await()
-            }
         }
     }
 
@@ -352,7 +429,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                 }
                 dialogView.setProductsRangeButton.setOnClickListener {
                     productsRangeButtonListener(this@apply, this,
-                    g0, g1, g2, g3, g4, g5)
+                        g0, g1, g2, g3, g4, g5)
                 }
                 show()
             }
@@ -369,6 +446,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             isProductsRange = products.isNotBlank()
         }
     }
+
 
     private fun workTimeListener(v: View) {
         v.apply {
@@ -427,11 +505,9 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     }
 
     companion object {
-        fun instance(isWorkStarted: Boolean, latitude: Double, longitude: Double): AddStoreFragment = AddStoreFragment().apply {
+        fun instance(id: Int): EditStoreFragment = EditStoreFragment().apply {
             arguments = Bundle().apply {
-                putBoolean(KEY_WORK_STARTED, isWorkStarted)
-                putDouble(KEY_LATITUDE, latitude)
-                putDouble(KEY_LONGITUDE, longitude)
+                putInt(KEY_TRADE_POINT_ID, id)
             }
         }
     }

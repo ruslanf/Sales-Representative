@@ -43,8 +43,16 @@ interface DataApiInterface {
     @GET("$BASE_API/trade_point")
     suspend fun getTradePointList(@Header("Authorization") token: String): List<StorePointModel>
 
+    @GET("$BASE_API/trade_point/{id}")
+    suspend fun getTradePoint(@Header("Authorization") token: String,
+                              @Path("id") id: Int): StorePointModel
+
     @PUT("$BASE_API/trade_point/{id}")
     fun updateTradePoint(@Header("Authorization") token: String,
                          @Path("id") id: Int,
                          @Body storePoint: StorePointModel): Call<Unit?>
+
+    @POST("$BASE_API/trade_point/sync")
+    fun syncTradePoint(@Header("Authorization") token: String,
+                       @Body listStorePoint: List<StorePointModel>): Call<Unit?>
 }

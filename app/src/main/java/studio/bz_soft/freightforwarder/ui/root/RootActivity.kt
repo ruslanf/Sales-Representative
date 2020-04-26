@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -24,32 +25,47 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.dialog_logout.view.*
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
+import studio.bz_soft.freightforwarder.data.http.Left
+import studio.bz_soft.freightforwarder.data.http.Right
+import studio.bz_soft.freightforwarder.data.models.StorePointModel
+import studio.bz_soft.freightforwarder.data.models.db.TradePoint
+import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_LOCATION
 import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_STORAGE
 import studio.bz_soft.freightforwarder.root.Constants.SERVICE_GPS_BROADCAST
 import studio.bz_soft.freightforwarder.root.Constants.SERVICE_GPS_MESSAGE
 import studio.bz_soft.freightforwarder.root.service.LocationReceiver
 import studio.bz_soft.freightforwarder.root.service.LocationService
+import studio.bz_soft.freightforwarder.root.showError
 import studio.bz_soft.freightforwarder.root.showToast
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
+import kotlin.coroutines.CoroutineContext
 
-class RootActivity : AppCompatActivity() {
+class RootActivity : AppCompatActivity(), CoroutineScope {
 
     private val logTag = RootActivity::class.java.simpleName
 
     private val controller by inject<RootController>()
 
+    private var job = Job()
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
+
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     private val locationReceiver = LocationReceiver()
+    private var token = EMPTY_STRING
+    private var ex: Exception? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         setSupportActionBar(toolbar)
+
+        controller.getUserToken()?.let { token = it }
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -183,6 +199,29 @@ class RootActivity : AppCompatActivity() {
     }
 
     private fun syncButtonListener() {
+        progressBar.visibility = View.VISIBLE
+        var list = emptyList<TradePoint>()
+        launch {
+            coroutineScope {
+                val db = async(SupervisorJob(job) + Dispatchers.IO) {
+                    list = controller.getAllFromTradePoint()
+                    list.forEach { Log.d(logTag, "sale point -> ${it.storePoint}") }
+                }
+                val ser = async(SupervisorJob(job) + Dispatchers.IO) {
+                    when (val r = controller.syncTradePoint(token, list as List<StorePointModel>)) {
+                        is Right -> {  }
+                        is Left -> { ex = r.value }
+                    }
+                }
+                db.await()
+                ser.await()
+            }
+            progressBar.visibility = View.GONE
+            ex?.let {
+                showError(this@RootActivity, it, R.string.root_sync_message_error, logTag)
+            } ?: run {
 
+            }
+        }
     }
 }

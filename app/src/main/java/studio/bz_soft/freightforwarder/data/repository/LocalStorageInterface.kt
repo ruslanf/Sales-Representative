@@ -12,16 +12,18 @@ interface LocalStorageInterface {
     fun setWorkStarted(isStarted: Boolean)
     fun getWorkStarted(): Boolean?
 
-    fun setImagesSaved(isImagesSaved: Boolean)
-    fun getImagesSaved(): Boolean?
     fun setImageOutside(image: String)
     fun getImageOutside(): String?
+    fun deleteImageOutside()
     fun setImageInside(image: String)
     fun getImageInside(): String?
+    fun deleteImageInside()
     fun setImageAssortment(image: String)
     fun getImageAssortment(): String?
+    fun deleteImageAssortment()
     fun setImageCorner(image: String)
     fun getImageCorner(): String?
+    fun deleteImageCorner()
 
     fun setTileSource(tileSource: String)
     fun getTileSource(): String?

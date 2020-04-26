@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_menuReports_to_addStoreFragment"
             app:destination="@id/addStoreFragment" />
+        <action
+            android:id="@+id/action_menuStores_to_editStoreFragment"
+            app:destination="@id/editStoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/addStoreFragment"
@@ -38,4 +41,9 @@
         android:name="studio.bz_soft.freightforwarder.ui.profile.ProfileFragment"
         android:label="@string/fragment_profile_title"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/editStoreFragment"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.edit.EditStoreFragment"
+        android:label="@string/fragment_edit_store_title"
+        tools:layout="@layout/fragment_edit_store" />
 </navigation>

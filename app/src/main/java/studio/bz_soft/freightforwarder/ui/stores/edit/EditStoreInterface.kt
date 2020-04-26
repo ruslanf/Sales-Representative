@@ -1,11 +1,9 @@
-package studio.bz_soft.freightforwarder.ui.stores.store
+package studio.bz_soft.freightforwarder.ui.stores.edit
 
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
-import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 
-interface AddStoreInterface {
-    fun getUserToken(): String?
+interface EditStoreInterface {
     fun getImageOutside(): String?
     fun deleteImageOutside()
     fun getImageInside(): String?
@@ -14,6 +12,7 @@ interface AddStoreInterface {
     fun deleteImageAssortment()
     fun getImageCorner(): String?
     fun deleteImageCorner()
-    suspend fun saveSalesPoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?>
-    suspend fun saveSalesPointToDB(tradePoint: TradePoint)
+
+    suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel>
+    suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?>
 }

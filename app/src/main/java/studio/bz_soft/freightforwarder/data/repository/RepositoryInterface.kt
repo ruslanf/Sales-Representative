@@ -19,16 +19,18 @@ interface RepositoryInterface {
     fun setWorkStarted(isStarted: Boolean)
     fun getWorkStarted(): Boolean?
 
-    fun setImagesSaved(isImagesSaved: Boolean)
-    fun getImagesSaved(): Boolean?
     fun setImageOutside(image: String)
     fun getImageOutside(): String?
+    fun deleteImageOutside()
     fun setImageInside(image: String)
     fun getImageInside(): String?
+    fun deleteImageInside()
     fun setImageAssortment(image: String)
     fun getImageAssortment(): String?
+    fun deleteImageAssortment()
     fun setImageCorner(image: String)
     fun getImageCorner(): String?
+    fun deleteImageCorner()
 
     fun setLatitude(latitude: String)
     fun getLatitude(): String?
@@ -48,7 +50,9 @@ interface RepositoryInterface {
     suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
     suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?>
     suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>>
+    suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel>
     suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?>
+    suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Either<Exception, Unit?>
 
     // DB functions
     suspend fun insertLocation(location: Location)

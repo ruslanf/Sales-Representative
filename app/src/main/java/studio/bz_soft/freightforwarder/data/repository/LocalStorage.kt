@@ -5,15 +5,14 @@ import studio.bz_soft.freightforwarder.root.Constants.IMAGE_ASSORTMENT
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_CORNER
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_INSIDE
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_OUTSIDE
-import studio.bz_soft.freightforwarder.root.Constants.IS_IMAGES_SAVED
 import studio.bz_soft.freightforwarder.root.Constants.IS_WORK_STARTED
 import studio.bz_soft.freightforwarder.root.Constants.LATITUDE
 import studio.bz_soft.freightforwarder.root.Constants.LONGITUDE
 import studio.bz_soft.freightforwarder.root.Constants.ORIENTATION
 import studio.bz_soft.freightforwarder.root.Constants.TILE_SOURCE
-import studio.bz_soft.freightforwarder.root.Constants.ZOOM_LEVEL
 import studio.bz_soft.freightforwarder.root.Constants.USER_ID
 import studio.bz_soft.freightforwarder.root.Constants.USER_TOKEN
+import studio.bz_soft.freightforwarder.root.Constants.ZOOM_LEVEL
 
 class LocalStorage(
     private val preferences: SharedPreferences
@@ -45,17 +44,15 @@ class LocalStorage(
 
     override fun getWorkStarted(): Boolean? = preferences.getBoolean(IS_WORK_STARTED, false)
 
-    override fun setImagesSaved(isImagesSaved: Boolean) {
-        preferences.edit().putBoolean(IS_IMAGES_SAVED, isImagesSaved).apply()
-    }
-
-    override fun getImagesSaved(): Boolean? = preferences.getBoolean(IS_IMAGES_SAVED, false)
-
     override fun setImageOutside(image: String) {
         preferences.edit().putString(IMAGE_OUTSIDE, image).apply()
     }
 
     override fun getImageOutside(): String? = preferences.getString(IMAGE_OUTSIDE, null)
+
+    override fun deleteImageOutside() {
+        preferences.edit().remove(IMAGE_OUTSIDE).apply()
+    }
 
     override fun setImageInside(image: String) {
         preferences.edit().putString(IMAGE_INSIDE, image).apply()
@@ -63,17 +60,29 @@ class LocalStorage(
 
     override fun getImageInside(): String? = preferences.getString(IMAGE_INSIDE, null)
 
+    override fun deleteImageInside() {
+        preferences.edit().remove(IMAGE_INSIDE).apply()
+    }
+
     override fun setImageAssortment(image: String) {
         preferences.edit().putString(IMAGE_ASSORTMENT, image).apply()
     }
 
     override fun getImageAssortment(): String? = preferences.getString(IMAGE_ASSORTMENT, null)
 
+    override fun deleteImageAssortment() {
+        preferences.edit().remove(IMAGE_ASSORTMENT).apply()
+    }
+
     override fun setImageCorner(image: String) {
         preferences.edit().putString(IMAGE_CORNER, image).apply()
     }
 
     override fun getImageCorner(): String? = preferences.getString(IMAGE_CORNER, null)
+
+    override fun deleteImageCorner() {
+        preferences.edit().remove(IMAGE_CORNER).apply()
+    }
 
     override fun setTileSource(tileSource: String) {
         preferences.edit().putString(TILE_SOURCE, tileSource).apply()

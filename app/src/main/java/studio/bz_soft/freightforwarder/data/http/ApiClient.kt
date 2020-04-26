@@ -77,8 +77,14 @@ class ApiClient(
     override suspend fun getTradePointList(token: String): List<StorePointModel> =
         apiClient.getTradePointList(modifiedToken(token))
 
+    override suspend fun getTradePoint(token: String, id: Int): StorePointModel =
+        apiClient.getTradePoint(modifiedToken(token), id)
+
     override suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Unit? =
         apiClient.updateTradePoint(modifiedToken(token), id, storePoint).await()
+
+    override suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Unit? =
+        apiClient.syncTradePoint(token, listStorePoint).await()
 
     private fun modifiedToken(token: String): String = "Bearer $token"
 }

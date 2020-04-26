@@ -64,7 +64,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_rounded_standard"
+        android:background="@drawable/button_rounded_green"
         android:text="@string/fragment_stores_add_store_button"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"

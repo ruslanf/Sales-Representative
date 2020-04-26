@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/finishButton"
+        app:layout_constraintBottom_toTopOf="@+id/addPhotoButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -225,13 +225,13 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/finishButton"
+        android:id="@+id/addPhotoButton"
         style="@style/AuthButton"
         android:layout_width="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/button_rounded_standard"
+        android:background="@drawable/button_rounded_orange"
         android:text="@string/fragment_add_store_image_finish_button"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"

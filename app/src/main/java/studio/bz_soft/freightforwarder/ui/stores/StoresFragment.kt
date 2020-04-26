@@ -23,6 +23,8 @@ import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.KEY_LATITUDE
 import studio.bz_soft.freightforwarder.root.Constants.KEY_LONGITUDE
+import studio.bz_soft.freightforwarder.root.Constants.KEY_TOKEN
+import studio.bz_soft.freightforwarder.root.Constants.KEY_TRADE_POINT_ID
 import studio.bz_soft.freightforwarder.root.Constants.KEY_WORK_STARTED
 import studio.bz_soft.freightforwarder.root.delegated.DelegateAdapter
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
@@ -41,7 +43,13 @@ class StoresFragment : Fragment(), CoroutineScope {
     private var storePointModel: List<StorePointModel>? = null
     private var ex: Exception? = null
 
-    private val tradePointAdapter = DelegateAdapter(TradePointItemDelegate {})
+    private val tradePointAdapter = DelegateAdapter(TradePointItemDelegate { tradePoint ->
+        val bundle = bundleOf(
+            KEY_TRADE_POINT_ID to tradePoint.id,
+            KEY_TOKEN to token
+        )
+        view?.findNavController()?.navigate(R.id.editStoreFragment, bundle)
+    })
 
     private var recyclerViewState: Parcelable? = null
     private var position = 0

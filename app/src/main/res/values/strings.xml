@@ -23,6 +23,8 @@
     <string name="auth_exit_title">Exit</string>
     <string name="db_synchronize">Synchronize</string>
 
+    <string name="root_sync_message_error">Syncing error!!!</string>
+
     <string name="fragment_route_title">Outlets</string>
     <string name="fragment_route_start_of_shift">Start of shift</string>
     <string name="fragment_route_end_of_shift">End of shift</string>
@@ -55,6 +57,12 @@
     <string name="fragment_add_store_lpr">LPR</string>
     <string name="fragment_add_store_payment_type">Payment type</string>
     <string name="fragment_add_store_products_range">Products range</string>
+    <string name="product_0">Семена и посадочный материал</string>
+    <string name="product_1">Товары для дома</string>
+    <string name="product_2">Товары для сада</string>
+    <string name="product_3">Товары для животных</string>
+    <string name="product_4">Товары для праздника</string>
+    <string name="product_5">Товары для отдыха</string>
     <string name="fragment_add_store_market_type">Market type</string>
     <string name="fragment_add_store_company_type">Company type</string>
     <string name="fragment_add_store_work_time">Work time</string>
@@ -67,6 +75,7 @@
     <string name="fragment_add_store_image_corner">Corner</string>
     <string name="fragment_add_store_image_finish_button">Finish</string>
     <string name="fragment_add_store_image_cancel_button">Cancel</string>
+    <string name="fragment_add_store_update_error_message">Error saving trade point into server</string>
 
     <string name="fragment_edit_store_title">Edit trade point</string>
 
@@ -104,6 +113,8 @@
     <string name="content_profile_button">Profile</string>
     <string name="content_profile_exit">Profile exit</string>
     <string name="content_user_photo">User photo</string>
+
+    <string name="string_colon" translatable="false">:</string>
 
     <string name="gps_service_error_message_no_location_permission">Enable LOCATION ACCESS in settings.</string>
 

@@ -24,6 +24,8 @@
     <string name="auth_exit_title">Выход</string>
     <string name="db_synchronize">Синхронизировать</string>
 
+    <string name="root_sync_message_error">Ошибка синхронизации!!!</string>
+
     <string name="fragment_route_title">Торговые точки</string>
     <string name="fragment_route_start_of_shift">Начало смены</string>
     <string name="fragment_route_end_of_shift">Конец смены</string>
@@ -52,10 +54,15 @@
     <string name="fragment_add_store_address_actual">Фактический адрес</string>
     <string name="fragment_add_store_address_legal">Юридический адрес</string>
     <string name="fragment_add_store_phone">Телефон</string>
-<!--    <string name="fragment_add_store_email">e-mail</string>-->
     <string name="fragment_add_store_lpr">ЛПР</string>
     <string name="fragment_add_store_payment_type">Форма оплаты</string>
     <string name="fragment_add_store_products_range">Ассортимент</string>
+    <string name="product_0">Семена и посадочный материал</string>
+    <string name="product_1">Товары для дома</string>
+    <string name="product_2">Товары для сада</string>
+    <string name="product_3">Товары для животных</string>
+    <string name="product_4">Товары для праздника</string>
+    <string name="product_5">Товары для отдыха</string>
     <string name="fragment_add_store_market_type">Размер торговой точки</string>
     <string name="fragment_add_store_company_type">Вид компании</string>
     <string name="fragment_add_store_work_time">Рабочее время</string>
@@ -68,6 +75,7 @@
     <string name="fragment_add_store_image_corner">Уголок</string>
     <string name="fragment_add_store_image_finish_button">Закончить</string>
     <string name="fragment_add_store_image_cancel_button">Отменить</string>
+    <string name="fragment_add_store_update_error_message">Ошибка сохранения информации на сервере</string>
 
     <string name="fragment_edit_store_title">Редактирование торговой точки</string>
 
