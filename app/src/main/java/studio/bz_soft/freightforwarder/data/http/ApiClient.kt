@@ -71,6 +71,9 @@ class ApiClient(
     override suspend fun uploadImage(token: String, image: MultipartBody.Part): List<ImageModel> =
         apiClient.uploadImage(modifiedToken(token), image)
 
+    override suspend fun sendLocation(token: String, location: LocationModel): Unit? =
+        apiClient.sendLocation(modifiedToken(token), location).await()
+
     override suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Unit? =
         apiClient.saveTradePoint(modifiedToken(token), storePoint).await()
 
@@ -84,7 +87,7 @@ class ApiClient(
         apiClient.updateTradePoint(modifiedToken(token), id, storePoint).await()
 
     override suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Unit? =
-        apiClient.syncTradePoint(token, listStorePoint).await()
+        apiClient.syncTradePoint(modifiedToken(token), listStorePoint).await()
 
     private fun modifiedToken(token: String): String = "Bearer $token"
 }

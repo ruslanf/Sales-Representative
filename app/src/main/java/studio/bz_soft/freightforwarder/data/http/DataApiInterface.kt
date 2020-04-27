@@ -36,6 +36,10 @@ interface DataApiInterface {
     suspend fun uploadImage(@Header("Authorization") token: String,
                             @Part image: MultipartBody.Part): List<ImageModel>
 
+    @POST("$BASE_API/track")
+    fun sendLocation(@Header("Authorization") token: String,
+                     @Body location: LocationModel): Call<Unit?>
+
     @POST("$BASE_API/trade_point")
     fun saveTradePoint(@Header("Authorization") token: String,
                        @Body storePoint: StorePointModel): Call<Unit?>

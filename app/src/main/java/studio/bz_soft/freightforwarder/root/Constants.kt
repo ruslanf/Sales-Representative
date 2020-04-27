@@ -39,6 +39,7 @@ object Constants {
     const val OUT_DATE_FORMATTER = "dd.MM.yyyy"
     const val IN_DATE_FORMATTER = "yyyy-MM-dd"
     const val DATE_FORMATTER = "dd.MM.yyyy"
+    const val WS_DATE_FORMATTER = "dd.MM.yy"
     const val TIME_FORMATTER = "HH:mm"
     const val TIME_STAMP_FORMATTER = "yyyy-MM-dd_HHmm"
 
@@ -56,7 +57,7 @@ object Constants {
     const val IMAGE_DESC_ASSORTMENT = 2
     const val IMAGE_DESC_CORNER = 3
 
-    const val MIN_TIME = 30 * 1000L
+    const val MIN_TIME = 6 * 10 * 1000L
     const val MIN_DISTANCE = 0f
 
     const val SERVICE_GPS_MESSAGE = "GPS Service started..."

@@ -48,6 +48,7 @@ interface RepositoryInterface {
     suspend fun updateProfile(token: String, userProfile: UserProfileModel): Either<Exception, Unit?>
 
     suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
+    suspend fun sendLocation(token: String, location: LocationModel): Either<Exception, Unit?>
     suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?>
     suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>>
     suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel>

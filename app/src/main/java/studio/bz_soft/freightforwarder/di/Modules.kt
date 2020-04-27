@@ -12,7 +12,7 @@ import studio.bz_soft.freightforwarder.data.http.ApiClientInterface
 import studio.bz_soft.freightforwarder.data.repository.*
 import studio.bz_soft.freightforwarder.root.App
 import studio.bz_soft.freightforwarder.root.Constants.API_MAIN_URL
-import studio.bz_soft.freightforwarder.root.service.LocationPresenter
+import studio.bz_soft.freightforwarder.root.service.LocationController
 import studio.bz_soft.freightforwarder.ui.auth.AuthPresenter
 import studio.bz_soft.freightforwarder.ui.profile.ProfilePresenter
 import studio.bz_soft.freightforwarder.ui.root.RootController
@@ -46,11 +46,11 @@ val presenterModule = module {
     single { EditStorePresenter(get()) }
     single { ImagePresenter(get()) }
     single { ProfilePresenter(get()) }
-    single { LocationPresenter(get()) }
 }
 
 val controllerModule = module {
     single { RootController(get()) }
+    single { LocationController(get()) }
 }
 
 val navigationModule = module {  }

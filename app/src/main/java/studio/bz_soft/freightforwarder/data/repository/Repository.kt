@@ -118,6 +118,9 @@ class Repository(
     override suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>> =
         safeRequest { client.uploadImage(token, image) }
 
+    override suspend fun sendLocation(token: String, location: LocationModel): Either<Exception, Unit?> =
+        safeRequest { client.sendLocation(token, location) }
+
     override suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?> =
         safeRequest { client.saveTradePoint(token, storePoint) }
 

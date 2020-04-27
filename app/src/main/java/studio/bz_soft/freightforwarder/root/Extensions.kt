@@ -32,6 +32,7 @@ import studio.bz_soft.freightforwarder.root.Constants.IN_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.OUT_DATE_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.TIME_FORMATTER
 import studio.bz_soft.freightforwarder.root.Constants.TIME_STAMP_FORMATTER
+import studio.bz_soft.freightforwarder.root.Constants.WS_DATE_FORMATTER
 import java.io.File
 import java.io.IOException
 import java.net.URL
@@ -141,6 +142,9 @@ fun formattedTime(time: LocalTime): String =
 
 fun formattedDate(date: LocalDate): String =
     date.format(ofPattern(DATE_FORMATTER))
+
+fun formattedWSDate(date: LocalDate): String =
+    date.format(ofPattern(WS_DATE_FORMATTER))
 
 //fun parseChronometer(c: Context, milliseconds: Long): String =
 //    c.getString(R.string.chronometer_time).format(milliseconds / 1000 / 60, milliseconds / 1000 % 60)
