@@ -261,6 +261,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
                 productsRange?.let {
                     productV = it
                     productsRangeTV.text = it
+                    setCorrectIcon(v, productsIV, it.isNotBlank())
                 }
                 marketType?.let {
                     marketTypeV = it

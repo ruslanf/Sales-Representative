@@ -55,16 +55,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerView00" />
 
-            <ImageView
-                android:id="@+id/typeCorrectIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/typeSpinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/typeSpinner"
-                app:srcCompat="@drawable/ic_incorrect" />
-
             <View
                 android:id="@+id/dividerView01"
                 style="@style/ProfileHorizontalDivider"
@@ -283,16 +273,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerView08" />
 
-            <ImageView
-                android:id="@+id/paymentsIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/paymentsSpinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/paymentsSpinner"
-                app:srcCompat="@drawable/ic_incorrect" />
-
             <View
                 android:id="@+id/dividerView09"
                 style="@style/ProfileHorizontalDivider"
@@ -340,16 +320,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerView10" />
 
-            <ImageView
-                android:id="@+id/marketTypeIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/marketTypeSpinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/marketTypeSpinner"
-                app:srcCompat="@drawable/ic_incorrect" />
-
             <View
                 android:id="@+id/dividerView11"
                 style="@style/ProfileHorizontalDivider"
@@ -367,16 +337,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dividerView11" />
-
-            <ImageView
-                android:id="@+id/companyTypeIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/companyTypeSpinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/companyTypeSpinner"
-                app:srcCompat="@drawable/ic_incorrect" />
 
             <View
                 android:id="@+id/dividerView12"

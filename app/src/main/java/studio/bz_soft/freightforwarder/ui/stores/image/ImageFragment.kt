@@ -96,7 +96,7 @@ class ImageFragment : Fragment(), CoroutineScope {
             selected = select
             val intentTakePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val image = createImageFile()
-            Log.d(logTag, "File image => ${image.absolutePath}")
+            if (BuildConfig.DEBUG) Log.d(logTag, "File image => ${image.absolutePath}")
             imagePath = "DCIM/Camera/${fileName(image.toString())}"
             intentTakePicture.putExtra(MediaStore.EXTRA_OUTPUT,
                 FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", image))
@@ -106,8 +106,9 @@ class ImageFragment : Fragment(), CoroutineScope {
 
     private fun finishButtonListener(v: View) {
         v.apply {
-            if (isOutside && isInside && isAssortment && isCorner) findNavController().navigateUp()
-            else showToast(this, getString(R.string.fragment_image_error))
+            findNavController().navigateUp()
+//            if (isOutside && isInside && isAssortment && isCorner) findNavController().navigateUp()
+//            else showToast(this, getString(R.string.fragment_image_error))
         }
     }
 
