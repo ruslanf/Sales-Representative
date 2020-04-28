@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,7 +30,6 @@ import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
-import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_LOCATION
 import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_STORAGE
@@ -200,21 +198,25 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
 
     private fun syncButtonListener() {
         progressBar.visibility = View.VISIBLE
-        var list = emptyList<TradePoint>()
+        val points = mutableListOf<StorePointModel>()
         launch {
             coroutineScope {
-                val db = async(SupervisorJob(job) + Dispatchers.IO) {
-                    list = controller.getAllFromTradePoint()
-                    list.forEach { Log.d(logTag, "sale point -> ${it.storePoint}") }
-                }
-                val ser = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = controller.syncTradePoint(token, list as List<StorePointModel>)) {
+                val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                    val list = controller.getAllFromTradePoint()
+                    list.forEach {  tp ->
+                        points.add(StorePointModel(tp.storePoint, tp.type, tp.taxNumber, tp.taxNumber_1,
+                            tp.addressActual, tp.addressLegal, tp.phone, tp.email, tp.lprName,
+                            tp.paymentType, tp.productsRange, tp.marketType, tp.companyType, tp.workTime,
+                            tp.dealer, tp.note, tp.latitude, tp.longitude, tp.photoOutside, tp.photoInside,
+                            tp.photoGoods, tp.photoCorner)
+                        )
+                    }
+                    when (val r = controller.syncTradePoint(token, points)) {
                         is Right -> {  }
                         is Left -> { ex = r.value }
                     }
                 }
-                db.await()
-                ser.await()
+                request.await()
             }
             progressBar.visibility = View.GONE
             ex?.let {
