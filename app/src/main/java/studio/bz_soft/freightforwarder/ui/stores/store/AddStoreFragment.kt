@@ -50,16 +50,16 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var ex: Exception? = null
 
     private var isStorePoint = false
-    private var isTax = false
-    private var isTax1 = false
+//    private var isTax = false
+//    private var isTax1 = false
     private var isActualAddress = false
-    private var isLegalAddress = false
-    private var isPhone = false
-    private var isEmail = false
-    private var isLpr = false
-    private var isDealer = false
+//    private var isLegalAddress = false
+//    private var isPhone = false
+//    private var isEmail = false
+//    private var isLpr = false
+//    private var isDealer = false
     private var isProductsRange = false
-    private var isWorkTime = false
+//    private var isWorkTime = false
 
     private val storePointNameWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, nameStoreIV, text.isNotEmpty()) }
@@ -67,11 +67,11 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     }
     private val taxNumberWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, taxNumberIV, text.isNotEmpty()) }
-        isTax = text.isNotEmpty()
+//        isTax = text.isNotEmpty()
     }
     private val taxNumber1Watcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, taxNumber_1_IV, text.isNotEmpty()) }
-        isTax1 = text.isNotEmpty()
+//        isTax1 = text.isNotEmpty()
     }
     private val actualAddressWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, actualAddressIV, text.isNotEmpty()) }
@@ -79,23 +79,27 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     }
     private val legalAddressWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, legalAddressIV, text.isNotEmpty()) }
-        isLegalAddress = text.isNotEmpty()
+//        isLegalAddress = text.isNotEmpty()
     }
     private val phoneWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, phoneIV, text.isNotEmpty()) }
-        isPhone = text.isNotEmpty()
+//        isPhone = text.isNotEmpty()
     }
     private val emailWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, emailIV, text.isNotEmpty()) }
-        isEmail = text.isNotEmpty()
+//        isEmail = text.isNotEmpty()
     }
     private val lprWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, lprIV, text.isNotEmpty()) }
-        isLpr = text.isNotEmpty()
+//        isLpr = text.isNotEmpty()
     }
     private val dealerWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, dealerIV, text.isNotEmpty()) }
-        isDealer = text.isNotEmpty()
+//        isDealer = text.isNotEmpty()
+    }
+    private val noteWatcher = textWatcher { text ->
+        view?.let { setCorrectIcon(it, noteIV, text.isNotEmpty()) }
+//        isDealer = text.isNotEmpty()
     }
 
     private var storeName: String = EMPTY_STRING
@@ -119,7 +123,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var photoGoods: String = EMPTY_STRING
     private var photoCorner: String = EMPTY_STRING
 
-    private val types: Array<String> = arrayOf("ИНН", "ООО", "ПАО", "ЗАО")
+    private val types: Array<String> = arrayOf("ИП", "ИНН", "ООО", "ПАО", "ЗАО")
     private val payments: Array<String> = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
     private val assortment: Array<String> = arrayOf(
         "Семена и посадочный материал",
@@ -170,6 +174,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             addTextWatcher(this, emailET, emailWatcher)
             addTextWatcher(this, lprET, lprWatcher)
             addTextWatcher(this, dealerET, dealerWatcher)
+            addTextWatcher(this, noteET, noteWatcher)
 
             productsRangeTV.setOnClickListener { productsRangeListener(this) }
             workTimeTV.setOnClickListener { workTimeListener(this) }
@@ -193,6 +198,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun loadSpinnersInfo(v: View) {
         v.apply {
             typeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, types)
+            typeSpinner.prompt = "Организационно-правовая форма"
             paymentsSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, payments)
             marketTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, tradePointSize)
             companyTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, companyTypeArray)
@@ -230,16 +236,23 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun saveStoreButtonListener(v: View) {
         v.apply {
             saveStoreInfoButton.isEnabled = false
-            if (isStorePoint && isTax && isTax1 && isActualAddress &&
-                isLegalAddress && isPhone && isEmail && isLpr && isDealer && isProductsRange &&
-                    isWorkTime) {
-                updateImageUrl()
-                setFields(this)
-                saveStoreIntoServer(this)
-                saveStoreIntoDB(this)
+            when (isStorePoint) {
+                true -> when (isActualAddress) {
+                    true -> when (isProductsRange) {
+                        true -> {
+                            updateImageUrl()
+                            setFields(this)
+                            saveStoreIntoServer(this)
+                            saveStoreIntoDB(this)
 //                removeImageUrl()
-                findNavController().navigateUp()
-            } else showToast(this, getString(R.string.fragment_add_store_not_filled_error_message))
+                            findNavController().navigateUp()
+                        }
+                        false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_assortment))
+                    }
+                    false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_address))
+                }
+                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_point))
+            }
             saveStoreInfoButton.isEnabled = true
         }
     }
@@ -365,6 +378,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             alertDialog?.dismiss()
             val products = "$g0 $g1 $g2 $g3 $g4 $g5"
             productsRangeTV.text = if (products.isNotBlank()) products else getString(R.string.fragment_add_store_products_range)
+            productsRangeTV.isFocusable = true
             setCorrectIcon(this, productsIV, products.isNotBlank())
             isProductsRange = products.isNotBlank()
         }
@@ -422,7 +436,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             alertDialog?.dismiss()
             val workTime = "$startH:$startM $endH:$endM"
             workTimeTV.text = workTime
-            isWorkTime = true
+            workTimeTV.isFocusable = true
+//            isWorkTime = true
         }
     }
 

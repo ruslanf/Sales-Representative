@@ -58,6 +58,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     private var isEmail = false
     private var isLpr = false
     private var isDealer = false
+    private var isNote = false
     private var isProductsRange = false
     private var isWorkTime = false
 
@@ -98,6 +99,11 @@ class EditStoreFragment : Fragment(), CoroutineScope {
         isDealer = text.isNotEmpty()
     }
 
+    private val noteWatcher = textWatcher { text ->
+        view?.let { setCorrectIcon(it, noteIV, text.isNotEmpty()) }
+        isNote = text.isNotEmpty()
+    }
+
     private var storeName: String = EMPTY_STRING
     private var taxType: String = EMPTY_STRING
     private var taxNumberV: String = EMPTY_STRING
@@ -122,7 +128,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     private var longitudeV = 0.0
 
 
-    private val types: Array<String> = arrayOf("ИНН", "ООО", "ПАО", "ЗАО")
+    private val types: Array<String> = arrayOf("ИП", "ИНН", "ООО", "ПАО", "ЗАО")
     private val payments: Array<String> = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
     private val assortment: Array<String> = arrayOf(
         "Семена и посадочный материал",
@@ -166,6 +172,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             addTextWatcher(this, emailET, emailWatcher)
             addTextWatcher(this, lprET, lprWatcher)
             addTextWatcher(this, dealerET, dealerWatcher)
+            addTextWatcher(this, noteET, noteWatcher)
 
             loadTradePoint(this)
             productsRangeTV.setOnClickListener { productsRangeListener(this) }
@@ -184,6 +191,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     private fun loadSpinnersInfo(v: View) {
         v.apply {
             typeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, types)
+            typeSpinner.prompt = "Организационно-правовая форма"
             paymentsSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, payments)
             marketTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, tradePointSize)
             companyTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, companyTypeArray)
@@ -282,6 +290,10 @@ class EditStoreFragment : Fragment(), CoroutineScope {
                 dealer?.let {
                     dealerV = it
                     dealerET.value = it
+                }
+                note?.let {
+                    noteV = it
+                    noteET.value = it
                 }
                 latitude?.let { latitudeV = it }
                 longitude?.let { longitudeV = it }
