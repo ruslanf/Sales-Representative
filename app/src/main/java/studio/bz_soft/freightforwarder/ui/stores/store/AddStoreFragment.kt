@@ -124,18 +124,25 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var photoGoods: String = EMPTY_STRING
     private var photoCorner: String = EMPTY_STRING
 
-    private val types: Array<String> = arrayOf("ИП", "ООО", "ПАО", "ЗАО")
-    private val payments: Array<String> = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
+    private var g0 = EMPTY_STRING
+    private var g1 = EMPTY_STRING
+    private var g2 = EMPTY_STRING
+    private var g3 = EMPTY_STRING
+    private var g4 = EMPTY_STRING
+    private var g5 = EMPTY_STRING
+
+    private val types: Array<String> = arrayOf("Организационно-правовая форма", "ИП", "ООО", "ПАО", "ЗАО")
+    private val payments: Array<String> = arrayOf("Форма оплаты", "Безнал. с НДС", "Безнал. без НДС", "Наличная")
     private val assortment: Array<String> = arrayOf(
         "Семена и посадочный материал",
         "Товары для дома", "Товары для сада", "Товары для животных",
         "Товары для праздника", "Товары для отдыха"
     )
-    private val tradePointSize: Array<String> = arrayOf(
+    private val tradePointSize: Array<String> = arrayOf("Размер торговой точки",
         "Палатка, отдел либо магазин до 20 кв.м.",
         "Магазин от 20 до 100 кв.м.", "Магазин от 100 до 300 кв.м.", "Магазин свыше 300 кв.м."
     )
-    private val companyTypeArray: Array<String> = arrayOf(
+    private val companyTypeArray: Array<String> = arrayOf("Вид компании",
         "Единичный розничный магазин", "Несколько розничных магазинов у одного собственника",
         "Оптово-розничная компания региональная", "Оптово-розничная федеральная компания ",
         "Сеть магазинов региональная",
@@ -165,6 +172,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
             loadSpinnersInfo(this)
+            setTopScrollView(this)
+            fixScroll(this)
 
             addTextWatcher(this, nameStoreET, storePointNameWatcher)
             addTextWatcher(this, taxNumberET, taxNumberWatcher)
@@ -191,9 +200,18 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         isStoreSaved = false
     }
 
-    override fun onPause() {
-        super.onPause()
-        // TODO Place check for store info saved or not if was started editing fields load from DB into fields
+    private fun fixScroll(v: View) {
+        v.apply {
+            scrollView.apply {
+                descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+                isFocusable = true
+                isFocusableInTouchMode = true
+                setOnTouchListener { view, _ ->
+                    view.requestFocusFromTouch()
+                    false
+                }
+            }
+        }
     }
 
     private fun setTopScrollView(v: View) {
@@ -210,7 +228,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun loadSpinnersInfo(v: View) {
         v.apply {
             typeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, types)
-            typeSpinner.prompt = "Организационно-правовая форма"
+//            typeSpinner.prompt = "Организационно-правовая форма"
             paymentsSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, payments)
             marketTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, tradePointSize)
             companyTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, companyTypeArray)
@@ -248,18 +266,23 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun saveStoreButtonListener(v: View) {
         v.apply {
             saveStoreInfoButton.isEnabled = false
+            updateImageUrl()
+            setFields(this)
             when (isStorePoint) {
                 true -> when (isActualAddress) {
                     true -> when (isProductsRange) {
                         true -> {
-                            updateImageUrl()
-                            setFields(this)
-                            saveStoreIntoServer(this)
-                            saveStoreIntoDB(this)
+                            when (marketType.isNotBlank()) {
+                                true -> {
+                                    saveStoreIntoServer(this)
+                                    saveStoreIntoDB(this)
 //                removeImageUrl()
-                            findNavController().navigateUp()
+                                    findNavController().navigateUp()
+                                }
+                                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_maket_type) )
+                            }
                         }
-                        false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_assortment))
+                        false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_assortment) )
                     }
                     false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_address))
                 }
@@ -286,7 +309,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun setFields(v: View) {
         v.apply {
             storeName = nameStoreET.text.toString()
-            taxType = typeSpinner.selectedItem.toString()
+            taxType = if (typeSpinner.selectedItemPosition != 0) typeSpinner.selectedItem.toString() else EMPTY_STRING
             taxNumber = taxNumberET.text.toString()
             taxNumber1 = taxNumber_1_ET.text.toString()
             actualAddress = actualAddressET.text.toString()
@@ -294,10 +317,10 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             phone = phoneET.text.toString()
             email = emailET.text.toString()
             lpr = lprET.text.toString()
-            payment = paymentsSpinner.selectedItem.toString()
+            payment = if (paymentsSpinner.selectedItemPosition != 0) paymentsSpinner.selectedItem.toString() else EMPTY_STRING
             product = productsRangeTV.text.toString()
-            marketType = marketTypeSpinner.selectedItem.toString()
-            companyType = companyTypeSpinner.selectedItem.toString()
+            marketType = if (marketTypeSpinner.selectedItemPosition != 0) marketTypeSpinner.selectedItem.toString() else EMPTY_STRING
+            companyType = if (companyTypeSpinner.selectedItemPosition !=0) companyTypeSpinner.selectedItem.toString() else EMPTY_STRING
             workTime = workTimeTV.text.toString()
             dealer = dealerET.text.toString()
             note = noteET.text.toString()
@@ -351,41 +374,39 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             with(alertDialog) {
                 setView(dialogView)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                var g0 = EMPTY_STRING
-                var g1 = EMPTY_STRING
-                var g2 = EMPTY_STRING
-                var g3 = EMPTY_STRING
-                var g4 = EMPTY_STRING
-                var g5 = EMPTY_STRING
-                dialogView.goods0CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g0 = assortment[0].plus(",")
+                dialogView.goods0CB.isChecked = g0.isNotBlank()
+                dialogView.goods1CB.isChecked = g1.isNotBlank()
+                dialogView.goods2CB.isChecked = g2.isNotBlank()
+                dialogView.goods3CB.isChecked = g3.isNotBlank()
+                dialogView.goods4CB.isChecked = g4.isNotBlank()
+                dialogView.goods5CB.isChecked = g5.isNotBlank()
+                dialogView.goods0CB.goods0CB.setOnCheckedChangeListener { _, isChecked ->
+                    g0 = if (isChecked) assortment[0].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods1CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g1 = assortment[1].plus(",")
+                    g1 = if (isChecked) assortment[1].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods2CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g2 = assortment[2].plus(",")
+                    g2 = if (isChecked) assortment[2].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods3CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g3 = assortment[3].plus(",")
+                    g3 = if (isChecked) assortment[3].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods4CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g4 = assortment[4].plus(",")
+                    g4 = if (isChecked) assortment[4].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods5CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g5 = assortment[5]
+                    g5 = if (isChecked) assortment[5] else EMPTY_STRING
                 }
                 dialogView.setProductsRangeButton.setOnClickListener {
-                    productsRangeButtonListener(this@apply, this,
-                    g0, g1, g2, g3, g4, g5)
+                    productsRangeButtonListener(this@apply, this)
                 }
                 show()
             }
         }
     }
 
-    private fun productsRangeButtonListener(v: View, alertDialog: AlertDialog?, g0: String, g1: String,
-                                            g2: String, g3: String, g4: String, g5: String) {
+    private fun productsRangeButtonListener(v: View, alertDialog: AlertDialog?) {
         v.apply {
             alertDialog?.dismiss()
             val products = "$g0 $g1 $g2 $g3 $g4 $g5"

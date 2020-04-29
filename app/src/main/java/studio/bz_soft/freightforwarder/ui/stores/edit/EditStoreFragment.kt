@@ -63,6 +63,13 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     private var isProductsRange = false
     private var isWorkTime = false
 
+    private var g0 = EMPTY_STRING
+    private var g1 = EMPTY_STRING
+    private var g2 = EMPTY_STRING
+    private var g3 = EMPTY_STRING
+    private var g4 = EMPTY_STRING
+    private var g5 = EMPTY_STRING
+
     private val storePointNameWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, nameStoreIV, text.isNotEmpty()) }
         isStorePoint = text.isNotEmpty()
@@ -163,6 +170,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
             setTopScrollView(this)
+            fixScroll(this)
             loadSpinnersInfo(this)
 
             addTextWatcher(this, nameStoreET, storePointNameWatcher)
@@ -188,6 +196,20 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     override fun onResume() {
         super.onResume()
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.GONE
+    }
+
+    private fun fixScroll(v: View) {
+        v.apply {
+            scrollView.apply {
+                descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+                isFocusable = true
+                isFocusableInTouchMode = true
+                setOnTouchListener { view, _ ->
+                    view.requestFocusFromTouch()
+                    false
+                }
+            }
+        }
     }
 
     private fun setTopScrollView(v: View) {
@@ -283,6 +305,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
                     productV = it
                     productsRangeTV.text = it
                     setCorrectIcon(v, productsIV, it.isNotBlank())
+                    parseProductRange(it)
                 }
                 marketType?.let {
                     marketTypeV = it
@@ -314,6 +337,22 @@ class EditStoreFragment : Fragment(), CoroutineScope {
                 photoInside?.let { photoInsideV = it }
                 photoGoods?.let { photoGoodsV = it }
                 photoCorner?.let { photoCornerV = it }
+            }
+        }
+    }
+
+    private fun parseProductRange(products: String) {
+        val list = products.split(",").toList()
+        assortment.forEachIndexed { index, s ->
+            list.forEach {
+                if (s == it) when (index) {
+                    0 -> g0 = s
+                    1 -> g1 = s
+                    2 -> g2 = s
+                    3 -> g3 = s
+                    4 -> g4 = s
+                    5 -> g5 = s
+                }
             }
         }
     }
@@ -429,41 +468,39 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             with(alertDialog) {
                 setView(dialogView)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                var g0 = EMPTY_STRING
-                var g1 = EMPTY_STRING
-                var g2 = EMPTY_STRING
-                var g3 = EMPTY_STRING
-                var g4 = EMPTY_STRING
-                var g5 = EMPTY_STRING
+                dialogView.goods0CB.isChecked = g0.isNotBlank()
+                dialogView.goods1CB.isChecked = g1.isNotBlank()
+                dialogView.goods2CB.isChecked = g2.isNotBlank()
+                dialogView.goods3CB.isChecked = g3.isNotBlank()
+                dialogView.goods4CB.isChecked = g4.isNotBlank()
+                dialogView.goods5CB.isChecked = g5.isNotBlank()
                 dialogView.goods0CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g0 = assortment[0].plus(",")
+                    g0 = if (isChecked) assortment[0].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods1CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g1 = assortment[1].plus(",")
+                    g1 = if (isChecked) assortment[1].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods2CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g2 = assortment[2].plus(",")
+                    g2 = if (isChecked) assortment[2].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods3CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g3 = assortment[3].plus(",")
+                    g3 = if (isChecked) assortment[3].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods4CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g4 = assortment[4].plus(",")
+                    g4 = if (isChecked) assortment[4].plus(",") else EMPTY_STRING
                 }
                 dialogView.goods5CB.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) g5 = assortment[5]
+                    g5 = if (isChecked) assortment[5] else EMPTY_STRING
                 }
                 dialogView.setProductsRangeButton.setOnClickListener {
-                    productsRangeButtonListener(this@apply, this,
-                        g0, g1, g2, g3, g4, g5)
+                    productsRangeButtonListener(this@apply, this)
                 }
                 show()
             }
         }
     }
 
-    private fun productsRangeButtonListener(v: View, alertDialog: AlertDialog?, g0: String, g1: String,
-                                            g2: String, g3: String, g4: String, g5: String) {
+    private fun productsRangeButtonListener(v: View, alertDialog: AlertDialog?) {
         v.apply {
             alertDialog?.dismiss()
             val products = "$g0 $g1 $g2 $g3 $g4 $g5"

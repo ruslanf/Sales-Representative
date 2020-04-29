@@ -68,9 +68,10 @@
     <string name="fragment_add_store_work_time">Work time</string>
     <string name="fragment_add_store_dealer">Dealer</string>
     <string name="fragment_add_store_note">Note</string>
-    <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнен название торговой точки…</string>
+    <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнено название торговой точки…</string>
     <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен адрес…</string>
     <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
+    <string name="fragment_add_store_not_filled_error_message_maket_type">Ошибка! Не указан размер торговой точки…</string>
     <string name="fragment_add_store_image_outside">Outside</string>
     <string name="fragment_add_store_image_inside">Inside</string>
     <string name="fragment_add_store_image_assortment">Assortment</string>
