@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -128,9 +129,9 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     private var longitudeV = 0.0
 
 
-    private val types: Array<String> = arrayOf("ИП", "ИНН", "ООО", "ПАО", "ЗАО")
-    private val payments: Array<String> = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
-    private val assortment: Array<String> = arrayOf(
+    private val types = arrayOf("ИП", "ООО", "ПАО", "ЗАО")
+    private val payments = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
+    private val assortment = arrayOf(
         "Семена и посадочный материал",
         "Товары для дома", "Товары для сада", "Товары для животных",
         "Товары для праздника", "Товары для отдыха"
@@ -161,6 +162,7 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
+            setTopScrollView(this)
             loadSpinnersInfo(this)
 
             addTextWatcher(this, nameStoreET, storePointNameWatcher)
@@ -186,6 +188,17 @@ class EditStoreFragment : Fragment(), CoroutineScope {
     override fun onResume() {
         super.onResume()
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.GONE
+    }
+
+    private fun setTopScrollView(v: View) {
+        v.apply {
+            scrollView.postDelayed(Runnable {
+                scrollView.apply {
+                    fullScroll(ScrollView.FOCUS_UP)
+                    scrollTo(0, 0)
+                }
+            }, 100L)
+        }
     }
 
     private fun loadSpinnersInfo(v: View) {

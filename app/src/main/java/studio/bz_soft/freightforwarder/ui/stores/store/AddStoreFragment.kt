@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -123,7 +124,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var photoGoods: String = EMPTY_STRING
     private var photoCorner: String = EMPTY_STRING
 
-    private val types: Array<String> = arrayOf("ИП", "ИНН", "ООО", "ПАО", "ЗАО")
+    private val types: Array<String> = arrayOf("ИП", "ООО", "ПАО", "ЗАО")
     private val payments: Array<String> = arrayOf("Безнал. с НДС", "Безнал. без НДС", "Наличная")
     private val assortment: Array<String> = arrayOf(
         "Семена и посадочный материал",
@@ -193,6 +194,17 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     override fun onPause() {
         super.onPause()
         // TODO Place check for store info saved or not if was started editing fields load from DB into fields
+    }
+
+    private fun setTopScrollView(v: View) {
+        v.apply {
+            scrollView.postDelayed(Runnable {
+                scrollView.apply {
+                    fullScroll(ScrollView.FOCUS_UP)
+                    scrollTo(0, 0)
+                }
+            }, 100L)
+        }
     }
 
     private fun loadSpinnersInfo(v: View) {
