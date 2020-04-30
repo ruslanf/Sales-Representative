@@ -71,7 +71,7 @@
     <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнен название торговой точки…</string>
     <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен адрес…</string>
     <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
-    <string name="fragment_add_store_not_filled_error_message_maket_type">Ошибка! Не указан размер торговой точки…</string>
+    <string name="fragment_add_store_not_filled_error_message_market_type">Ошибка! Не указан размер торговой точки…</string>
     <string name="fragment_add_store_image_outside">Снаружи</string>
     <string name="fragment_add_store_image_inside">Внутри</string>
     <string name="fragment_add_store_image_assortment">Асортимент</string>
@@ -117,4 +117,9 @@
     <string name="content_user_photo">Фото пользователя</string>
 
     <string name="gps_service_error_message_no_location_permission">Включите ДОСТУП К МЕСТОПОЛОЖЕНИЮ в настройках.</string>
+    <string name="gps_service_open_location_service_gps_error_title">Сервис МЕСТОПОЛОЖЕНИЯ не включен!</string>
+    <string name="gps_service_open_location_service_message">Открыть настройки МЕСТОПОЛОЖЕНИЯ</string>
+    <string name="gps_service_open_location_service_positive_button">Открыть</string>
+    <string name="gps_service_open_location_service_negative_button">Отмена</string>
+
 </resources>

@@ -3,12 +3,15 @@ package studio.bz_soft.freightforwarder.ui.root
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -48,6 +51,8 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
 
     private val controller by inject<RootController>()
 
+    private var locationManager : LocationManager? = null
+
     private var job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
@@ -62,6 +67,8 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
         setSupportActionBar(toolbar)
+
+        initialize()
 
         controller.getUserToken()?.let { token = it }
 
@@ -91,6 +98,7 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         LocationService.stopService(this)
+        locationManager = null
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -165,6 +173,29 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION),
                 PERMISSION_REQUEST_LOCATION)
+        }
+    }
+
+    private fun initialize() {
+        locationManager?.let {  } ?: run {
+            locationManager = applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        }
+        checkLocationEnabled()
+    }
+
+    private fun checkLocationEnabled() {
+        locationManager?.let {
+            val isGpsEnabled = it.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            val isNetworkEnabled = it.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+            if (!isGpsEnabled && !isNetworkEnabled) {
+                AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.gps_service_open_location_service_gps_error_title))
+                    .setPositiveButton(getString(R.string.gps_service_open_location_service_message)) { _, _ ->
+                        startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                    }
+                    .setNegativeButton(getString(R.string.gps_service_open_location_service_negative_button), null)
+                    .show()
+            }
         }
     }
 

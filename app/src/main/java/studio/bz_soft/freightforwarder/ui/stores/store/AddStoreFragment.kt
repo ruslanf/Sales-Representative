@@ -279,7 +279,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
 //                removeImageUrl()
                                     findNavController().navigateUp()
                                 }
-                                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_maket_type) )
+                                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_market_type) )
                             }
                         }
                         false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_assortment) )

@@ -71,7 +71,7 @@
     <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнено название торговой точки…</string>
     <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен адрес…</string>
     <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
-    <string name="fragment_add_store_not_filled_error_message_maket_type">Ошибка! Не указан размер торговой точки…</string>
+    <string name="fragment_add_store_not_filled_error_message_market_type">Ошибка! Не указан размер торговой точки…</string>
     <string name="fragment_add_store_image_outside">Outside</string>
     <string name="fragment_add_store_image_inside">Inside</string>
     <string name="fragment_add_store_image_assortment">Assortment</string>
@@ -120,6 +120,10 @@
     <string name="string_colon" translatable="false">:</string>
 
     <string name="gps_service_error_message_no_location_permission">Enable LOCATION ACCESS in settings.</string>
+    <string name="gps_service_open_location_service_gps_error_title">Location service is not Enabled!</string>
+    <string name="gps_service_open_location_service_message">Open Location service</string>
+    <string name="gps_service_open_location_service_positive_button">Open</string>
+    <string name="gps_service_open_location_service_negative_button">Cancel</string>
 
     <!--  -->
     <string name="open_map_contributors" translatable="false">© OpenStreetMap contributors</string>
