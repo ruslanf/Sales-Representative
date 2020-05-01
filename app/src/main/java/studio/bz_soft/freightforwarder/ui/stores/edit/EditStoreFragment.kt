@@ -175,15 +175,15 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             loadSpinnersInfo(this)
 
             addTextWatcher(this, nameStoreET, storePointNameWatcher)
-            addTextWatcher(this, taxNumberET, taxNumberWatcher)
-            addTextWatcher(this, taxNumber_1_ET, taxNumber1Watcher)
+//            addTextWatcher(this, taxNumberET, taxNumberWatcher)
+//            addTextWatcher(this, taxNumber_1_ET, taxNumber1Watcher)
             addTextWatcher(this, actualAddressET, actualAddressWatcher)
-            addTextWatcher(this, legalAddressET, legalAddressWatcher)
-            addTextWatcher(this, phoneET, phoneWatcher)
-            addTextWatcher(this, emailET, emailWatcher)
-            addTextWatcher(this, lprET, lprWatcher)
-            addTextWatcher(this, dealerET, dealerWatcher)
-            addTextWatcher(this, noteET, noteWatcher)
+//            addTextWatcher(this, legalAddressET, legalAddressWatcher)
+//            addTextWatcher(this, phoneET, phoneWatcher)
+//            addTextWatcher(this, emailET, emailWatcher)
+//            addTextWatcher(this, lprET, lprWatcher)
+//            addTextWatcher(this, dealerET, dealerWatcher)
+//            addTextWatcher(this, noteET, noteWatcher)
 
             loadTradePoint(this)
             productsRangeTV.setOnClickListener { productsRangeListener(this) }

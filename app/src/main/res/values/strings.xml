@@ -45,7 +45,7 @@
 
     <string name="fragment_add_store_title">Add Store</string>
     <string name="fragment_add_store_add_photo_button">Add photo</string>
-    <string name="fragment_add_store_save_info_button">Save Info</string>
+    <string name="fragment_add_store_save_info_button">Save</string>
     <string name="fragment_add_store_name_of_outlet">Name of outlet</string>
     <string name="fragment_add_store_type">Type</string>
     <string name="fragment_add_store_tax_number">ITN</string>
@@ -69,7 +69,7 @@
     <string name="fragment_add_store_dealer">Dealer</string>
     <string name="fragment_add_store_note">Note</string>
     <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнено название торговой точки…</string>
-    <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен адрес…</string>
+    <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен фактический адрес…</string>
     <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
     <string name="fragment_add_store_not_filled_error_message_market_type">Ошибка! Не указан размер торговой точки…</string>
     <string name="fragment_add_store_image_outside">Outside</string>
