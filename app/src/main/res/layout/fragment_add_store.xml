@@ -36,7 +36,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/nameStoreET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/nameStoreET"
-                app:srcCompat="@drawable/ic_stop" />
+                app:srcCompat="@drawable/ic_incorrect_new" />
 
             <View
                 android:id="@+id/dividerView00"
@@ -142,7 +142,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/actualAddressET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/actualAddressET"
-                app:srcCompat="@drawable/ic_stop" />
+                app:srcCompat="@drawable/ic_incorrect_new" />
 
             <View
                 android:id="@+id/dividerView04"
@@ -307,7 +307,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/productsRangeTV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/productsRangeTV"
-                app:srcCompat="@drawable/ic_stop" />
+                app:srcCompat="@drawable/ic_incorrect_new" />
 
             <View
                 android:id="@+id/dividerView10"
