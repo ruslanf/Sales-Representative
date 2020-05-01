@@ -236,9 +236,9 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
                     val list = controller.getAllFromTradePoint()
                     list.forEach {  tp ->
                         points.add(StorePointModel(tp.storePoint, tp.type, tp.taxNumber, tp.taxNumber_1,
-                            tp.addressActual, tp.addressLegal, tp.phone, tp.email, tp.lprName,
-                            tp.paymentType, tp.productsRange, tp.marketType, tp.companyType, tp.workTime,
-                            tp.dealer, tp.note, tp.latitude, tp.longitude, tp.photoOutside, tp.photoInside,
+                            tp.addressActual, tp.latitude, tp.longitude, tp.addressLegal, tp.phone,
+                            tp.email, tp.lprName, tp.paymentType, tp.productsRange, tp.marketType,
+                            tp.companyType, tp.workTime, tp.dealer, tp.note,  tp.photoOutside, tp.photoInside,
                             tp.photoGoods, tp.photoCorner)
                         )
                     }

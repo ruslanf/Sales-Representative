@@ -112,26 +112,27 @@ class EditStoreFragment : Fragment(), CoroutineScope {
         isNote = text.isNotEmpty()
     }
 
-    private var storeName: String = EMPTY_STRING
-    private var taxType: String = EMPTY_STRING
-    private var taxNumberV: String = EMPTY_STRING
-    private var taxNumber1V: String = EMPTY_STRING
-    private var actualAddress: String = EMPTY_STRING
-    private var legalAddress: String = EMPTY_STRING
-    private var phoneV: String = EMPTY_STRING
-    private var emailV: String = EMPTY_STRING
-    private var lprV: String = EMPTY_STRING
-    private var paymentV: String = EMPTY_STRING
-    private var productV: String = EMPTY_STRING
-    private var marketTypeV: String = EMPTY_STRING
-    private var companyTypeV: String = EMPTY_STRING
-    private var workTimeV: String = EMPTY_STRING
-    private var dealerV: String = EMPTY_STRING
-    private var noteV: String = EMPTY_STRING
-    private var photoOutsideV: String = EMPTY_STRING
-    private var photoInsideV: String = EMPTY_STRING
-    private var photoGoodsV: String = EMPTY_STRING
-    private var photoCornerV: String = EMPTY_STRING
+    private var storeName = EMPTY_STRING
+    private var taxType = EMPTY_STRING
+    private var taxNumberV = EMPTY_STRING
+    private var taxNumber1V = EMPTY_STRING
+    private var actualAddress = EMPTY_STRING
+    private var legalAddress = EMPTY_STRING
+    private var phoneV = EMPTY_STRING
+    private var emailV = EMPTY_STRING
+    private var lprV = EMPTY_STRING
+    private var paymentV = EMPTY_STRING
+    private var productV = EMPTY_STRING
+    private var productList = mutableListOf<Int>()
+    private var marketTypeV = EMPTY_STRING
+    private var companyTypeV = EMPTY_STRING
+    private var workTimeV = EMPTY_STRING
+    private var dealerV = EMPTY_STRING
+    private var noteV = EMPTY_STRING
+    private var photoOutsideV = EMPTY_STRING
+    private var photoInsideV = EMPTY_STRING
+    private var photoGoodsV = EMPTY_STRING
+    private var photoCornerV = EMPTY_STRING
     private var latitudeV = 0.0
     private var longitudeV = 0.0
 
@@ -302,10 +303,10 @@ class EditStoreFragment : Fragment(), CoroutineScope {
                     }
                 }
                 productsRange?.let {
-                    productV = it
-                    productsRangeTV.text = it
-                    setCorrectIcon(v, productsIV, it.isNotBlank())
+                    productList.addAll(it)
                     parseProductRange(it)
+                    productV = productsRangeTV.text.toString()
+                    setCorrectIcon(v, productsIV, productV.isNotBlank())
                 }
                 marketType?.let {
                     marketTypeV = it
@@ -341,20 +342,19 @@ class EditStoreFragment : Fragment(), CoroutineScope {
         }
     }
 
-    private fun parseProductRange(products: String) {
-        val list = products.split(",").toList()
-        assortment.forEachIndexed { index, s ->
-            list.forEach {
-                if (s == it) when (index) {
-                    0 -> g0 = s
-                    1 -> g1 = s
-                    2 -> g2 = s
-                    3 -> g3 = s
-                    4 -> g4 = s
-                    5 -> g5 = s
-                }
+    private fun parseProductRange(list: List<Int>) {
+        list.forEach {
+            when (it) {
+                1 -> g0 = assortment[0]
+                2 -> g1 = assortment[1]
+                3 -> g2 = assortment[2]
+                4 -> g3 = assortment[3]
+                5 -> g4 = assortment[4]
+                6 -> g5 = assortment[5]
             }
         }
+        val p = "$g0 $g1 $g2 $g3 $g4 $g5"
+        productsRangeTV.text = p
     }
 
     private fun addPhotoListener(v: View) {
@@ -420,10 +420,11 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             progressBar.visibility = View.VISIBLE
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.updateTradePoint(token, tpId, StorePointModel(storeName, taxType,
-                        taxNumberV, taxNumber1V, actualAddress, legalAddress, phoneV, emailV, lprV,
-                        paymentV, productV, marketTypeV, companyTypeV, workTimeV, dealerV, noteV,
-                        latitudeV, longitudeV, photoOutsideV, photoInsideV, photoGoodsV, photoCornerV))) {
+                    when (val r = presenter.updateTradePoint(token, tpId, StorePointModel(storeName,
+                        taxType, taxNumberV, taxNumber1V, actualAddress, latitudeV, longitudeV,
+                        legalAddress, phoneV, emailV, lprV, paymentV, productList, marketTypeV,
+                        companyTypeV, workTimeV, dealerV, noteV, photoOutsideV, photoInsideV,
+                        photoGoodsV, photoCornerV))) {
                         is Right -> {  }
                         is Left -> { ex = r.value }
                     }
@@ -453,8 +454,8 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             image.setImageDrawable(
                 drawable(this,
                     when (isCorrect) {
-                        true -> R.drawable.ic_correct
-                        false -> R.drawable.ic_incorrect
+                        true -> R.drawable.ic_correct_new
+                        false -> R.drawable.ic_incorrect_new
                     }
                 )
             )
@@ -474,23 +475,30 @@ class EditStoreFragment : Fragment(), CoroutineScope {
                 dialogView.goods3CB.isChecked = g3.isNotBlank()
                 dialogView.goods4CB.isChecked = g4.isNotBlank()
                 dialogView.goods5CB.isChecked = g5.isNotBlank()
+                productList.clear()
                 dialogView.goods0CB.setOnCheckedChangeListener { _, isChecked ->
                     g0 = if (isChecked) assortment[0].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(1)
                 }
                 dialogView.goods1CB.setOnCheckedChangeListener { _, isChecked ->
                     g1 = if (isChecked) assortment[1].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(2)
                 }
                 dialogView.goods2CB.setOnCheckedChangeListener { _, isChecked ->
                     g2 = if (isChecked) assortment[2].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(3)
                 }
                 dialogView.goods3CB.setOnCheckedChangeListener { _, isChecked ->
                     g3 = if (isChecked) assortment[3].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(4)
                 }
                 dialogView.goods4CB.setOnCheckedChangeListener { _, isChecked ->
                     g4 = if (isChecked) assortment[4].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(5)
                 }
                 dialogView.goods5CB.setOnCheckedChangeListener { _, isChecked ->
                     g5 = if (isChecked) assortment[5] else EMPTY_STRING
+                    if (isChecked) productList.add(6)
                 }
                 dialogView.setProductsRangeButton.setOnClickListener {
                     productsRangeButtonListener(this@apply, this)

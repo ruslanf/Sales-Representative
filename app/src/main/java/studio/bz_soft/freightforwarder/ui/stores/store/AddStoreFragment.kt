@@ -51,16 +51,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var ex: Exception? = null
 
     private var isStorePoint = false
-//    private var isTax = false
-//    private var isTax1 = false
     private var isActualAddress = false
-//    private var isLegalAddress = false
-//    private var isPhone = false
-//    private var isEmail = false
-//    private var isLpr = false
-//    private var isDealer = false
     private var isProductsRange = false
-//    private var isWorkTime = false
 
     private val storePointNameWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, nameStoreIV, text.isNotEmpty()) }
@@ -68,11 +60,9 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     }
     private val taxNumberWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, taxNumberIV, text.isNotEmpty()) }
-//        isTax = text.isNotEmpty()
     }
     private val taxNumber1Watcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, taxNumber_1_IV, text.isNotEmpty()) }
-//        isTax1 = text.isNotEmpty()
     }
     private val actualAddressWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, actualAddressIV, text.isNotEmpty()) }
@@ -80,49 +70,44 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     }
     private val legalAddressWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, legalAddressIV, text.isNotEmpty()) }
-//        isLegalAddress = text.isNotEmpty()
     }
     private val phoneWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, phoneIV, text.isNotEmpty()) }
-//        isPhone = text.isNotEmpty()
     }
     private val emailWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, emailIV, text.isNotEmpty()) }
-//        isEmail = text.isNotEmpty()
     }
     private val lprWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, lprIV, text.isNotEmpty()) }
-//        isLpr = text.isNotEmpty()
     }
     private val dealerWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, dealerIV, text.isNotEmpty()) }
-//        isDealer = text.isNotEmpty()
     }
     private val noteWatcher = textWatcher { text ->
         view?.let { setCorrectIcon(it, noteIV, text.isNotEmpty()) }
-//        isDealer = text.isNotEmpty()
     }
 
-    private var storeName: String = EMPTY_STRING
-    private var taxType: String = EMPTY_STRING
-    private var taxNumber: String = EMPTY_STRING
-    private var taxNumber1: String = EMPTY_STRING
-    private var actualAddress: String = EMPTY_STRING
-    private var legalAddress: String = EMPTY_STRING
-    private var phone: String = EMPTY_STRING
-    private var email: String = EMPTY_STRING
-    private var lpr: String = EMPTY_STRING
-    private var payment: String = EMPTY_STRING
-    private var product: String = EMPTY_STRING
-    private var marketType: String = EMPTY_STRING
-    private var companyType: String = EMPTY_STRING
-    private var workTime: String = EMPTY_STRING
-    private var dealer: String = EMPTY_STRING
-    private var note: String = EMPTY_STRING
-    private var photoOutside: String = EMPTY_STRING
-    private var photoInside: String = EMPTY_STRING
-    private var photoGoods: String = EMPTY_STRING
-    private var photoCorner: String = EMPTY_STRING
+    private var storeName = EMPTY_STRING
+    private var taxType = EMPTY_STRING
+    private var taxNumber = EMPTY_STRING
+    private var taxNumber1 = EMPTY_STRING
+    private var actualAddress = EMPTY_STRING
+    private var legalAddress = EMPTY_STRING
+    private var phone = EMPTY_STRING
+    private var email = EMPTY_STRING
+    private var lpr = EMPTY_STRING
+    private var payment = EMPTY_STRING
+    private var product = EMPTY_STRING
+    private var productList = mutableListOf<Int>()
+    private var marketType = EMPTY_STRING
+    private var companyType = EMPTY_STRING
+    private var workTime = EMPTY_STRING
+    private var dealer = EMPTY_STRING
+    private var note = EMPTY_STRING
+    private var photoOutside = EMPTY_STRING
+    private var photoInside = EMPTY_STRING
+    private var photoGoods = EMPTY_STRING
+    private var photoCorner = EMPTY_STRING
 
     private var g0 = EMPTY_STRING
     private var g1 = EMPTY_STRING
@@ -228,7 +213,6 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun loadSpinnersInfo(v: View) {
         v.apply {
             typeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, types)
-//            typeSpinner.prompt = "Организационно-правовая форма"
             paymentsSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, payments)
             marketTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, tradePointSize)
             companyTypeSpinner.adapter = ArrayAdapter(context, R.layout.spinner_item_start, companyTypeArray)
@@ -249,8 +233,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             image.setImageDrawable(
                 drawable(this,
                     when (isCorrect) {
-                        true -> R.drawable.ic_correct
-                        false -> R.drawable.ic_incorrect
+                        true -> R.drawable.ic_correct_new
+                        false -> R.drawable.ic_incorrect_new
                     }
                 )
             )
@@ -334,9 +318,9 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
                     when (val r = presenter.saveSalesPoint(token, StorePointModel(storeName, taxType,
-                        taxNumber, taxNumber1, actualAddress, legalAddress, phone, email, lpr,
-                        payment, product, marketType, companyType, workTime, dealer, note,
-                        latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner))) {
+                        taxNumber, taxNumber1, actualAddress, latitude, longitude, legalAddress,
+                        phone, email, lpr, payment, productList, marketType, companyType, workTime,
+                        dealer, note, photoOutside, photoInside, photoGoods, photoCorner))) {
                         is Right -> {  }
                         is Left -> { ex = r.value }
                     }
@@ -358,7 +342,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
                     presenter.saveSalesPointToDB(TradePoint(0, storeName, taxType, taxNumber,
                         taxNumber1, actualAddress, legalAddress, phone, email, lpr,
-                        payment, product, marketType, companyType, workTime, dealer, note,
+                        payment, productList, marketType, companyType, workTime, dealer, note,
                         latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner
                     ))
                 }
@@ -380,23 +364,30 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                 dialogView.goods3CB.isChecked = g3.isNotBlank()
                 dialogView.goods4CB.isChecked = g4.isNotBlank()
                 dialogView.goods5CB.isChecked = g5.isNotBlank()
+                productList.clear()
                 dialogView.goods0CB.goods0CB.setOnCheckedChangeListener { _, isChecked ->
                     g0 = if (isChecked) assortment[0].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(1)
                 }
                 dialogView.goods1CB.setOnCheckedChangeListener { _, isChecked ->
                     g1 = if (isChecked) assortment[1].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(2)
                 }
                 dialogView.goods2CB.setOnCheckedChangeListener { _, isChecked ->
                     g2 = if (isChecked) assortment[2].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(3)
                 }
                 dialogView.goods3CB.setOnCheckedChangeListener { _, isChecked ->
                     g3 = if (isChecked) assortment[3].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(4)
                 }
                 dialogView.goods4CB.setOnCheckedChangeListener { _, isChecked ->
                     g4 = if (isChecked) assortment[4].plus(",") else EMPTY_STRING
+                    if (isChecked) productList.add(5)
                 }
                 dialogView.goods5CB.setOnCheckedChangeListener { _, isChecked ->
                     g5 = if (isChecked) assortment[5] else EMPTY_STRING
+                    if (isChecked) productList.add(6)
                 }
                 dialogView.setProductsRangeButton.setOnClickListener {
                     productsRangeButtonListener(this@apply, this)
@@ -470,7 +461,6 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             val workTime = "$startH:$startM $endH:$endM"
             workTimeTV.text = workTime
             workTimeTV.isFocusable = true
-//            isWorkTime = true
         }
     }
 

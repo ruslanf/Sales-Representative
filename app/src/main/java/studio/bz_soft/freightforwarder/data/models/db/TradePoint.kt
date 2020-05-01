@@ -17,7 +17,7 @@ class TradePoint(
     @ColumnInfo(name = "contact_mail") val email: String,
     @ColumnInfo(name = "lpr") val lprName: String,
     @ColumnInfo(name = "payment_type") val paymentType: String,   // Enum ["Безнал. НДС", "Безнал. без НДС", "Наличные"]
-    @ColumnInfo(name = "products_range") val productsRange: String,     // Enum []
+    @ColumnInfo(name = "products_range") val productsRange: List<Int>,     // Enum []
     @ColumnInfo(name = "market_type") val marketType: String,     // Enum []
     @ColumnInfo(name = "company_type") val companyType: String,   // Enum []
     @ColumnInfo(name = "work_time") val workTime: String,

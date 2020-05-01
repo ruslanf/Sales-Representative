@@ -30,13 +30,13 @@
 
             <ImageView
                 android:id="@+id/nameStoreIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/nameStoreET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/nameStoreET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView00"
@@ -77,13 +77,13 @@
 
             <ImageView
                 android:id="@+id/taxNumberIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/taxNumberET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/taxNumberET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView02"
@@ -106,13 +106,13 @@
 
             <ImageView
                 android:id="@+id/taxNumber_1_IV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/taxNumber_1_ET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/taxNumber_1_ET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView03"
@@ -134,13 +134,13 @@
 
             <ImageView
                 android:id="@+id/actualAddressIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/actualAddressET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/actualAddressET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView04"
@@ -162,13 +162,13 @@
 
             <ImageView
                 android:id="@+id/legalAddressIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/legalAddressET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/legalAddressET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView05"
@@ -191,13 +191,13 @@
 
             <ImageView
                 android:id="@+id/phoneIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/phoneET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/phoneET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView06"
@@ -220,13 +220,13 @@
 
             <ImageView
                 android:id="@+id/emailIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/emailET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/emailET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView07"
@@ -248,13 +248,13 @@
 
             <ImageView
                 android:id="@+id/lprIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/lprET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lprET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView08"
@@ -295,13 +295,13 @@
 
             <ImageView
                 android:id="@+id/productsIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/productsRangeTV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/productsRangeTV"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView10"
@@ -378,13 +378,13 @@
 
             <ImageView
                 android:id="@+id/dealerIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/dealerET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/dealerET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
             <View
                 android:id="@+id/dividerView14"
@@ -406,13 +406,13 @@
 
             <ImageView
                 android:id="@+id/noteIV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/noteET"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/noteET"
-                app:srcCompat="@drawable/ic_incorrect" />
+                app:srcCompat="@drawable/ic_stop" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -420,28 +420,27 @@
     <Button
         android:id="@+id/addPhotoButton"
         style="@style/AuthButton"
+        android:layout_width="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/button_rounded_orange"
         android:text="@string/fragment_add_store_add_photo_button"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/saveStoreInfoButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveStoreInfoButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/saveStoreInfoButton"
         style="@style/AuthButton"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_rounded_green"
         android:text="@string/fragment_add_store_save_info_button"
         android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toEndOf="@+id/addPhotoButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
