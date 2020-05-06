@@ -235,7 +235,8 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
                     val list = controller.getAllFromTradePoint()
                     list.forEach {  tp ->
-                        points.add(StorePointModel(tp.storePoint, tp.type, tp.taxNumber, tp.taxNumber_1,
+                        points.add(StorePointModel(getUserId(), tp.workShift, tp.storePoint,
+                            tp.type, tp.taxNumber, tp.taxNumber_1,
                             tp.addressActual, tp.latitude, tp.longitude, tp.addressLegal, tp.phone,
                             tp.email, tp.lprName, tp.paymentType, tp.productsRange, tp.marketType,
                             tp.companyType, tp.workTime, tp.dealer, tp.note,  tp.photoOutside, tp.photoInside,
@@ -257,4 +258,6 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
             }
         }
     }
+
+    private fun getUserId(): Int = controller.getUserId() ?: 0
 }

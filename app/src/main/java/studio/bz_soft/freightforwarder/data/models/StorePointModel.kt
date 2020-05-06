@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class StorePointModel(
     @SerializedName("id") val id: Int?,
+    @SerializedName("user_id") val userId :Int?,
+    @SerializedName("work_shift") val workShift :String?,
     @SerializedName("trade_point") val storePoint: String?,
     @SerializedName("type") val type: String?,                  // Enum ["ИП", "ООО", "ПАО"]
     @SerializedName("tax_number") val taxNumber: String?,       // ИНН
@@ -27,14 +29,16 @@ data class StorePointModel(
     @SerializedName("photo_goods") val photoGoods: String?,     // image url
     @SerializedName("photo_corner") val photoCorner: String?
 ) {
-    constructor(storePoint: String?, type: String?, taxNumber: String?, taxNumber_1: String?,
+    constructor(userId :Int?, workShift :String?, storePoint: String?, type: String?,
+                taxNumber: String?, taxNumber_1: String?,
                 addressActual: String?, latitude: Double?, longitude: Double?,
                 addressLegal: String?, phone: String?, email: String?,
                 lprName: String?, paymentType: String?, productsRange: List<Int>?, marketType: String?,
                 companyType: String?, workTime: String?, dealer: String?, note: String?,
                  photoOutside: String?, photoInside: String?,
                 photoGoods: String?, photoCorner: String?) : this(
-        null, storePoint, type, taxNumber, taxNumber_1, addressActual, latitude, longitude,
+        null, userId, workShift, storePoint, type, taxNumber, taxNumber_1, addressActual,
+        latitude, longitude,
         addressLegal, phone, email, lprName, paymentType, productsRange, marketType, companyType,
         workTime, dealer, note, photoOutside, photoInside, photoGoods, photoCorner)
 }

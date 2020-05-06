@@ -7,6 +7,7 @@ import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 interface RootInterface {
     fun getUserToken(): String?
     fun deleteToken()
+    fun getUserId(): Int?
     fun deleteUserId()
     suspend fun getAllFromTradePoint(): List<TradePoint>
     suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Either<Exception, Unit?>

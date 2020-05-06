@@ -27,14 +27,11 @@ import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
 import studio.bz_soft.freightforwarder.data.models.db.TradePoint
+import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.KEY_LATITUDE
 import studio.bz_soft.freightforwarder.root.Constants.KEY_LONGITUDE
 import studio.bz_soft.freightforwarder.root.Constants.KEY_WORK_STARTED
-import studio.bz_soft.freightforwarder.root.drawable
-import studio.bz_soft.freightforwarder.root.showError
-import studio.bz_soft.freightforwarder.root.showToast
-import studio.bz_soft.freightforwarder.root.textWatcher
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -317,7 +314,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             progressBar.visibility = View.VISIBLE
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.saveSalesPoint(token, StorePointModel(storeName, taxType,
+                    when (val r = presenter.saveSalesPoint(token, StorePointModel(getUserId(), getWorkShift(),
+                        storeName, taxType,
                         taxNumber, taxNumber1, actualAddress, latitude, longitude, legalAddress,
                         phone, email, lpr, payment, productList, marketType, companyType, workTime,
                         dealer, note, photoOutside, photoInside, photoGoods, photoCorner))) {
@@ -340,7 +338,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         v.apply {
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    presenter.saveSalesPointToDB(TradePoint(0, storeName, taxType, taxNumber,
+                    presenter.saveSalesPointToDB(TradePoint(0, getWorkShift(),
+                        storeName, taxType, taxNumber,
                         taxNumber1, actualAddress, legalAddress, phone, email, lpr,
                         payment, productList, marketType, companyType, workTime, dealer, note,
                         latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner
@@ -463,6 +462,9 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             workTimeTV.isFocusable = true
         }
     }
+
+    private fun getUserId(): Int = presenter.getUserId() ?: 0
+    private fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
 
     companion object {
         fun instance(isWorkStarted: Boolean, latitude: Double, longitude: Double): AddStoreFragment = AddStoreFragment().apply {

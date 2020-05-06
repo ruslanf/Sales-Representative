@@ -4,6 +4,7 @@ import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
 
 interface EditStoreInterface {
+    fun getUserId(): Int?
     fun getImageOutside(): String?
     fun deleteImageOutside()
     fun getImageInside(): String?

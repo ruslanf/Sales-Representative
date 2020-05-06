@@ -26,13 +26,10 @@ import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
+import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.KEY_TOKEN
 import studio.bz_soft.freightforwarder.root.Constants.KEY_TRADE_POINT_ID
-import studio.bz_soft.freightforwarder.root.drawable
-import studio.bz_soft.freightforwarder.root.showError
-import studio.bz_soft.freightforwarder.root.textWatcher
-import studio.bz_soft.freightforwarder.root.value
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -420,7 +417,8 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             progressBar.visibility = View.VISIBLE
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.updateTradePoint(token, tpId, StorePointModel(storeName,
+                    when (val r = presenter.updateTradePoint(token, tpId, StorePointModel(
+                        getUserId(), getWorkShift(), storeName,
                         taxType, taxNumberV, taxNumber1V, actualAddress, latitudeV, longitudeV,
                         legalAddress, phoneV, emailV, lprV, paymentV, productList, marketTypeV,
                         companyTypeV, workTimeV, dealerV, noteV, photoOutsideV, photoInsideV,
@@ -574,6 +572,9 @@ class EditStoreFragment : Fragment(), CoroutineScope {
             isWorkTime = true
         }
     }
+
+    private fun getUserId(): Int = presenter.getUserId() ?: 0
+    private fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
 
     companion object {
         fun instance(id: Int): EditStoreFragment = EditStoreFragment().apply {

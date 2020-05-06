@@ -10,6 +10,7 @@ class AddStorePresenter(
 ) : AddStoreInterface {
 
     override fun getUserToken(): String? = repository.getUserToken()
+    override fun getUserId(): Int? = repository.getUserId()
 
     override fun getImageOutside(): String? = repository.getImageOutside()
     override fun deleteImageOutside() {

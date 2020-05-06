@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "trade_point")
 class TradePoint(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "work_shift") val workShift: String,
     @ColumnInfo(name = "sale_point") val storePoint: String,
     @ColumnInfo(name = "type") val type: String,                  // Enum ["ИП", "ООО", "ПАО"]
     @ColumnInfo(name = "tax_number") val taxNumber: String,       // ИНН

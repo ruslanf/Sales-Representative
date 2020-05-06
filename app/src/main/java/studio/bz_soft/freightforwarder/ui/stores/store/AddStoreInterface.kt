@@ -6,6 +6,7 @@ import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 
 interface AddStoreInterface {
     fun getUserToken(): String?
+    fun getUserId(): Int?
     fun getImageOutside(): String?
     fun deleteImageOutside()
     fun getImageInside(): String?

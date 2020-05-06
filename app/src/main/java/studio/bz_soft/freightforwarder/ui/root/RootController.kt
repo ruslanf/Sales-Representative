@@ -15,6 +15,8 @@ class RootController(
         repository.deleteToken()
     }
 
+    override fun getUserId(): Int? = repository.getUserId()
+
     override fun deleteUserId() {
         repository.deleteUserId()
     }

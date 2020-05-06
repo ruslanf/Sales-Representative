@@ -7,6 +7,8 @@ import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
 class EditStorePresenter(
     private val repository: RepositoryInterface
 ) : EditStoreInterface {
+    override fun getUserId(): Int? = repository.getUserId()
+
     override fun getImageOutside(): String? = repository.getImageOutside()
     override fun deleteImageOutside() {
         repository.deleteImageOutside()
