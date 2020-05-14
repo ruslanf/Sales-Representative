@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/menuWorkShift">
+
+    <fragment
+        android:id="@+id/menuWorkShift"
+        android:name="studio.bz_soft.freightforwarder.ui.shift.WorkShiftFragment"
+        android:label="@string/fragment_work_shift_title"
+        tools:layout="@layout/fragment_work_shift"/>
+    <fragment
+        android:id="@+id/menuStores"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.StoresFragment"
+        android:label="@string/fragment_stores_title"
+        tools:layout="@layout/fragment_stores">
+        <action
+            android:id="@+id/action_menuReports_to_addStoreFragment"
+            app:destination="@id/addStoreFragment" />
+        <action
+            android:id="@+id/action_menuStores_to_editStoreFragment"
+            app:destination="@id/editStoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStoreFragment"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.store.AddStoreFragment"
+        android:label="@string/fragment_add_store_title"
+        tools:layout="@layout/fragment_add_store">
+        <action
+            android:id="@+id/action_addStoreFragment_to_imageFragment"
+            app:destination="@id/imageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.image.ImageFragment"
+        android:label="@string/fragment_image_title"
+        tools:layout="@layout/fragment_image" />
+    <fragment
+        android:id="@+id/menuProfile"
+        android:name="studio.bz_soft.freightforwarder.ui.profile.ProfileFragment"
+        android:label="@string/fragment_profile_title"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/editStoreFragment"
+        android:name="studio.bz_soft.freightforwarder.ui.stores.edit.EditStoreFragment"
+        android:label="@string/fragment_edit_store_title"
+        tools:layout="@layout/fragment_edit_store" />
+</navigation>

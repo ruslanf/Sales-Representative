@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/dialog_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dialogTitleTV"
+        style="@style/DialogTitleStyle"
+        android:text="@string/fragment_add_store_work_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/startHourNP"
+        style="@style/DialogStyleNP"
+        app:layout_constraintBottom_toBottomOf="@+id/startMinNP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/startMinNP" />
+
+    <TextView
+        android:id="@+id/startColonTV"
+        style="@style/DialogTitleStyle"
+        android:layout_width="0dp"
+        android:textSize="20sp"
+        android:text="@string/string_colon"
+        app:layout_constraintBottom_toBottomOf="@+id/startMinNP"
+        app:layout_constraintEnd_toStartOf="@+id/startMinNP"
+        app:layout_constraintStart_toEndOf="@+id/startHourNP"
+        app:layout_constraintTop_toTopOf="@+id/startMinNP" />
+
+    <NumberPicker
+        android:id="@+id/startMinNP"
+        style="@style/DialogStyleNP"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/startHourNP"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleTV" />
+
+    <NumberPicker
+        android:id="@+id/endHourNP"
+        style="@style/DialogStyleNP"
+        app:layout_constraintBottom_toBottomOf="@+id/startMinNP"
+        app:layout_constraintEnd_toStartOf="@+id/endMinNP"
+        app:layout_constraintTop_toTopOf="@+id/startMinNP" />
+
+    <TextView
+        android:id="@+id/endColonTV"
+        style="@style/DialogTitleStyle"
+        android:layout_width="0dp"
+        android:text="@string/string_colon"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/endMinNP"
+        app:layout_constraintEnd_toStartOf="@+id/endMinNP"
+        app:layout_constraintStart_toEndOf="@+id/endHourNP"
+        app:layout_constraintTop_toTopOf="@+id/endMinNP" />
+
+    <NumberPicker
+        android:id="@+id/endMinNP"
+        style="@style/DialogStyleNP"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleTV" />
+
+    <Button
+        android:id="@+id/setWorkTimeButton"
+        style="@style/AuthButton"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp"
+        android:text="@string/profile_message_birthday_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startMinNP" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

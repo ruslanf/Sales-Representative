@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Торговый представитель</string>
+
+    <string name="main_menu_title_route">Маршрут</string>
+    <string name="main_menu_title_work_shift">Рабочая смена</string>
+    <string name="main_menu_title_stores">Торговые точки</string>
+    <string name="main_menu_title_profile">Профиль</string>
+
+    <string name="signUp">Регистрация</string>
+    <string name="signIn">У меня уже есть аккаунт</string>
+    <string name="fragment_sign_up_hint_email">Введите email</string>
+    <string name="fragment_sign_up_hint_password">Введите пароль</string>
+    <string name="fragment_sign_up_restore_password">Напомнить пароль?</string>
+
+    <string name="auth_message_enter_email">Введите email</string>
+    <string name="auth_message_send">Отправить</string>
+    <string name="auth_message_error_pass_restore">Ошибка восстановления пароля</string>
+    <string name="auth_message_pass_restored">Запрос на восстановление пароля отправлен</string>
+    <string name="auth_message_error">Ошибка авторизации</string>
+    <string name="auth_message_error_response">Ошибка регистрации</string>
+    <string name="auth_message_not_filled">Не заполнены все необходимые поля</string>
+
+    <string name="auth_exit_title">Выход</string>
+    <string name="db_synchronize">Синхронизировать</string>
+
+    <string name="root_sync_message_error">Ошибка синхронизации!!!</string>
+
+    <string name="fragment_route_title">Торговые точки</string>
+    <string name="fragment_route_start_of_shift">Начало смены</string>
+    <string name="fragment_route_end_of_shift">Конец смены</string>
+    <string name="fragment_route_work_button_start">Начать</string>
+    <string name="fragment_route_work_button_end">Закончить</string>
+    <string name="fragment_route_error_location">При получении текущего местоположения произошла ошибка</string>
+
+    <string name="fragment_work_shift_title">Рабочая смена</string>
+    <string name="fragment_work_shift_sr_title">Торговый представитель</string>
+    <string name="fragment_work_shift_signin_title">Вы вошли как:</string>
+    <string name="fragment_work_shift_time_now">Сейчас:</string>
+
+    <string name="fragment_stores_title">Торговые точки</string>
+    <string name="fragment_stores_add_store_button">Добавить торговую точку</string>
+    <string name="fragment_stores_work_shift_title">Смена</string>
+    <string name="fragment_stores_shift_message_error">Рабочая смена не начата! Вначале начните смену</string>
+    <string name="fragment_store_error_load_trade_point">Ошибка загрузки списка торговых точек</string>
+
+    <string name="fragment_add_store_title">Новая точка</string>
+    <string name="fragment_add_store_add_photo_button">Добавить фото</string>
+    <string name="fragment_add_store_save_info_button">Сохранить</string>
+    <string name="fragment_add_store_name_of_outlet">Торговая точка</string>
+    <string name="fragment_add_store_type">Тип организации</string>
+    <string name="fragment_add_store_tax_number">ИНН</string>
+    <string name="fragment_add_store_tax_number_1">ОГРН</string>
+    <string name="fragment_add_store_address_actual">Фактический адрес</string>
+    <string name="fragment_add_store_address_legal">Юридический адрес</string>
+    <string name="fragment_add_store_phone">Телефон</string>
+    <string name="fragment_add_store_lpr">ЛПР</string>
+    <string name="fragment_add_store_payment_type">Форма оплаты</string>
+    <string name="fragment_add_store_products_range">Ассортимент</string>
+    <string name="product_0">Семена и посадочный материал</string>
+    <string name="product_1">Товары для дома</string>
+    <string name="product_2">Товары для сада</string>
+    <string name="product_3">Товары для животных</string>
+    <string name="product_4">Товары для праздника</string>
+    <string name="product_5">Товары для отдыха</string>
+    <string name="fragment_add_store_market_type">Размер торговой точки</string>
+    <string name="fragment_add_store_company_type">Вид компании</string>
+    <string name="fragment_add_store_work_time">Рабочее время</string>
+    <string name="fragment_add_store_dealer">Поставщики</string>
+    <string name="fragment_add_store_note">Примечание</string>
+    <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнен название торговой точки…</string>
+    <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен фактический адрес…</string>
+    <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
+    <string name="fragment_add_store_not_filled_error_message_market_type">Ошибка! Не указан размер торговой точки…</string>
+    <string name="fragment_add_store_image_outside">Снаружи</string>
+    <string name="fragment_add_store_image_inside">Внутри</string>
+    <string name="fragment_add_store_image_assortment">Асортимент</string>
+    <string name="fragment_add_store_image_corner">Уголок</string>
+    <string name="fragment_add_store_image_finish_button">Закончить</string>
+    <string name="fragment_add_store_image_cancel_button">Отменить</string>
+    <string name="fragment_add_store_update_error_message">Ошибка сохранения информации на сервере</string>
+
+    <string name="fragment_edit_store_title">Редактирование торговой точки</string>
+
+    <string name="fragment_image_title">Фото</string>
+    <string name="fragment_image_upload_error">Ошибка загрузки фото</string>
+    <string name="fragment_image_error">Ошибка! Не сделаны все необходимые фотографии</string>
+
+    <string name="fragment_profile_title">Профиль</string>
+    <string name="fragment_profile_manager_title">Менеджер</string>
+    <string name="fragment_profile_logout_button">Выход</string>
+    <string name="fragment_profile_birthday">Дата рождения</string>
+    <string name="fragment_profile_sex">Пол</string>
+    <string name="fragment_profile_sex_m">М</string>
+    <string name="fragment_profile_sex_f">Ж</string>
+    <string name="fragment_profile_phone">Телефон</string>
+    <string name="fragment_profile_address">Адрес</string>
+    <string name="profile_message_exit_title">Выйти из аккаунта</string>
+    <string name="profile_message_exit">Вы действительно хотите выйти?</string>
+    <string name="profile_message_exit_button">Выход</string>
+    <string name="profile_message_cancel_button">Отмена</string>
+    <string name="profile_message_change">Поменять</string>
+    <string name="profile_message_birthday_title">Дата рождения</string>
+    <string name="profile_message_password_title">Введите новый пароль</string>
+    <string name="profile_message_password_old">Старый пароль</string>
+    <string name="profile_message_password_new">Новый пароль</string>
+    <string name="profile_message_birthday_button">Установить</string>
+    <string name="profile_load_data_mangers_error">Ошибка загрузки списка менеджеров</string>
+    <string name="profile_load_data_message_error">Ошибка загрузки профайла пользователя</string>
+    <string name="profile_update_data_message_error">Ошибка обновления профайла пользователя</string>
+    <string name="profile_change_password_successfull">Пароль успеншно обновлен</string>
+    <string name="profile_change_password_error">Ошибка во время смены пароля</string>
+
+    <string name="content_settings_button">Настройки</string>
+    <string name="content_profile_button">Профиль</string>
+    <string name="content_profile_exit">Выход из профиля</string>
+    <string name="content_user_photo">Фото пользователя</string>
+
+    <string name="gps_service_error_message_no_location_permission">Включите ДОСТУП К МЕСТОПОЛОЖЕНИЮ в настройках.</string>
+    <string name="gps_service_open_location_service_gps_error_title">Сервис МЕСТОПОЛОЖЕНИЯ не включен!</string>
+    <string name="gps_service_open_location_service_message">Открыть настройки МЕСТОПОЛОЖЕНИЯ</string>
+    <string name="gps_service_open_location_service_positive_button">Открыть</string>
+    <string name="gps_service_open_location_service_negative_button">Отмена</string>
+
+</resources>

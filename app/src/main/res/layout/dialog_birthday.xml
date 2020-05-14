@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/dialog_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dialogTitleTV"
+        style="@style/DialogTitleStyle"
+        android:text="@string/fragment_profile_birthday"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/daysNP"
+        style="@style/DialogStyleNP"
+        app:layout_constraintBottom_toBottomOf="@+id/monthNP"
+        app:layout_constraintEnd_toStartOf="@+id/monthNP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/monthNP" />
+
+    <NumberPicker
+        android:id="@+id/monthNP"
+        style="@style/DialogStyleNP"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/yearNP"
+        app:layout_constraintStart_toEndOf="@+id/daysNP"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleTV" />
+
+    <NumberPicker
+        android:id="@+id/yearNP"
+        style="@style/DialogStyleNP"
+        app:layout_constraintBottom_toBottomOf="@+id/monthNP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/monthNP"
+        app:layout_constraintTop_toTopOf="@+id/monthNP" />
+
+    <Button
+        android:id="@+id/setBirthdayButton"
+        style="@style/AuthButton"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp"
+        android:text="@string/profile_message_birthday_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monthNP" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

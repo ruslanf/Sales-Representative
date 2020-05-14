@@ -1,0 +1,167 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="SplashScreen" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--    -->
+
+    <style name="AuthFragmentStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:background">@color/auth_field_background</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="DialogTitleStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuthButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/auth_button_height</item>
+        <item name="android:layout_marginStart">@dimen/app_base_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/app_base_margin_end</item>
+        <item name="android:layout_marginBottom">@dimen/app_base_margin_bottom</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_standard</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ViewStyle" >
+        <item name="android:layout_width">@dimen/view_width</item>
+        <item name="android:layout_height">@dimen/view_height</item>
+        <item name="android:layout_marginStart">@dimen/app_base_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/app_base_margin_end</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@drawable/view_standard_rounded</item>
+    </style>
+
+    <style name="WorkShiftStyle" parent="BaseStyle">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TradePointCellStyle" parent="BaseStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="UserProfileInfo" parent="BaseStyle">
+        <item name="android:layout_marginStart">28dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:ems">10</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="UserProfileText" parent="BaseStyle">
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginStart">14dp</item>
+        <item name="android:textColor">@color/profile_text_title</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="UserProfileTextData" parent="BaseStyle">
+        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:textColor">@color/profile_text_data</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:ems">10</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="SexRadioStyle" parent="BaseStyle">
+        <item name="android:layout_marginEnd">@dimen/app_base_margin_end</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SpinnerStyle" parent="BaseStyle">
+        <item name="android:spinnerMode">dialog</item>
+        <item name="android:layout_marginStart">@dimen/app_base_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/app_base_margin_end</item>
+    </style>
+
+    <style name="DialogPasswordChangeStyle" parent="BaseStyle">
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="DialogStyleNP" parent="BaseStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DialogStyleCB" parent="BaseStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ProfileHorizontalDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:background">@color/profile_horizontal_divider</item>
+    </style>
+
+    <style name="AddStoreStyle" parent="BaseStyle">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AddStoreET" parent="BaseStyle">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:ems">10</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>

@@ -1,0 +1,131 @@
+<resources>
+    <string name="app_name">Sales Representative</string>
+
+    <string name="main_menu_title_route">Route</string>
+    <string name="main_menu_title_work_shift">Work Shift</string>
+    <string name="main_menu_title_stores">Stores</string>
+    <string name="main_menu_title_profile">Profile</string>
+
+    <string name="signUp">Sign Up</string>
+    <string name="signIn">Sign In</string>
+    <string name="fragment_sign_up_hint_email">Enter email</string>
+    <string name="fragment_sign_up_hint_password">Enter password</string>
+    <string name="fragment_sign_up_restore_password">Restore password?</string>
+
+    <string name="auth_message_enter_email">Email not entered</string>
+    <string name="auth_message_send">Send</string>
+    <string name="auth_message_error_pass_restore">Password restore error</string>
+    <string name="auth_message_pass_restored">Request for password restore was sending</string>
+    <string name="auth_message_error">Authorization error</string>
+    <string name="auth_message_error_response">Registration error</string>
+    <string name="auth_message_not_filled">Not filled all requested fields</string>
+
+    <string name="auth_exit_title">Exit</string>
+    <string name="db_synchronize">Synchronize</string>
+
+    <string name="root_sync_message_error">Syncing error!!!</string>
+
+    <string name="fragment_route_title">Outlets</string>
+    <string name="fragment_route_start_of_shift">Start of shift</string>
+    <string name="fragment_route_end_of_shift">End of shift</string>
+    <string name="fragment_route_work_button_start">Start</string>
+    <string name="fragment_route_work_button_end">Finish</string>
+    <string name="fragment_route_error_location">An error occurred while getting current location</string>
+
+    <string name="fragment_work_shift_title">Work Shift</string>
+    <string name="fragment_work_shift_sr_title">Sales Representative</string>
+    <string name="fragment_work_shift_signin_title">You sign in as:</string>
+    <string name="fragment_work_shift_time_now">Now:</string>
+
+    <string name="fragment_stores_title">Outlets</string>
+    <string name="fragment_stores_add_store_button">Add Store</string>
+    <string name="fragment_stores_work_shift_title">Work Shift</string>
+    <string name="fragment_stores_shift_message_error">Work Shift not started!</string>
+    <string name="fragment_store_error_load_trade_point">Error loading trade points list</string>
+
+    <string name="fragment_add_store_title">Add Store</string>
+    <string name="fragment_add_store_add_photo_button">Add photo</string>
+    <string name="fragment_add_store_save_info_button">Save</string>
+    <string name="fragment_add_store_name_of_outlet">Name of outlet</string>
+    <string name="fragment_add_store_type">Type</string>
+    <string name="fragment_add_store_tax_number">ITN</string>
+    <string name="fragment_add_store_tax_number_1">OGRN</string>
+    <string name="fragment_add_store_address_actual">Actual address</string>
+    <string name="fragment_add_store_address_legal">Legal address</string>
+    <string name="fragment_add_store_phone">Phone</string>
+    <string name="fragment_add_store_email" translatable="false">e-mail</string>
+    <string name="fragment_add_store_lpr">LPR</string>
+    <string name="fragment_add_store_payment_type">Payment type</string>
+    <string name="fragment_add_store_products_range">Products range</string>
+    <string name="product_0">Семена и посадочный материал</string>
+    <string name="product_1">Товары для дома</string>
+    <string name="product_2">Товары для сада</string>
+    <string name="product_3">Товары для животных</string>
+    <string name="product_4">Товары для праздника</string>
+    <string name="product_5">Товары для отдыха</string>
+    <string name="fragment_add_store_market_type">Market type</string>
+    <string name="fragment_add_store_company_type">Company type</string>
+    <string name="fragment_add_store_work_time">Work time</string>
+    <string name="fragment_add_store_dealer">Dealer</string>
+    <string name="fragment_add_store_note">Note</string>
+    <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнено название торговой точки…</string>
+    <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен фактический адрес…</string>
+    <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
+    <string name="fragment_add_store_not_filled_error_message_market_type">Ошибка! Не указан размер торговой точки…</string>
+    <string name="fragment_add_store_image_outside">Outside</string>
+    <string name="fragment_add_store_image_inside">Inside</string>
+    <string name="fragment_add_store_image_assortment">Assortment</string>
+    <string name="fragment_add_store_image_corner">Corner</string>
+    <string name="fragment_add_store_image_finish_button">Finish</string>
+    <string name="fragment_add_store_image_cancel_button">Cancel</string>
+    <string name="fragment_add_store_update_error_message">Error saving trade point into server</string>
+
+    <string name="fragment_edit_store_title">Edit trade point</string>
+
+    <string name="fragment_image_title">Image</string>
+    <string name="fragment_image_upload_error">Error while uploading image</string>
+    <string name="fragment_image_error">Error! Not pictured all necessary photos</string>
+
+    <string name="fragment_profile_title">Profile</string>
+    <string name="fragment_profile_manager_title">Manager</string>
+    <string name="fragment_profile_logout_button">Logout</string>
+    <string name="fragment_profile_birthday">Birthday</string>
+    <string name="fragment_profile_sex">Sex</string>
+    <string name="fragment_profile_sex_m">M</string>
+    <string name="fragment_profile_sex_f">F</string>
+    <string name="fragment_profile_phone">Phone</string>
+    <string name="fragment_profile_address">Address</string>
+    <string name="profile_message_exit_title">Logout from account</string>
+    <string name="profile_message_exit">Are you sure you want to logout?</string>
+    <string name="profile_message_exit_button">Exit</string>
+    <string name="profile_message_cancel_button">Cancel</string>
+    <string name="profile_password_view" translatable="false">********</string>
+    <string name="profile_message_birthday_title">Birthday</string>
+    <string name="profile_message_birthday_button">Set</string>
+    <string name="profile_message_password_title">Enter new password</string>
+    <string name="profile_message_password_old">Old password</string>
+    <string name="profile_message_password_new">New password</string>
+    <string name="profile_message_change">Change</string>
+    <string name="profile_load_data_mangers_error">Error loading managers list</string>
+    <string name="profile_load_data_message_error">Error loading user profile</string>
+    <string name="profile_update_data_message_error">Error while updating user\'s profile</string>
+    <string name="profile_change_password_successfull">Password was changed successfully</string>
+    <string name="profile_change_password_error">Error while changing password</string>
+
+    <string name="content_settings_button">Settings</string>
+    <string name="content_profile_button">Profile</string>
+    <string name="content_profile_exit">Profile exit</string>
+    <string name="content_user_photo">User photo</string>
+
+    <string name="string_colon" translatable="false">:</string>
+
+    <string name="gps_service_error_message_no_location_permission">Enable LOCATION ACCESS in settings.</string>
+    <string name="gps_service_open_location_service_gps_error_title">Location service is not Enabled!</string>
+    <string name="gps_service_open_location_service_message">Open Location service</string>
+    <string name="gps_service_open_location_service_positive_button">Open</string>
+    <string name="gps_service_open_location_service_negative_button">Cancel</string>
+
+    <!--  -->
+    <string name="open_map_contributors" translatable="false">© OpenStreetMap contributors</string>
+    <string name="latin_alphabet" translatable="false">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@_-</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#777777</color>
+    <color name="colorPrimaryDark">#4C4C4C</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="button_color_0">#f5a7a3</color>
+    <color name="button_color_1">#81ce59</color>
+
+    <color name="color_green">#92d36e</color>
+    <color name="color_rose">#ffb4b0</color>
+    <color name="color_red">#db3b26</color>
+    <color name="color_orange">#fec63d</color>
+    <color name="button_font_color">#202020</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="transparent_white">#00FFFFFF</color>
+    <color name="splashScreen">#ffffff</color>
+
+    <color name="primaryTextColor">#ffffff</color>
+
+    <color name="auth_field_background">#ececec</color>
+    <color name="auth_filed_icon_background">#e0e0e0</color>
+    <color name="auth_field_icon_color">#4c555e</color>
+
+    <color name="profile_horizontal_divider">#b9b9b9</color>
+    <color name="profile_base_color">#50c2bc</color>
+    <color name="profile_text_title">#474a53</color>
+    <color name="profile_text_data">#7a7d80</color>
+</resources>

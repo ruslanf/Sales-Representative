@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/addPhotoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/nameStoreET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_name_of_outlet"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/nameStoreIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameStoreET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameStoreET"
+                app:srcCompat="@drawable/ic_incorrect_new" />
+
+            <View
+                android:id="@+id/dividerView00"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameStoreET" />
+
+            <Spinner
+                android:id="@+id/typeSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView00" />
+
+            <View
+                android:id="@+id/dividerView01"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/typeSpinner" />
+
+            <EditText
+                android:id="@+id/taxNumberET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_tax_number"
+                android:inputType="number"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView01" />
+
+            <ImageView
+                android:id="@+id/taxNumberIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/taxNumberET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/taxNumberET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView02"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/taxNumberET" />
+
+            <EditText
+                android:id="@+id/taxNumber_1_ET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_tax_number_1"
+                android:inputType="number"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView02" />
+
+            <ImageView
+                android:id="@+id/taxNumber_1_IV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/taxNumber_1_ET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/taxNumber_1_ET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView03"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/taxNumber_1_ET" />
+
+            <EditText
+                android:id="@+id/actualAddressET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_address_actual"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView03" />
+
+            <ImageView
+                android:id="@+id/actualAddressIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/actualAddressET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/actualAddressET"
+                app:srcCompat="@drawable/ic_incorrect_new" />
+
+            <View
+                android:id="@+id/dividerView04"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actualAddressET" />
+
+            <EditText
+                android:id="@+id/legalAddressET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_address_legal"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView04" />
+
+            <ImageView
+                android:id="@+id/legalAddressIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/legalAddressET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/legalAddressET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView05"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/legalAddressET" />
+
+            <EditText
+                android:id="@+id/phoneET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_phone"
+                android:inputType="phone"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView05" />
+
+            <ImageView
+                android:id="@+id/phoneIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/phoneET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/phoneET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView06"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneET" />
+
+            <EditText
+                android:id="@+id/emailET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_email"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView06" />
+
+            <ImageView
+                android:id="@+id/emailIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/emailET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/emailET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView07"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailET" />
+
+            <EditText
+                android:id="@+id/lprET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_lpr"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView07" />
+
+            <ImageView
+                android:id="@+id/lprIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/lprET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lprET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView08"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lprET" />
+
+            <Spinner
+                android:id="@+id/paymentsSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView08" />
+
+            <View
+                android:id="@+id/dividerView09"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/paymentsSpinner" />
+
+            <TextView
+                android:id="@+id/productsRangeTV"
+                style="@style/AddStoreStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:gravity="bottom|start"
+                android:text="@string/fragment_add_store_products_range"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView09" />
+
+            <ImageView
+                android:id="@+id/productsIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/productsRangeTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/productsRangeTV"
+                app:srcCompat="@drawable/ic_incorrect_new" />
+
+            <View
+                android:id="@+id/dividerView10"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productsRangeTV" />
+
+            <Spinner
+                android:id="@+id/marketTypeSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView10" />
+
+            <View
+                android:id="@+id/dividerView11"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marketTypeSpinner" />
+
+            <Spinner
+                android:id="@+id/companyTypeSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView11" />
+
+            <View
+                android:id="@+id/dividerView12"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/companyTypeSpinner" />
+
+            <TextView
+                android:id="@+id/workTimeTV"
+                style="@style/AddStoreStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:gravity="bottom|start"
+                android:text="@string/fragment_add_store_work_time"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView12" />
+
+            <View
+                android:id="@+id/dividerView13"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/workTimeTV" />
+
+            <EditText
+                android:id="@+id/dealerET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_dealer"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView13" />
+
+            <ImageView
+                android:id="@+id/dealerIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/dealerET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dealerET"
+                app:srcCompat="@drawable/ic_stop" />
+
+            <View
+                android:id="@+id/dividerView14"
+                style="@style/ProfileHorizontalDivider"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dealerET" />
+
+            <EditText
+                android:id="@+id/noteET"
+                style="@style/AddStoreET"
+                android:layout_width="0dp"
+                android:importantForAutofill="no"
+                android:hint="@string/fragment_add_store_note"
+                app:layout_constraintEnd_toStartOf="@+id/nameStoreIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerView14" />
+
+            <ImageView
+                android:id="@+id/noteIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/noteET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/noteET"
+                app:srcCompat="@drawable/ic_stop" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addPhotoButton"
+        style="@style/AuthButton"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/button_rounded_orange"
+        android:text="@string/fragment_add_store_add_photo_button"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveStoreInfoButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/saveStoreInfoButton"
+        style="@style/AuthButton"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_rounded_green"
+        android:text="@string/fragment_add_store_save_info_button"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toEndOf="@+id/addPhotoButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--<ImageView
+        android:id="@+id/addPhotoButton"
+        style="@style/AuthButton"
+        android:layout_width="70dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveStoreInfoButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_photo_save" />
+
+    <ImageView
+        android:id="@+id/saveStoreInfoButton"
+        style="@style/AuthButton"
+        android:layout_width="70dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toEndOf="@+id/addPhotoButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_save" />-->
+
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuWorkShift"
+        android:title="@string/main_menu_title_work_shift"
+        android:icon="@drawable/ic_reports"/>
+    <item
+        android:id="@+id/menuStores"
+        android:title="@string/main_menu_title_stores"
+        android:icon="@drawable/ic_store"/>
+    <item
+        android:id="@+id/menuProfile"
+        android:title="@string/main_menu_title_profile"
+        android:icon="@drawable/ic_profile"/>
+</menu>
