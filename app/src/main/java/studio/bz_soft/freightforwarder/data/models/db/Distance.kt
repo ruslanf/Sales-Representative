@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 data class Distance(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "work_shift") val workShift: String,
-    @ColumnInfo(name = "distance") val longitude: Double
+    @ColumnInfo(name = "distance") val distance: Double
 )
