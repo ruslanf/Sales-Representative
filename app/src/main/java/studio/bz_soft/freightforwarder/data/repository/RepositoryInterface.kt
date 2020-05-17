@@ -3,6 +3,7 @@ package studio.bz_soft.freightforwarder.data.repository
 import okhttp3.MultipartBody
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.models.*
+import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
@@ -49,6 +50,7 @@ interface RepositoryInterface {
 
     suspend fun uploadImage(token: String, image: MultipartBody.Part): Either<Exception, List<ImageModel>>
     suspend fun sendLocation(token: String, location: LocationModel): Either<Exception, Unit?>
+    suspend fun sendDistance(token: String, distance: DistanceModel): Either<Exception, Unit?>
     suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?>
     suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>>
     suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel>
@@ -61,6 +63,12 @@ interface RepositoryInterface {
     suspend fun updateLocation(location: Location)
     suspend fun getAllFromLocations(): List<Location>
     suspend fun getLastLocation(): Location
+
+    suspend fun insertDistance(distance: Distance)
+    suspend fun deleteDistance(distance: Distance)
+    suspend fun updateDistance(distance: Distance)
+    suspend fun getAllFromDistance(): List<Distance>
+    suspend fun getLastDistance(): Distance
 
     suspend fun insertTradePoint(tradePoint: TradePoint)
     suspend fun deleteTradePoint(tradePoint: TradePoint)

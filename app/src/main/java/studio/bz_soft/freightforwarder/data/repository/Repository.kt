@@ -6,6 +6,7 @@ import studio.bz_soft.freightforwarder.data.http.ApiClientInterface
 import studio.bz_soft.freightforwarder.data.http.Either
 import studio.bz_soft.freightforwarder.data.http.safeRequest
 import studio.bz_soft.freightforwarder.data.models.*
+import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
@@ -121,6 +122,9 @@ class Repository(
     override suspend fun sendLocation(token: String, location: LocationModel): Either<Exception, Unit?> =
         safeRequest { client.sendLocation(token, location) }
 
+    override suspend fun sendDistance(token: String, distance: DistanceModel): Either<Exception, Unit?> =
+        safeRequest { client.sendDistance(token, distance) }
+
     override suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Either<Exception, Unit?> =
         safeRequest { client.saveTradePoint(token, storePoint) }
 
@@ -151,6 +155,21 @@ class Repository(
 
     override suspend fun getAllFromLocations(): List<Location> = database.getAllFromLocations()
     override suspend fun getLastLocation(): Location = database.getLastLocation()
+
+    override suspend fun insertDistance(distance: Distance) {
+        database.insertDistance(distance)
+    }
+
+    override suspend fun deleteDistance(distance: Distance) {
+        database.deleteDistance(distance)
+    }
+
+    override suspend fun updateDistance(distance: Distance) {
+        database.updateDistance(distance)
+    }
+
+    override suspend fun getAllFromDistance(): List<Distance> = database.getAllFromDistance()
+    override suspend fun getLastDistance(): Distance = database.getLastDistance()
 
     override suspend fun insertTradePoint(tradePoint: TradePoint) {
         database.insertTradePoint(tradePoint)

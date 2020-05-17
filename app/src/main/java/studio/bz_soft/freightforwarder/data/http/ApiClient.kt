@@ -74,6 +74,9 @@ class ApiClient(
     override suspend fun sendLocation(token: String, location: LocationModel): Unit? =
         apiClient.sendLocation(modifiedToken(token), location).await()
 
+    override suspend fun sendDistance(token: String, distance: DistanceModel): Unit? =
+        apiClient.sendDistance(token, distance).await()
+
     override suspend fun saveTradePoint(token: String, storePoint: StorePointModel): Unit? =
         apiClient.saveTradePoint(modifiedToken(token), storePoint).await()
 

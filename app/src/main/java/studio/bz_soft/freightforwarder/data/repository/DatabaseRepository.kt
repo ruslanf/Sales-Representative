@@ -1,6 +1,7 @@
 package studio.bz_soft.freightforwarder.data.repository
 
 import studio.bz_soft.freightforwarder.data.db.DbClientInterface
+import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
@@ -22,6 +23,21 @@ class DatabaseRepository(private val dbClient: DbClientInterface) : DatabaseRepo
     override suspend fun getAllFromLocations(): List<Location> = dbClient.getAllFromLocations()
     override suspend fun getLastLocation(): Location = dbClient.getLastLocation()
     override suspend fun getLastRecordId(): Int = dbClient.getLastRecordId()
+
+    override suspend fun insertDistance(distance: Distance) {
+        dbClient.insertDistance(distance)
+    }
+
+    override suspend fun deleteDistance(distance: Distance) {
+        dbClient.deleteDistance(distance)
+    }
+
+    override suspend fun updateDistance(distance: Distance) {
+        dbClient.updateDistance(distance)
+    }
+
+    override suspend fun getAllFromDistance(): List<Distance> = dbClient.getAllFromDistance()
+    override suspend fun getLastDistance(): Distance = dbClient.getLastDistance()
 
     override suspend fun insertTradePoint(tradePoint: TradePoint) {
         dbClient.insertTradePoint(tradePoint)

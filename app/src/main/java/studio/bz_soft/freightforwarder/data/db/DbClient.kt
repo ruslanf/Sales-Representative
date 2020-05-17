@@ -1,6 +1,7 @@
 package studio.bz_soft.freightforwarder.data.db
 
 import android.app.Application
+import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.TradePoint
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
@@ -11,6 +12,7 @@ class DbClient(application: Application) : DbClientInterface {
     private val locationDao by lazy { db.locationDao() }
     private val tradePointDao by lazy { db.tradePointDao() }
     private val workShiftDao by lazy { db.workShiftDao() }
+    private val distanceDao by lazy { db.distanceDao() }
 
     override suspend fun insertLocation(location: Location) {
         locationDao.insert(location)
@@ -26,6 +28,21 @@ class DbClient(application: Application) : DbClientInterface {
 
     override suspend fun getAllFromLocations(): List<Location> = locationDao.getAllFromLocation()
     override suspend fun getLastLocation(): Location = locationDao.getLastLocation()
+
+    override suspend fun insertDistance(distance: Distance) {
+        distanceDao.insert(distance)
+    }
+
+    override suspend fun deleteDistance(distance: Distance) {
+        distanceDao.delete(distance)
+    }
+
+    override suspend fun updateDistance(distance: Distance) {
+        distanceDao.update(distance)
+    }
+
+    override suspend fun getAllFromDistance(): List<Distance> = distanceDao.getAllFromDistance()
+    override suspend fun getLastDistance(): Distance = distanceDao.getLastDistance()
 
     override suspend fun insertTradePoint(tradePoint: TradePoint) {
         tradePointDao.insert(tradePoint)
