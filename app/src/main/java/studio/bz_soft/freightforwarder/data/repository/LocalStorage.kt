@@ -1,6 +1,7 @@
 package studio.bz_soft.freightforwarder.data.repository
 
 import android.content.SharedPreferences
+import studio.bz_soft.freightforwarder.root.Constants.DISTANCE
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_ASSORTMENT
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_CORNER
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_INSIDE
@@ -101,12 +102,28 @@ class LocalStorage(
     }
 
     override fun getLatitude(): String? = preferences.getString(LATITUDE, null)
+    override fun deleteLatitude() {
+        preferences.edit().remove(LATITUDE).apply()
+    }
 
     override fun setLongitude(longitude: String) {
         preferences.edit().putString(LONGITUDE, longitude).apply()
     }
 
     override fun getLongitude(): String? = preferences.getString(LONGITUDE, null)
+    override fun deleteLongitude() {
+        preferences.edit().remove(LONGITUDE).apply()
+    }
+
+    override fun setDistance(distance: String) {
+        preferences.edit().putString(DISTANCE, distance).apply()
+    }
+
+    override fun getDistance(): String? = preferences.getString(DISTANCE, null)
+
+    override fun deleteDistance() {
+        preferences.edit().remove(DISTANCE).apply()
+    }
 
     override fun setZoomLevel(zoomLevel: Float) {
         preferences.edit().putFloat(ZOOM_LEVEL, zoomLevel).apply()

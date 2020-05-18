@@ -36,6 +36,7 @@
     <string name="fragment_work_shift_sr_title">Sales Representative</string>
     <string name="fragment_work_shift_signin_title">You sign in as:</string>
     <string name="fragment_work_shift_time_now">Now:</string>
+    <string name="fragment_work_shift_send_distance_error">Error! sending work shift distance…</string>
 
     <string name="fragment_stores_title">Outlets</string>
     <string name="fragment_stores_add_store_button">Add Store</string>

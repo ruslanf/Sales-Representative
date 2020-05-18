@@ -35,8 +35,14 @@ interface RepositoryInterface {
 
     fun setLatitude(latitude: String)
     fun getLatitude(): String?
+    fun deleteLatitude()
     fun setLongitude(longitude: String)
     fun getLongitude(): String?
+    fun deleteLongitude()
+
+    fun setDistance(distance: String)
+    fun getDistance(): String?
+    fun deleteDistance()
 
     suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel>
     suspend fun sendAuthData(userRequest: UserRequest): Either<Exception, AuthResponseModel>

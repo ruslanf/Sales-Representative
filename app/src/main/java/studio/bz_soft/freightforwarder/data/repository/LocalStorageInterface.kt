@@ -25,14 +25,21 @@ interface LocalStorageInterface {
     fun getImageCorner(): String?
     fun deleteImageCorner()
 
+    fun setLatitude(latitude: String)
+    fun getLatitude(): String?
+    fun deleteLatitude()
+    fun setLongitude(longitude: String)
+    fun getLongitude(): String?
+    fun deleteLongitude()
+
+    fun setDistance(distance: String)
+    fun getDistance(): String?
+    fun deleteDistance()
+
     fun setTileSource(tileSource: String)
     fun getTileSource(): String?
     fun setOrientation(orientation: Float)
     fun getOrientation(): Float?
-    fun setLatitude(latitude: String)
-    fun getLatitude(): String?
-    fun setLongitude(longitude: String)
-    fun getLongitude(): String?
     fun setZoomLevel(zoomLevel: Float)
     fun getZoomLevel(): Float?
 }

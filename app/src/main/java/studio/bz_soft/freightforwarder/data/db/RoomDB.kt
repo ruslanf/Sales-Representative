@@ -13,7 +13,7 @@ import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 import studio.bz_soft.freightforwarder.root.Constants.DB_NAME
 
 @Database(entities = [Location::class, TradePoint::class, WorkShift::class, Distance::class],
-    version = 1, exportSchema = false)
+    version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class RoomDB : RoomDatabase() {
 
@@ -33,6 +33,7 @@ abstract class RoomDB : RoomDatabase() {
 
         private fun createDB(context: Context) = Room
             .databaseBuilder(context.applicationContext, RoomDB::class.java, DB_NAME)
+            .fallbackToDestructiveMigration()
             .build()
     }
 }

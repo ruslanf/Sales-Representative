@@ -88,12 +88,28 @@ class Repository(
     }
 
     override fun getLatitude(): String? = storage.getLatitude()
+    override fun deleteLatitude() {
+        storage.deleteLatitude()
+    }
 
     override fun setLongitude(longitude: String) {
         storage.setLongitude(longitude)
     }
 
     override fun getLongitude(): String? = storage.getLongitude()
+    override fun deleteLongitude() {
+        storage.deleteLongitude()
+    }
+
+    override fun setDistance(distance: String) {
+        storage.setDistance(distance)
+    }
+
+    override fun getDistance(): String? = storage.getDistance()
+
+    override fun deleteDistance() {
+        storage.deleteDistance()
+    }
 
     override suspend fun sendRegistrationData(userRequest: UserRequest): Either<Exception, AuthResponseModel> =
         safeRequest { client.signUp(userRequest) }

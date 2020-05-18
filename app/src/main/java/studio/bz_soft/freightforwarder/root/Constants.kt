@@ -21,6 +21,7 @@ object Constants {
     const val TILE_SOURCE = "tile_source"
     const val LATITUDE = "latitude"
     const val LONGITUDE = "longitude"
+    const val DISTANCE = "distance"
     const val ORIENTATION = "orientation"
     const val ZOOM_LEVEL = "zoom_level"
 

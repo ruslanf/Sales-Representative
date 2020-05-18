@@ -11,6 +11,7 @@ import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.LocationModel
+import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.root.Constants
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
@@ -36,6 +37,8 @@ class LocationReceiver : BroadcastReceiver(), CoroutineScope, KoinComponent {
                 insertLocation(latitude, longitude)
                 controller.getWorkStarted()?.let {
                     if (it) sendLocation(latitude, longitude)
+                    if (it) setStartLocation(latitude, longitude)
+                    if (it) computeDistance(latitude, longitude)
                 }
             }
         }
@@ -71,6 +74,29 @@ class LocationReceiver : BroadcastReceiver(), CoroutineScope, KoinComponent {
 
                 }
             }
+    }
+
+    private fun setStartLocation(latitude: Double, longitude: Double) {
+        controller.setStartLatitude(latitude.toString())
+        controller.setStartLongitude(longitude.toString())
+    }
+
+    private fun computeDistance(latitude: Double, longitude: Double) {
+        val distanceResult = FloatArray(3)
+        var startLatitude = 0.0
+        var endLongitude = 0.0
+        controller.getStartLatitude()?.let { startLatitude = it.toDouble() }
+        controller.getStartLongitude()?.let { endLongitude = it.toDouble() }
+        android.location.Location.distanceBetween(startLatitude, endLongitude, latitude, longitude, distanceResult)
+        val distance = distanceResult[0]
+        controller.setDistance(distance.toString())
+        launch {
+            val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                if (BuildConfig.DEBUG) Log.d(logTag, "Distance => $distance")
+                controller.insertDistance(Distance(0, getWorkShift(), distance))
+            }
+            request.await()
+        }
     }
 
     private fun getToken(): String = controller.getUserToken() ?: EMPTY_STRING

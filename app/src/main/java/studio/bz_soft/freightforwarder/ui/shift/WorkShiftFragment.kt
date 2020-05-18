@@ -14,7 +14,10 @@ import retrofit2.HttpException
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
+import studio.bz_soft.freightforwarder.data.models.DistanceModel
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
+import studio.bz_soft.freightforwarder.data.models.db.Distance
+import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
@@ -41,6 +44,11 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
     private var startDate = EMPTY_STRING
     private var startTime = EMPTY_STRING
     private var workShift: WorkShift? = null
+    private var distance: Distance? = null
+    private var dist = 0f
+    private var location: Location? = null
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -115,7 +123,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                 presenter.setWorkStarted(!it)
                 workButtonState(this)
                 when (it) {
-                    true -> { endWorkShift() }
+                    true -> { endWorkShift(this) }
                     false -> { startWorkShift(this) }
                 }
             }
@@ -138,6 +146,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
             progressBar.visibility = View.VISIBLE
             startDate = currentDate()
             startTime = currentTime()
+            presenter.getUserToken()?.let { token = it }
             launch {
                 coroutineScope {
                     val startRequest = async(SupervisorJob(job) + Dispatchers.IO) {
@@ -149,25 +158,63 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                     val lastDataRequest = async(SupervisorJob(job) + Dispatchers.IO) {
                         workShift = presenter.getLastData()
                     }
+                    val startDistance = async(SupervisorJob(job) + Dispatchers.IO) {
+                        presenter.startDistance(Distance(0, getWorkShift(), 0f))
+                    }
+                    val lastDistance = async(SupervisorJob(job) + Dispatchers.IO) {
+                        distance = presenter.getLastDistance()
+                    }
+                    val requestLocation = async(SupervisorJob(job) + Dispatchers.IO) {
+                        location = presenter.getLastLocation()
+                    }
                     startRequest.await()
                     lastDataRequest.await()
+                    startDistance.await()
+                    lastDistance.await()
+                    requestLocation.await()
+                    location?.let {
+                        latitude = it.latitude
+                        longitude = it.longitude
+                    }
                     progressBar.visibility = View.GONE
                 }
             }
         }
     }
 
-    private fun endWorkShift() {
-        launch {
-            val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                workShift?.let {
-//                    presenter.update(WorkShift(it.id, userId, fName, sName, lName,
-//                        startDate, currentDate(),
-//                        startTime, currentTime()))
-                    presenter.updateWorkShift(currentDate(), currentTime(), it.id)
+    private fun endWorkShift(v: View) {
+        v.apply {
+            progressBar.visibility = View.VISIBLE
+            launch {
+                coroutineScope {
+                    val db = async(SupervisorJob(job) + Dispatchers.IO) {
+                        workShift?.let {
+                            presenter.updateWorkShift(currentDate(), currentTime(), it.id)
+                        }
+                    }
+                    val distanceRequest = async(SupervisorJob(job) + Dispatchers.IO) {
+                        distance?.let {
+                            presenter.updateDistance(Distance(it.id, it.workShift, dist))
+                        }
+                    }
+                    val sendDistance = async(SupervisorJob(job) + Dispatchers.IO) {
+                        distance?.let {
+                            when (val r = presenter.sendDistance(token, DistanceModel(userId, it.workShift, it.distance))) {
+                                is Right -> {  }
+                                is Left -> { ex = r.value }
+                            }
+                        }
+                    }
+                    db.await()
+                    distanceRequest.await()
+                    sendDistance.await()
+                    progressBar.visibility = View.GONE
+                    ex?.let {
+                        showError(context, it, R.string.fragment_work_shift_send_distance_error, logTag)
+                        ex = null
+                    } ?: run {  }
                 }
             }
-            request.await()
         }
     }
 
@@ -180,6 +227,8 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
             startActivity(Intent(context, AuthActivity::class.java))
         }
     }
+
+    private fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
 
     private fun currentTime(): String =
         formattedTime(parseTime(getCurrentDT()))

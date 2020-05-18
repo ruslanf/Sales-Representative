@@ -1,7 +1,10 @@
 package studio.bz_soft.freightforwarder.ui.shift
 
 import studio.bz_soft.freightforwarder.data.http.Either
+import studio.bz_soft.freightforwarder.data.models.DistanceModel
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
+import studio.bz_soft.freightforwarder.data.models.db.Distance
+import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
 
@@ -45,4 +48,19 @@ class WorkShiftPresenter(
     }
 
     override suspend fun getLastData(): WorkShift = repository.getLastData()
+
+    override suspend fun getLastLocation(): Location = repository.getLastLocation()
+
+    override suspend fun startDistance(distance: Distance) {
+        repository.insertDistance(distance)
+    }
+
+    override suspend fun updateDistance(distance: Distance) {
+        repository.updateDistance(distance)
+    }
+
+    override suspend fun getLastDistance(): Distance = repository.getLastDistance()
+
+    override suspend fun sendDistance(token: String, distance: DistanceModel): Either<Exception, Unit?> =
+        repository.sendDistance(token, distance)
 }
