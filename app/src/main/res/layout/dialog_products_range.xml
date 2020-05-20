@@ -61,10 +61,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goods4CB" />
 
+    <CheckBox
+        android:id="@+id/goods6CB"
+        style="@style/DialogStyleCB"
+        android:text="@string/product_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goods5CB" />
+
+    <CheckBox
+        android:id="@+id/goods7CB"
+        style="@style/DialogStyleCB"
+        android:text="@string/product_7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goods6CB" />
+
     <Button
         android:id="@+id/setProductsRangeButton"
         style="@style/AuthButton"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="16dp"
@@ -72,6 +87,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goods5CB" />
+        app:layout_constraintTop_toBottomOf="@+id/goods7CB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -112,13 +112,18 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var g3 = EMPTY_STRING
     private var g4 = EMPTY_STRING
     private var g5 = EMPTY_STRING
+    private var g6 = EMPTY_STRING
+    private var g7 = EMPTY_STRING
 
     private val types: Array<String> = arrayOf("Организационно-правовая форма", "ИП", "ООО", "ПАО", "ЗАО")
-    private val payments: Array<String> = arrayOf("Форма оплаты", "Безнал. с НДС", "Безнал. без НДС", "Наличная")
+    private val payments: Array<String> = arrayOf(
+        "Форма оплаты", "Безнал. с НДС", "Безнал. без НДС",
+        "Наличная", "Наличная и Безнал. с НДС", "Наличная и Безнал. без НДС"
+    )
     private val assortment: Array<String> = arrayOf(
         "Семена и посадочный материал",
         "Товары для дома", "Товары для сада", "Товары для животных",
-        "Товары для праздника", "Товары для отдыха"
+        "Товары для праздника", "Товары для отдыха", "Строительные магазины", "Прочее"
     )
     private val tradePointSize: Array<String> = arrayOf("Размер торговой точки",
         "Палатка, отдел либо магазин до 20 кв.м.",
@@ -363,6 +368,8 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                 dialogView.goods3CB.isChecked = g3.isNotBlank()
                 dialogView.goods4CB.isChecked = g4.isNotBlank()
                 dialogView.goods5CB.isChecked = g5.isNotBlank()
+                dialogView.goods6CB.isChecked = g6.isNotBlank()
+                dialogView.goods7CB.isChecked = g7.isNotBlank()
                 productList.clear()
                 dialogView.goods0CB.goods0CB.setOnCheckedChangeListener { _, isChecked ->
                     g0 = if (isChecked) assortment[0].plus(",") else EMPTY_STRING
@@ -388,6 +395,14 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                     g5 = if (isChecked) assortment[5] else EMPTY_STRING
                     if (isChecked) productList.add(6)
                 }
+                dialogView.goods6CB.setOnCheckedChangeListener { _, isChecked ->
+                    g6 = if (isChecked) assortment[6] else EMPTY_STRING
+                    if (isChecked) productList.add(7)
+                }
+                dialogView.goods7CB.setOnCheckedChangeListener { _, isChecked ->
+                    g7 = if (isChecked) assortment[7] else EMPTY_STRING
+                    if (isChecked) productList.add(8)
+                }
                 dialogView.setProductsRangeButton.setOnClickListener {
                     productsRangeButtonListener(this@apply, this)
                 }
@@ -399,7 +414,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private fun productsRangeButtonListener(v: View, alertDialog: AlertDialog?) {
         v.apply {
             alertDialog?.dismiss()
-            val products = "$g0 $g1 $g2 $g3 $g4 $g5"
+            val products = "$g0 $g1 $g2 $g3 $g4 $g5 $g6 $g7"
             productsRangeTV.text = if (products.isNotBlank()) products else getString(R.string.fragment_add_store_products_range)
             productsRangeTV.isFocusable = true
             setCorrectIcon(this, productsIV, products.isNotBlank())
