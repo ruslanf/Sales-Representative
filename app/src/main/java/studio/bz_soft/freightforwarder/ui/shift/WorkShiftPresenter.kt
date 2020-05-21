@@ -7,18 +7,13 @@ import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
+import studio.bz_soft.freightforwarder.root.*
 
 class WorkShiftPresenter(
     private val repository: RepositoryInterface
 ) : WorkShiftInterface {
 
     override fun getUserToken(): String? = repository.getUserToken()
-
-    override fun setWorkStarted(isStarted: Boolean) {
-        repository.setWorkStarted(isStarted)
-    }
-
-    override fun getWorkStarted(): Boolean? = repository.getWorkStarted()
 
     override fun deleteToken() {
         repository.deleteToken()
@@ -27,6 +22,16 @@ class WorkShiftPresenter(
     override fun deleteUserId() {
         repository.deleteUserId()
     }
+
+    override fun setWorkStarted(isStarted: Boolean) {
+        repository.setWorkStarted(isStarted)
+    }
+
+    override fun getWorkStarted(): Boolean? = repository.getWorkStarted()
+
+    override fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
+    override fun currentTime(): String = formattedTime(parseTime(getCurrentDT()))
+    override fun currentDate(): String = formattedDate(parseDate(getCurrentDT()))
 
     override suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel> =
         repository.loadUserProfile(token)

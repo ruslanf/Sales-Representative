@@ -19,8 +19,8 @@ import studio.bz_soft.freightforwarder.data.models.UserProfileModel
 import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
-import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
+import studio.bz_soft.freightforwarder.root.showError
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
@@ -107,13 +107,13 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
 
     private fun getCurrentTime(v: View) {
         v.apply {
-            timeTC.text = currentTime()
+            timeTC.text = presenter.currentTime()
         }
     }
 
     private fun getCurrentDate(v: View) {
         v.apply {
-            dateTV.text = currentDate()
+            dateTV.text = presenter.currentDate()
         }
     }
 
@@ -144,8 +144,8 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
     private fun startWorkShift(v: View) {
         v.apply {
             progressBar.visibility = View.VISIBLE
-            startDate = currentDate()
-            startTime = currentTime()
+            startDate = presenter.currentDate()
+            startTime = presenter.currentTime()
             presenter.getUserToken()?.let { token = it }
             launch {
                 coroutineScope {
@@ -159,7 +159,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                         workShift = presenter.getLastData()
                     }
                     val startDistance = async(SupervisorJob(job) + Dispatchers.IO) {
-                        presenter.startDistance(Distance(0, getWorkShift(), 0f))
+                        presenter.startDistance(Distance(0, presenter.getWorkShift(), 0f))
                     }
                     val lastDistance = async(SupervisorJob(job) + Dispatchers.IO) {
                         distance = presenter.getLastDistance()
@@ -189,14 +189,14 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                 coroutineScope {
                     val db = async(SupervisorJob(job) + Dispatchers.IO) {
                         workShift?.let {
-                            presenter.updateWorkShift(currentDate(), currentTime(), it.id)
+                            presenter.updateWorkShift(presenter.currentDate(), presenter.currentTime(), it.id)
                         }
                     }
-                    val distanceRequest = async(SupervisorJob(job) + Dispatchers.IO) {
-                        distance?.let {
-                            presenter.updateDistance(Distance(it.id, it.workShift, dist))
-                        }
-                    }
+//                    val distanceRequest = async(SupervisorJob(job) + Dispatchers.IO) {
+//                        distance?.let {
+//                            presenter.updateDistance(Distance(it.id, it.workShift, dist))
+//                        }
+//                    }
                     val sendDistance = async(SupervisorJob(job) + Dispatchers.IO) {
                         distance?.let {
                             when (val r = presenter.sendDistance(token, DistanceModel(userId, it.workShift, it.distance))) {
@@ -206,7 +206,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                         }
                     }
                     db.await()
-                    distanceRequest.await()
+//                    distanceRequest.await()
                     sendDistance.await()
                     progressBar.visibility = View.GONE
                     ex?.let {
@@ -227,12 +227,4 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
             startActivity(Intent(context, AuthActivity::class.java))
         }
     }
-
-    private fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
-
-    private fun currentTime(): String =
-        formattedTime(parseTime(getCurrentDT()))
-
-    private fun currentDate(): String =
-        formattedDate(parseDate(getCurrentDT()))
 }

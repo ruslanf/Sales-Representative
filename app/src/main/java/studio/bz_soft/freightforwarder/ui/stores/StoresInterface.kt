@@ -7,6 +7,10 @@ import studio.bz_soft.freightforwarder.data.models.db.Location
 interface StoresInterface {
     fun getUserToken(): String?
     fun getWorkStarted(): Boolean?
+
+    fun getWorkShift(): String
+    fun currentDate(): String
+
     suspend fun getLastLocation(): Location
     suspend fun getTradePointList(token: String): Either<Exception, List<StorePointModel>>
 }

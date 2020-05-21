@@ -19,7 +19,6 @@ import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
 import studio.bz_soft.freightforwarder.data.models.db.Location
-import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.KEY_LATITUDE
 import studio.bz_soft.freightforwarder.root.Constants.KEY_LONGITUDE
@@ -27,6 +26,9 @@ import studio.bz_soft.freightforwarder.root.Constants.KEY_TOKEN
 import studio.bz_soft.freightforwarder.root.Constants.KEY_TRADE_POINT_ID
 import studio.bz_soft.freightforwarder.root.Constants.KEY_WORK_STARTED
 import studio.bz_soft.freightforwarder.root.delegated.DelegateAdapter
+import studio.bz_soft.freightforwarder.root.scrollToPosition
+import studio.bz_soft.freightforwarder.root.showError
+import studio.bz_soft.freightforwarder.root.showToast
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
 
@@ -113,7 +115,7 @@ class StoresFragment : Fragment(), CoroutineScope {
 
     private fun getCurrentDate(v: View) {
         v.apply {
-            dateTV.text = currentDate()
+            dateTV.text = presenter.currentDate()
         }
     }
 
@@ -151,10 +153,14 @@ class StoresFragment : Fragment(), CoroutineScope {
         }
     }
 
-    private fun renderTradePoint(grammar: List<StorePointModel>) {
+    private fun renderTradePoint(listStorePoints: List<StorePointModel>) {
+        presenter.getWorkShift()
         tradePointAdapter.apply {
             items.clear()
-            items.addAll(grammar.map { TradePointElement.TradePointItem(it) })
+            items.addAll(
+                listStorePoints.filter { it.workShift == presenter.getWorkShift() }
+                .map { TradePointElement.TradePointItem(it) }
+            )
             notifyDataSetChanged()
         }
     }
@@ -165,7 +171,4 @@ class StoresFragment : Fragment(), CoroutineScope {
             swipeRefresh.isRefreshing = false
         }
     }
-
-    private fun currentDate(): String =
-        formattedDate(parseDate(getCurrentDT()))
 }

@@ -9,11 +9,15 @@ import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 
 interface WorkShiftInterface {
     fun getUserToken(): String?
+    fun deleteToken()
+    fun deleteUserId()
+
     fun setWorkStarted(isStarted: Boolean)
     fun getWorkStarted(): Boolean?
 
-    fun deleteToken()
-    fun deleteUserId()
+    fun getWorkShift(): String
+    fun currentTime(): String
+    fun currentDate(): String
 
     suspend fun loadUserProfile(token: String): Either<Exception, UserProfileModel>
 
