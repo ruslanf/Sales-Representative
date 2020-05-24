@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_root.*
@@ -28,6 +29,10 @@ import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
 import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_ASSORTMENT
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_CORNER
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_INSIDE
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_OUTSIDE
 import studio.bz_soft.freightforwarder.root.Constants.KEY_TOKEN
 import studio.bz_soft.freightforwarder.root.Constants.KEY_TRADE_POINT_ID
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
@@ -363,7 +368,13 @@ class EditStoreFragment : Fragment(), CoroutineScope {
 
     private fun addPhotoListener(v: View) {
         v.apply {
-            findNavController().navigate(R.id.imageFragment)
+            val bundle = bundleOf(
+                IMAGE_OUTSIDE to photoOutsideV,
+                IMAGE_INSIDE to photoInsideV,
+                IMAGE_ASSORTMENT to photoGoodsV,
+                IMAGE_CORNER to photoCornerV
+            )
+            findNavController().navigate(R.id.imageFragment, bundle)
         }
     }
 

@@ -12,6 +12,7 @@ object Constants {
 
     const val CHANNEL_ID = "Location_Service"
     const val CHANNEL_NAME = "Background Location service"
+    const val NOTIFICATION_ID = 101
 
     const val DB_NAME = "ff_database.db"
 
@@ -19,6 +20,7 @@ object Constants {
     const val MAX_ZOOM_LEVEL: Double = 19.0
 
     const val TILE_SOURCE = "tile_source"
+    const val LOCATION = "location"
     const val LATITUDE = "latitude"
     const val LONGITUDE = "longitude"
     const val DISTANCE = "distance"
@@ -43,6 +45,8 @@ object Constants {
     const val WS_DATE_FORMATTER = "dd.MM.yy"
     const val TIME_FORMATTER = "HH:mm"
     const val TIME_STAMP_FORMATTER = "yyyy-MM-dd_HHmm"
+
+    const val DISTANCE_FORMAT = "##.###"
 
     val DAYS = IntArray(31) { i -> i + 1 }
     val MONTH = IntArray(12) { i -> i + 1 }

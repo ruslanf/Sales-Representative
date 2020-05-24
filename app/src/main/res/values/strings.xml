@@ -64,6 +64,8 @@
     <string name="product_3">Товары для животных</string>
     <string name="product_4">Товары для праздника</string>
     <string name="product_5">Товары для отдыха</string>
+    <string name="product_6">Строительные магазины</string>
+    <string name="product_7">Прочее</string>
     <string name="fragment_add_store_market_type">Market type</string>
     <string name="fragment_add_store_company_type">Company type</string>
     <string name="fragment_add_store_work_time">Work time</string>

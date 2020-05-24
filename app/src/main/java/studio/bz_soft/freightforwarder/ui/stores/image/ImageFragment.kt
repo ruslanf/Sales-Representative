@@ -15,6 +15,7 @@ import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.android.synthetic.main.fragment_image.view.*
@@ -26,13 +27,18 @@ import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.ImageModel
 import studio.bz_soft.freightforwarder.root.*
+import studio.bz_soft.freightforwarder.root.Constants.API_MAIN_URL
 import studio.bz_soft.freightforwarder.root.Constants.CAMERA_REQUEST_CODE
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.FILE_PATH
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_ASSORTMENT
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_CORNER
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_ASSORTMENT
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_CORNER
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_IN
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_OUT
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_INSIDE
+import studio.bz_soft.freightforwarder.root.Constants.IMAGE_OUTSIDE
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_SUFFIX
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import java.io.ByteArrayOutputStream
@@ -61,10 +67,20 @@ class ImageFragment : Fragment(), CoroutineScope {
     private var isInside = false
     private var isAssortment = false
     private var isCorner = false
+    private var photoOutside: String? = null
+    private var photoInside: String? = null
+    private var photoAssortment: String? = null
+    private var photoCorner: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.getUserToken()?.let { token = it }
+        arguments?.apply {
+            getString(IMAGE_OUTSIDE)?.let { photoOutside = it }
+            getString(IMAGE_INSIDE)?.let { photoInside = it }
+            getString(IMAGE_ASSORTMENT)?.let { photoAssortment = it }
+            getString(IMAGE_CORNER)?.let { photoCorner = it }
+        }
     }
 
     override fun onCreateView(
@@ -76,6 +92,7 @@ class ImageFragment : Fragment(), CoroutineScope {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.apply {
+            fillPhoto()
 
             outsideIV.setOnClickListener { photoButtonListener(this, 0) }
             insideIV.setOnClickListener { photoButtonListener(this, 1) }
@@ -89,6 +106,17 @@ class ImageFragment : Fragment(), CoroutineScope {
     override fun onResume() {
         super.onResume()
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.GONE
+    }
+
+    private fun fillPhoto() {
+        photoOutside?.let { showPhoto(outsidePhotoIV, "$API_MAIN_URL$it") }
+        photoInside?.let { showPhoto(insidePhotoIV, "$API_MAIN_URL$it") }
+        photoAssortment?.let { showPhoto(assortmentPhotoIV, "$API_MAIN_URL$it") }
+        photoCorner?.let { showPhoto(cornerPhotoIV, "$API_MAIN_URL$it") }
+    }
+
+    private fun showPhoto(image: ImageView, url: String) {
+        Glide.with(this).load(url).into(image)
     }
 
     private fun photoButtonListener(v: View, select: Int) {

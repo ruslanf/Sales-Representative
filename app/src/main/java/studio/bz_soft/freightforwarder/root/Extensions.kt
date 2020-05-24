@@ -146,5 +146,7 @@ fun formattedDate(date: LocalDate): String =
 fun formattedWSDate(date: LocalDate): String =
     date.format(ofPattern(WS_DATE_FORMATTER))
 
+fun Double.round(d: Int = 3): Double = "%.${d}f".format(this).toDouble()
+
 //fun parseChronometer(c: Context, milliseconds: Long): String =
 //    c.getString(R.string.chronometer_time).format(milliseconds / 1000 / 60, milliseconds / 1000 % 60)
