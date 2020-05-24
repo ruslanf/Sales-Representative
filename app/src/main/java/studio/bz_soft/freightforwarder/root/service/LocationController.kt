@@ -5,6 +5,9 @@ import studio.bz_soft.freightforwarder.data.models.LocationModel
 import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.Location
 import studio.bz_soft.freightforwarder.data.repository.RepositoryInterface
+import studio.bz_soft.freightforwarder.root.formattedDate
+import studio.bz_soft.freightforwarder.root.getCurrentDT
+import studio.bz_soft.freightforwarder.root.parseDate
 
 class LocationController(
     private val repository: RepositoryInterface
@@ -13,28 +16,7 @@ class LocationController(
     override fun getUserId(): Int? = repository.getUserId()
     override fun getWorkStarted(): Boolean? = repository.getWorkStarted()
 
-    override fun setStartLatitude(latitude: String) {
-        repository.setLatitude(latitude)
-    }
-
-    override fun getStartLatitude(): String? = repository.getLatitude()
-    override fun deleteStartLatitude() {
-        repository.deleteLatitude()
-    }
-
-    override fun setStartLongitude(longitude: String) {
-        repository.setLongitude(longitude)
-    }
-
-    override fun getStartLongitude(): String? = repository.getLongitude()
-
-    override fun deleteStartLongitude() {
-        repository.deleteLongitude()
-    }
-
-    override fun setDistance(distance: String) {
-        repository.setDistance(distance)
-    }
+    override fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
 
     override suspend fun insertDistance(distance: Distance) {
         repository.insertDistance(distance)

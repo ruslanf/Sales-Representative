@@ -10,13 +10,7 @@ interface LocationInterface {
     fun getUserId(): Int?
     fun getWorkStarted(): Boolean?
 
-    fun setStartLatitude(latitude: String)
-    fun getStartLatitude(): String?
-    fun deleteStartLatitude()
-    fun setStartLongitude(longitude: String)
-    fun getStartLongitude(): String?
-    fun deleteStartLongitude()
-    fun setDistance(distance: String)
+    fun getWorkShift(): String
 
     suspend fun insertDistance(distance: Distance)
     suspend fun insertLocation(location: Location)

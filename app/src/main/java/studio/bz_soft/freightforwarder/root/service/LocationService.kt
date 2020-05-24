@@ -25,15 +25,17 @@ import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.root.Constants
 import studio.bz_soft.freightforwarder.root.Constants.CHANNEL_ID
 import studio.bz_soft.freightforwarder.root.Constants.CHANNEL_NAME
-import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
+import studio.bz_soft.freightforwarder.root.Constants.LOCATION
 import studio.bz_soft.freightforwarder.root.Constants.MIN_DISTANCE
 import studio.bz_soft.freightforwarder.root.Constants.MIN_TIME
+import studio.bz_soft.freightforwarder.root.Constants.NOTIFICATION_ID
 import studio.bz_soft.freightforwarder.root.Constants.SERVICE_INTENT_MESSAGE
 import studio.bz_soft.freightforwarder.root.showToast
 
 class LocationService : Service() {
 
     private val logTag = LocationService::class.java.simpleName
+    private var notificationManager: NotificationManager? = null
 
     inner class LocationListener(provider: String) : android.location.LocationListener {
 
@@ -85,6 +87,10 @@ class LocationService : Service() {
             locationManager?.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListeners[2])
             locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListeners[1])
             locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, locationListeners[0])
+//            val criteria = Criteria()
+//            criteria.accuracy = Criteria.ACCURACY_FINE
+//            val provider = locationManager?.getBestProvider(criteria, true)
+//            locationManager?.getLastKnownLocation(provider)
         }
         startForeground()
     }
@@ -103,16 +109,16 @@ class LocationService : Service() {
     }
 
     private fun sendBroadcast(location: Location) {
-        val intent = Intent(Constants.SERVICE_GPS_BROADCAST_RECEIVE)
-        intent.putExtra(Constants.LATITUDE, location.latitude)
-        intent.putExtra(Constants.LONGITUDE, location.longitude)
+        val intent = Intent(Constants.SERVICE_GPS_BROADCAST_RECEIVE).apply {
+            putExtra(LOCATION, location)
+        }
         sendBroadcast(intent)
     }
 
     private fun startForeground() {
         val channelId =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createNotificationChannel()
-            else EMPTY_STRING
+            else CHANNEL_ID
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId )
         val notification = notificationBuilder.setOngoing(true)
@@ -120,25 +126,27 @@ class LocationService : Service() {
             .setPriority(PRIORITY_MIN)
             .setCategory(Notification.CATEGORY_SERVICE)
             .build()
-        startForeground(101, notification)
+        startForeground(NOTIFICATION_ID, notification)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(): String {
         val channelId = CHANNEL_ID
-        val chan = NotificationChannel(channelId, CHANNEL_NAME, NotificationManager.IMPORTANCE_NONE)
-        chan.lightColor = Color.BLUE
-        chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
-        val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        service.createNotificationChannel(chan)
+        val chan = NotificationChannel(channelId, CHANNEL_NAME, NotificationManager.IMPORTANCE_NONE).apply {
+            lightColor = Color.BLUE
+            lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+        }
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager?.createNotificationChannel(chan)
         return channelId
     }
 
     companion object {
         fun startService(context: Context, message: String) {
-            val startIntent = Intent(context, LocationService::class.java)
-            startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startIntent.putExtra(SERVICE_INTENT_MESSAGE, message)
+            val startIntent = Intent(context, LocationService::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                putExtra(SERVICE_INTENT_MESSAGE, message)
+            }
             ContextCompat.startForegroundService(context, startIntent)
         }
 
