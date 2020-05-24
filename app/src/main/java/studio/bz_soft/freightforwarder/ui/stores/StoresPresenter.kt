@@ -12,6 +12,8 @@ class StoresPresenter(
     private val repository: RepositoryInterface
 ) : StoresInterface {
     override fun getUserToken(): String? = repository.getUserToken()
+    override fun getUserId(): Int? = repository.getUserId()
+
     override fun getWorkStarted(): Boolean? = repository.getWorkStarted()
     override fun getWorkShift(): String = formattedDate(parseDate(getCurrentDT()))
     override fun currentDate(): String = formattedDate(parseDate(getCurrentDT()))

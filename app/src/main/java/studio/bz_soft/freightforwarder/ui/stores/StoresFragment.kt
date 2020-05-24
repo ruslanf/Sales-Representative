@@ -158,7 +158,9 @@ class StoresFragment : Fragment(), CoroutineScope {
         tradePointAdapter.apply {
             items.clear()
             items.addAll(
-                listStorePoints.filter { it.workShift == presenter.getWorkShift() }
+                listStorePoints.filter {
+                    it.workShift == presenter.getWorkShift() && it.userId == presenter.getUserId()
+                }
                 .map { TradePointElement.TradePointItem(it) }
             )
             notifyDataSetChanged()

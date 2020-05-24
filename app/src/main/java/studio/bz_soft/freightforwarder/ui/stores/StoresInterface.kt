@@ -6,6 +6,7 @@ import studio.bz_soft.freightforwarder.data.models.db.Location
 
 interface StoresInterface {
     fun getUserToken(): String?
+    fun getUserId(): Int?
     fun getWorkStarted(): Boolean?
 
     fun getWorkShift(): String
