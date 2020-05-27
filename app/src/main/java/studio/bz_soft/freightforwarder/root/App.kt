@@ -23,6 +23,7 @@ class App : Application() {
                 applicationModule,
                 networkModule,
                 storageModule,
+                repositoryModule,
                 presenterModule,
                 controllerModule,
                 navigationModule

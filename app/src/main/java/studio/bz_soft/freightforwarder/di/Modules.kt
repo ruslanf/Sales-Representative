@@ -33,6 +33,9 @@ val networkModule = module {
 val storageModule = module {
     factory<SharedPreferences> { androidContext().getSharedPreferences("local_storage", Context.MODE_PRIVATE) }
     single { DbClient(androidApplication()) as DbClientInterface }
+}
+
+val repositoryModule = module {
     single<DatabaseRepositoryInterface> { DatabaseRepository(get()) }
     single<LocalStorageInterface> { LocalStorage(get()) }
     single<RepositoryInterface> { Repository(get(), get(), get()) }
