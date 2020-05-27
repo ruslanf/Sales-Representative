@@ -62,8 +62,8 @@ object Constants {
     const val IMAGE_DESC_ASSORTMENT = 2
     const val IMAGE_DESC_CORNER = 3
 
-    const val MIN_TIME = 6 * 10 * 1000L
-    const val MIN_DISTANCE = 0f
+    const val MIN_TIME = 2 * 10 * 1000L
+    const val MIN_DISTANCE = 20f
 
     const val SERVICE_GPS_MESSAGE = "GPS Service started..."
     const val SERVICE_GPS_BROADCAST = "broadcast.service.gps"

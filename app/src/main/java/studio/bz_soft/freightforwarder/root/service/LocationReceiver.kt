@@ -97,7 +97,7 @@ class LocationReceiver : BroadcastReceiver(), CoroutineScope, KoinComponent {
     }
 
     private fun computeDistance(loc: android.location.Location) {
-        if (loc.hasAccuracy() && loc.accuracy > 20.0) {
+//        if (loc.hasAccuracy() && loc.accuracy > 20.0) {
             val distanceResult = FloatArray(3)
             if (Location.latitude != 0.0 && Location.longitude != 0.0)
                 distanceBetween(
@@ -120,7 +120,7 @@ class LocationReceiver : BroadcastReceiver(), CoroutineScope, KoinComponent {
                 }
                 request.await()
             }
-        }
+//        }
     }
 
     private fun calculateDistance(latitude: Double, longitude: Double) {

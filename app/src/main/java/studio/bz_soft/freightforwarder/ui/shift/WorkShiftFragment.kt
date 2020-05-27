@@ -2,6 +2,7 @@ package studio.bz_soft.freightforwarder.ui.shift
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import studio.bz_soft.freightforwarder.data.models.db.Distance
 import studio.bz_soft.freightforwarder.data.models.db.WorkShift
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.showError
+import studio.bz_soft.freightforwarder.root.showToast
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import kotlin.coroutines.CoroutineContext
@@ -174,22 +176,25 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                     val lastDistance = async(SupervisorJob(job) + Dispatchers.IO) {
                         distance = presenter.getLastDistance()
                     }
-                    val sendDistance = async(SupervisorJob(job) + Dispatchers.IO) {
-                        distance?.let {
+                    db.await()
+                    lastDistance.await()
+                    ex = null
+                    distance?.let {
+                        val sendDistance = async(SupervisorJob(job) + Dispatchers.IO) {
+                            Log.d(logTag, "Дистанция => ${distance?.distance}")
                             when (val r = presenter.sendDistance(token, DistanceModel(userId, it.workShift, it.distance))) {
                                 is Right -> {  }
                                 is Left -> { ex = r.value }
                             }
                         }
+                        sendDistance.await()
                     }
-                    db.await()
-                    lastDistance.await()
-                    sendDistance.await()
                     progressBar.visibility = View.GONE
                     ex?.let {
                         showError(context, it, R.string.fragment_work_shift_send_distance_error, logTag)
-                        ex = null
-                    } ?: run {  }
+                    } ?: run {
+                        showToast(this@apply, "Дистанция => ${distance?.distance}, на сервер загружена")
+                    }
                 }
             }
         }
