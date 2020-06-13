@@ -40,13 +40,13 @@
     <string name="fragment_work_shift_send_distance_error">Ошибка оправки километража рабочей смены…</string>
 
     <string name="fragment_stores_title">Торговые точки</string>
-    <string name="fragment_stores_add_store_button">Добавить торговую точку</string>
+    <string name="fragment_stores_add_store_button">Добавить</string>
     <string name="fragment_stores_work_shift_title">Смена</string>
     <string name="fragment_stores_shift_message_error">Рабочая смена не начата! Вначале начните смену</string>
     <string name="fragment_store_error_load_trade_point">Ошибка загрузки списка торговых точек</string>
 
     <string name="fragment_add_store_title">Новая точка</string>
-    <string name="fragment_add_store_add_photo_button">Добавить фото</string>
+    <string name="fragment_add_store_add_photo_button">Фото</string>
     <string name="fragment_add_store_save_info_button">Сохранить</string>
     <string name="fragment_add_store_name_of_outlet">Торговая точка</string>
     <string name="fragment_add_store_type">Тип организации</string>

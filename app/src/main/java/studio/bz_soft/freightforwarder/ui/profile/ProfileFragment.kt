@@ -18,9 +18,7 @@ import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.activity_root.progressBar
 import kotlinx.android.synthetic.main.dialog_birthday.view.*
 import kotlinx.android.synthetic.main.dialog_change_password.view.*
-import kotlinx.android.synthetic.main.dialog_change_password.view.changeButton
 import kotlinx.android.synthetic.main.dialog_logout.view.*
-import kotlinx.android.synthetic.main.fragment_profile.view.managerSpinner
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.coroutines.*

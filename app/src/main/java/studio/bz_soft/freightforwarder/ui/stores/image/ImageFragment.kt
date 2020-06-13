@@ -41,10 +41,10 @@ import studio.bz_soft.freightforwarder.root.Constants.IMAGE_INSIDE
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_OUTSIDE
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_SUFFIX
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
+import java.io.BufferedInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class ImageFragment : Fragment(), CoroutineScope {
@@ -122,12 +122,16 @@ class ImageFragment : Fragment(), CoroutineScope {
     private fun photoButtonListener(v: View, select: Int) {
         v.apply {
             selected = select
-            val intentTakePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val image = createImageFile()
-            if (BuildConfig.DEBUG) Log.d(logTag, "File image => ${image.absolutePath}")
-            imagePath = "DCIM/Camera/${fileName(image.toString())}"
-            intentTakePicture.putExtra(MediaStore.EXTRA_OUTPUT,
-                FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", image))
+            val image = createImageFile().also {
+                if (BuildConfig.DEBUG) Log.d(logTag, "File image => ${it.absolutePath}")
+                imagePath = " DCIM/Camera/${fileName(it.toString())}"
+            }
+            val intentTakePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra(MediaStore.EXTRA_OUTPUT,
+                    FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.provider", image))
+            }
             startActivityForResult(intentTakePicture, CAMERA_REQUEST_CODE)
         }
     }
@@ -222,47 +226,135 @@ class ImageFragment : Fragment(), CoroutineScope {
         }
     }
 
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        val image: File = File.createTempFile(imageFileName(), IMAGE_SUFFIX, storagePath())
-        cameraFilePath = FILE_PATH.plus(image.absolutePath)
-        return image
-    }
+    private fun createImageFile(): File =
+        File.createTempFile(imageFileName(), IMAGE_SUFFIX, storagePath()).also {
+            cameraFilePath = FILE_PATH.plus(it.absolutePath)
+            Log.d(logTag, "createImageFile() camera file path -> $cameraFilePath")
+        }
+
+//    @Throws(IOException::class)
+//    private fun createImageFile(): File {
+//        val image: File = File.createTempFile(imageFileName(), IMAGE_SUFFIX, storagePath())
+//        cameraFilePath = FILE_PATH.plus(image.absolutePath)
+//        Log.d(logTag, "createImageFile() camera file path -> $cameraFilePath")
+//        return image
+////        return compressedImageFromUri(Uri.parse(cameraFilePath))
+//    }
+
+    private fun decodeImageFromFile(file: String) =
+        BitmapFactory.Options().run {
+//            val inputStream = BufferedInputStream(activity?.contentResolver?.openInputStream(Uri.parse(file))).apply { markSupported() }
+            inJustDecodeBounds = true
+
+//            inputStream.mark(inputStream.available())
+//            BitmapFactory.decodeStream(inputStream, null, this)
+//            inputStream.reset()
+
+            BitmapFactory.decodeFile(file, this)
+            inSampleSize = calculateInSampleSize(this, 640, 480)
+            inJustDecodeBounds = false
+
+            BitmapFactory.decodeFile(file, this)
+        }
 
     private fun compressedImageFromUri(uri: Uri): File {
-        var inputStream = activity?.contentResolver?.openInputStream(uri)
-        val options = BitmapFactory.Options()
-        options.inJustDecodeBounds = true
-        options.inSampleSize = 2
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888
-        BitmapFactory.decodeStream(inputStream, null, options)
-        inputStream?.close()
-        val orgWidth = options.outWidth
-        val orgHeight = options.outHeight
+        Log.d(logTag, "compressedImageFromUri()...")
+        val inputStream = BufferedInputStream(activity?.contentResolver?.openInputStream(uri)).apply { markSupported() }
 
-//        return if (orgWidth != -1 || orgHeight != -1) {
-            var scaling = if (orgWidth > orgHeight && orgWidth > 480f) (orgWidth / 480f).toInt()
-            else if (orgWidth < orgHeight && orgHeight > 800f) (orgHeight / 800f).toInt() else 1
-            scaling = if (scaling <= 0) 1 else scaling
-            options.inSampleSize = scaling
-            inputStream = activity?.contentResolver?.openInputStream(uri)
-            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
-            inputStream?.close()
-            return compressImage(bitmap)
-//        } else null
+//        val options = BitmapFactory.Options().apply {
+//            inJustDecodeBounds = true
+////            inSampleSize = 2
+//            inPreferredConfig = Bitmap.Config.ARGB_8888
+//        }
+//        inputStream.mark(inputStream.available())
+//        BitmapFactory.decodeStream(inputStream, null, options)
+//        val imageHeight: Int = options.outHeight
+//        val imageWidth: Int = options.outWidth
+////        val imageType: String = options.outMimeType
+//        Log.d(logTag, "Bitmap options: \n height => $imageHeight \n width => $imageWidth ")
+//        inputStream.reset()
+//
+//        val hRatio = ceil(options.outHeight / 800f).toInt()
+//        val wRatio = ceil(options.outWidth / 480f).toInt()
+//
+//        if (hRatio > 1 || wRatio > 1) options.inSampleSize = if (hRatio > wRatio) hRatio else wRatio
+//        options.inJustDecodeBounds = false
+//        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+//        inputStream.close()
+
+
+//        return file
+
+//        val orgWidth = options.outWidth
+//        val orgHeight = options.outHeight
+////        return if (orgWidth != -1 || orgHeight != -1) {
+//            var scaling = if (orgWidth > orgHeight && orgWidth > 480f) (orgWidth / 480f).toInt()
+//            else if (orgWidth < orgHeight && orgHeight > 800f) (orgHeight / 800f).toInt() else 1
+//            scaling = if (scaling <= 0) 1 else scaling
+//            options.inSampleSize = scaling
+//            inputStream = activity?.contentResolver?.openInputStream(uri)
+//            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+//            inputStream?.close()
+            return compressImage(decodeFromStream(inputStream, 1280, 720))
+////        } else null
     }
 
-    private fun compressImage(bitmap: Bitmap?): File {
+    private fun decodeFromStream(inputStream: BufferedInputStream, reqWidth: Int, reqHeight: Int) =
+        BitmapFactory.Options().run {
+            inJustDecodeBounds = true
+
+            inputStream.mark(inputStream.available())
+            BitmapFactory.decodeStream(inputStream, null, this)
+            inputStream.reset()
+
+            inSampleSize = calculateInSampleSize(this, reqWidth, reqHeight)
+            inJustDecodeBounds = false
+
+            BitmapFactory.decodeStream(inputStream, null, this)
+    }
+
+    private fun compressImage(bitmap: Bitmap?): File = File(context?.cacheDir, "upload").also {
         val byteArrayOS = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.PNG, 70, byteArrayOS)
-        val file = File(context?.cacheDir, "upload")
-        val fileOS = FileOutputStream(file)
-        fileOS.write(byteArrayOS.toByteArray())
-        fileOS.flush()
-        fileOS.close()
-//        val byteArrayIS = ByteArrayInputStream(byteArrayOS.toByteArray())
-//        return BitmapFactory.decodeStream(byteArrayIS, null, null)
-        return file
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS)
+        FileOutputStream(it).apply {
+            write(byteArrayOS.toByteArray())
+            flush()
+            close()
+        }
+        Log.d(logTag, "File size => ${it.length()}")
+    }
+//    private fun compressImage(bitmap: Bitmap?): File {
+//        val byteArrayOS = ByteArrayOutputStream()
+//        bitmap?.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS)
+//        val file = File(context?.cacheDir, "upload")
+//        FileOutputStream(file).apply {
+//            write(byteArrayOS.toByteArray())
+//            flush()
+//            close()
+//        }
+////        val byteArrayIS = ByteArrayInputStream(byteArrayOS.toByteArray())
+////        return BitmapFactory.decodeStream(byteArrayIS, null, null)
+//        Log.d(logTag, "File size => ${file.length()}")
+//        return file
+//    }
+
+    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        // Raw height and width of image
+        val (height: Int, width: Int) = options.run { outHeight to outWidth }
+        var inSampleSize = 1
+
+        if (height > reqHeight || width > reqWidth) {
+
+            val halfHeight: Int = height / 2
+            val halfWidth: Int = width / 2
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while (halfHeight / inSampleSize >= reqHeight &&
+                halfWidth / inSampleSize >= reqWidth) inSampleSize *= 2
+        }
+
+        return inSampleSize
     }
 
     private fun setCorrectIcon(v: View, image: ImageView, isCorrect: Boolean) {
