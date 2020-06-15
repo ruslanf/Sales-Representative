@@ -63,4 +63,12 @@ interface DataApiInterface {
     @POST("$BASE_API/trade_point/sync")
     fun syncTradePoint(@Header("Authorization") token: String,
                        @Body listStorePoint: List<StorePointModel>): Call<Unit?>
+
+    @POST("$BASE_API/track/distance/sync")
+    fun syncTrackDistance(@Header("Authorization") token: String,
+                          @Body distanceModel: DistanceModel): Call<Unit?>
+
+    @POST("$BASE_API/track/sync")
+    fun syncTrack(@Header("Authorization") token: String,
+                  @Body listLocationModel: List<LocationModel>): Call<Unit?>
 }

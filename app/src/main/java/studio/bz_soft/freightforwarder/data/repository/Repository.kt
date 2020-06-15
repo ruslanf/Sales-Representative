@@ -156,6 +156,12 @@ class Repository(
     override suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Either<Exception, Unit?> =
         safeRequest { client.syncTradePoint(token, listStorePoint) }
 
+    override suspend fun syncTrackDistance(token: String, distanceModel: DistanceModel): Either<Exception, Unit?> =
+        safeRequest { client.syncTrackDistance(token, distanceModel) }
+
+    override suspend fun syncTrack(token: String, listLocationModel: List<LocationModel>): Either<Exception, Unit?> =
+        safeRequest { client.syncTrack(token, listLocationModel) }
+
     // DB functions
     override suspend fun insertLocation(location: Location) {
         database.insertLocation(location)

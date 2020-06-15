@@ -22,4 +22,6 @@ interface ApiClientInterface {
     suspend fun getTradePoint(token: String, id: Int): StorePointModel
     suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Unit?
     suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Unit?
+    suspend fun syncTrackDistance(token: String, distanceModel: DistanceModel): Unit?
+    suspend fun syncTrack(token: String, listLocationModel: List<LocationModel>): Unit?
 }

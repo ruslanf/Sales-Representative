@@ -62,6 +62,8 @@ interface RepositoryInterface {
     suspend fun getTradePoint(token: String, id: Int): Either<Exception, StorePointModel>
     suspend fun updateTradePoint(token: String, id: Int, storePoint: StorePointModel): Either<Exception, Unit?>
     suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Either<Exception, Unit?>
+    suspend fun syncTrackDistance(token: String, distanceModel: DistanceModel): Either<Exception, Unit?>
+    suspend fun syncTrack(token: String, listLocationModel: List<LocationModel>): Either<Exception, Unit?>
 
     // DB functions
     suspend fun insertLocation(location: Location)

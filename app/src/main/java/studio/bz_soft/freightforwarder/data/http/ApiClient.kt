@@ -92,5 +92,11 @@ class ApiClient(
     override suspend fun syncTradePoint(token: String, listStorePoint: List<StorePointModel>): Unit? =
         apiClient.syncTradePoint(modifiedToken(token), listStorePoint).await()
 
+    override suspend fun syncTrackDistance(token: String, distanceModel: DistanceModel): Unit? =
+        apiClient.syncTrackDistance(modifiedToken(token), distanceModel).await()
+
+    override suspend fun syncTrack(token: String, listLocationModel: List<LocationModel>): Unit? =
+        apiClient.syncTrack(modifiedToken(token), listLocationModel).await()
+
     private fun modifiedToken(token: String): String = "Bearer $token"
 }
