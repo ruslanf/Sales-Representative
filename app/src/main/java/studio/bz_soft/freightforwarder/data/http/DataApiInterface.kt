@@ -64,7 +64,7 @@ interface DataApiInterface {
     fun syncTradePoint(@Header("Authorization") token: String,
                        @Body listStorePoint: List<StorePointModel>): Call<Unit?>
 
-    @POST("$BASE_API/track/distance/sync")
+    @POST("$BASE_API/track/sync_distance")
     fun syncTrackDistance(@Header("Authorization") token: String,
                           @Body distanceModel: DistanceModel): Call<Unit?>
 
