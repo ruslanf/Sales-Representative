@@ -13,7 +13,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import coil.api.load
+import coil.transform.CircleCropTransformation
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.activity_root.progressBar
 import kotlinx.android.synthetic.main.dialog_birthday.view.*
@@ -29,9 +30,12 @@ import studio.bz_soft.freightforwarder.data.http.Right
 import studio.bz_soft.freightforwarder.data.models.ManagersModel
 import studio.bz_soft.freightforwarder.data.models.Passwords
 import studio.bz_soft.freightforwarder.data.models.UserProfileModel
-import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.extensions.Sex
+import studio.bz_soft.freightforwarder.root.formattedOutputDate
+import studio.bz_soft.freightforwarder.root.parseOutputDate
+import studio.bz_soft.freightforwarder.root.showError
+import studio.bz_soft.freightforwarder.root.showToast
 import studio.bz_soft.freightforwarder.ui.auth.AuthActivity
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
 import java.util.*
@@ -334,11 +338,10 @@ class ProfileFragment : Fragment(), CoroutineScope {
     private fun loadPhoto(v: View, photo: String?) {
         v.apply {
             photo?.let {
-                GlideApp.with(this)
-                    .load(it)
-                    .placeholder(R.drawable.ic_auth_user)
-                    .transform(CircleCrop())
-                    .into(userPhotoIV)
+                userPhotoIV.load(it) {
+                    placeholder(R.drawable.ic_auth_user)
+                    transformations(CircleCropTransformation())
+                }
             }
         }
     }
@@ -349,7 +352,7 @@ class ProfileFragment : Fragment(), CoroutineScope {
         with(alertDialog) {
             setView(dialogView)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialogView.exitButton.setOnClickListener { dialogExitButtonListener(this) }
+            dialogView.endButton.setOnClickListener { dialogExitButtonListener(this) }
             dialogView.cancelButton.setOnClickListener { dismiss() }
             show()
         }
