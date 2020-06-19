@@ -6,6 +6,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import pyxis.uzuki.live.mediaresizer.MediaResizerGlobal
 import studio.bz_soft.freightforwarder.di.*
 
 class App : Application() {
@@ -15,6 +16,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        MediaResizerGlobal.initializeApplication(this)
         instance = this
         startKoin {
             androidLogger(Level.DEBUG)

@@ -37,6 +37,10 @@
     <string name="fragment_work_shift_signin_title">You sign in as:</string>
     <string name="fragment_work_shift_time_now">Now:</string>
     <string name="fragment_work_shift_send_distance_error">Error! sending work shift distance…</string>
+    <string name="fragment_work_shift_started">Начало рабочей смены</string>
+    <string name="fragment_work_shift_ended">Закончить рабочую смену</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_cancel">Cancel</string>
 
     <string name="fragment_stores_title">Outlets</string>
     <string name="fragment_stores_add_store_button">Add Store</string>
@@ -71,6 +75,7 @@
     <string name="fragment_add_store_work_time">Work time</string>
     <string name="fragment_add_store_dealer">Dealer</string>
     <string name="fragment_add_store_note">Note</string>
+    <string name="fragment_add_store_not_filled_error_message_types">Ошибка! Не указана правовая форма!</string>
     <string name="fragment_add_store_not_filled_error_message_point">Ошибка! Не заполнено название торговой точки…</string>
     <string name="fragment_add_store_not_filled_error_message_address">Ошибка! Не заполнен фактический адрес…</string>
     <string name="fragment_add_store_not_filled_error_message_assortment">Ошибка! Не заполнен список продуктов…</string>
