@@ -1,13 +1,17 @@
 package studio.bz_soft.freightforwarder.ui.shift
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_root.*
+import kotlinx.android.synthetic.main.dialog_work_shift_started_finished.view.*
 import kotlinx.android.synthetic.main.fragment_work_shift.view.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
@@ -120,8 +124,8 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                 presenter.setWorkStarted(!it)
                 workButtonState(this)
                 when (it) {
-                    true -> { endWorkShift(this) }
-                    false -> { startWorkShift(this) }
+                    true -> { startWorkShiftDialog(this, false) } // End Work shift
+                    false -> { startWorkShiftDialog(this, true) } // Start Work shift
                 }
             }
         }
@@ -135,6 +139,27 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                     false -> { resources.getString(R.string.fragment_route_work_button_start) }
                 }
             } ?: run { workButton.text = resources.getString(R.string.fragment_route_work_button_start) }
+        }
+    }
+
+    private fun startWorkShiftDialog(v: View, isStarted: Boolean) {
+        v.apply {
+            layoutInflater.inflate(R.layout.dialog_work_shift_started_finished, null).also {
+                with(AlertDialog.Builder(context).create()) {
+                    setView(it)
+                    window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    it.textView.text = resources.getString(
+                        if (isStarted) R.string.fragment_work_shift_started
+                        else R.string.fragment_work_shift_ended
+                    )
+                    it.okButton.setOnClickListener {
+                        dismiss()
+                        if (isStarted) startWorkShift(this@apply) else endWorkShift(this@apply)
+                    }
+                    it.cancelButton.setOnClickListener { dismiss() }
+                    show()
+                }
+            }
         }
     }
 
