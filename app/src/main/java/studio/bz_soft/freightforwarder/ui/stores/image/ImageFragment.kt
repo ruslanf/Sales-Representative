@@ -3,9 +3,9 @@ package studio.bz_soft.freightforwarder.ui.stores.image
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,12 +15,19 @@ import android.widget.ImageView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
+import coil.api.load
 import kotlinx.android.synthetic.main.activity_root.*
 import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.android.synthetic.main.fragment_image.view.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
+import pyxis.uzuki.live.mediaresizer.MediaResizer
+import pyxis.uzuki.live.mediaresizer.data.ImageResizeOption
+import pyxis.uzuki.live.mediaresizer.data.ResizeOption
+import pyxis.uzuki.live.mediaresizer.model.ImageMode
+import pyxis.uzuki.live.mediaresizer.model.MediaType
+import pyxis.uzuki.live.mediaresizer.model.ScanRequest
+import pyxis.uzuki.live.richutilskt.utils.toFile
 import studio.bz_soft.freightforwarder.BuildConfig
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
@@ -30,7 +37,6 @@ import studio.bz_soft.freightforwarder.root.*
 import studio.bz_soft.freightforwarder.root.Constants.API_MAIN_URL
 import studio.bz_soft.freightforwarder.root.Constants.CAMERA_REQUEST_CODE
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
-import studio.bz_soft.freightforwarder.root.Constants.FILE_PATH
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_ASSORTMENT
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_CORNER
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_ASSORTMENT
@@ -39,13 +45,11 @@ import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_IN
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_DESC_OUT
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_INSIDE
 import studio.bz_soft.freightforwarder.root.Constants.IMAGE_OUTSIDE
-import studio.bz_soft.freightforwarder.root.Constants.IMAGE_SUFFIX
 import studio.bz_soft.freightforwarder.ui.root.RootActivity
-import java.io.BufferedInputStream
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
+import java.io.IOException
 import kotlin.coroutines.CoroutineContext
+
 
 class ImageFragment : Fragment(), CoroutineScope {
 
@@ -56,12 +60,12 @@ class ImageFragment : Fragment(), CoroutineScope {
     private var job = Job()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
-    private var token: String = EMPTY_STRING
+    private var token = EMPTY_STRING
     private var imageModel: List<ImageModel>? = null
     private var ex: Exception? = null
 
-    private var imagePath: String = EMPTY_STRING
-    private var cameraFilePath: String = EMPTY_STRING
+    private lateinit var currentPhotoPath: String
+    private var resizedFilePath = EMPTY_STRING
     private var selected: Int = 0
     private var isOutside = false
     private var isInside = false
@@ -109,30 +113,76 @@ class ImageFragment : Fragment(), CoroutineScope {
     }
 
     private fun fillPhoto() {
-        photoOutside?.let { showPhoto(outsidePhotoIV, "$API_MAIN_URL$it") }
-        photoInside?.let { showPhoto(insidePhotoIV, "$API_MAIN_URL$it") }
-        photoAssortment?.let { showPhoto(assortmentPhotoIV, "$API_MAIN_URL$it") }
-        photoCorner?.let { showPhoto(cornerPhotoIV, "$API_MAIN_URL$it") }
+        photoOutside?.let {showPhoto(outsidePhotoIV, "$API_MAIN_URL$it") }
+        photoInside?.let {showPhoto(insidePhotoIV, "$API_MAIN_URL$it") }
+        photoAssortment?.let {showPhoto(assortmentPhotoIV, "$API_MAIN_URL$it") }
+        photoCorner?.let {showPhoto(cornerPhotoIV, "$API_MAIN_URL$it") }
     }
 
     private fun showPhoto(image: ImageView, url: String) {
-        Glide.with(this).load(url).into(image)
+        if (url != API_MAIN_URL) image.load("${url}?w=360")
+    }
+
+    private fun imageResize(v: View, path: String) {
+        v.apply {
+            progressBar.visibility = View.VISIBLE
+            val file = "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)}/SalesRepresentative/".toFile()
+            file.mkdirs()
+            val imageFile = File(file, "${imageFileName()}.jpg")
+            resizedFilePath = EMPTY_STRING
+            resizedFilePath = imageFile.absolutePath
+
+            val resizeOption = ImageResizeOption.Builder()
+                .setImageProcessMode(ImageMode.ResizeAndCompress)
+                .setImageResolution(1280, 720)
+                .setBitmapFilter(false)
+                .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                .setCompressQuality(65)
+                .setScanRequest(ScanRequest.TRUE)
+                .build()
+
+            val option = ResizeOption.Builder()
+                .setMediaType(MediaType.IMAGE)
+                .setImageResizeOption(resizeOption)
+                .setTargetPath(path)
+                .setOutputPath(imageFile.absolutePath)
+                .setCallback { code, output ->
+                    showToast(this, "Фото сжато - $code, $output")
+                    progressBar.visibility = View.GONE
+                }
+                .build()
+
+            MediaResizer.process(option)
+        }
     }
 
     private fun photoButtonListener(v: View, select: Int) {
         v.apply {
             selected = select
-            val image = createImageFile().also {
-                if (BuildConfig.DEBUG) Log.d(logTag, "File image => ${it.absolutePath}")
-                imagePath = " DCIM/Camera/${fileName(it.toString())}"
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                // Ensure that there's a camera activity to handle the intent
+                takePictureIntent.resolveActivity(context.packageManager)?.also {
+                    // Create the File where the photo should go
+                    val photoFile: File? = try {
+                        createImageFile()
+                    } catch (ex: IOException) {
+                        // Error occurred while creating the File
+                        Log.e(logTag, "Error creating photo file...")
+                        view?.let { showToast(it, "Error creating photo file...") }
+                        null
+                    }
+                    // Continue only if the File was successfully created
+                    photoFile?.also {
+                        val photoURI: Uri = FileProvider.getUriForFile(
+                            context,
+                            "${BuildConfig.APPLICATION_ID}.provider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                        startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
+                    }
+                }
             }
-            val intentTakePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                putExtra(MediaStore.EXTRA_OUTPUT,
-                    FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.provider", image))
-            }
-            startActivityForResult(intentTakePicture, CAMERA_REQUEST_CODE)
         }
     }
 
@@ -149,7 +199,7 @@ class ImageFragment : Fragment(), CoroutineScope {
             progressBar.visibility = View.VISIBLE
             launch {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.uploadImage(token, getRequestBody(imagePath))) {
+                    when (val r = presenter.uploadImage(token, getResizedRequestBody(resizedFilePath))) {
                         is Right -> { imageModel = r.value }
                         is Left -> { ex = r.value }
                     }
@@ -191,30 +241,36 @@ class ImageFragment : Fragment(), CoroutineScope {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) when (requestCode) {
             CAMERA_REQUEST_CODE -> {
+//                val thumbnail: Bitmap? = data?.extras?.get("data") as Bitmap
+                view?.let {imageResize(it, currentPhotoPath) }
                 when (selected) {
                     IMAGE_DESC_OUT -> {
-                        outsidePhotoIV.setImageURI(Uri.parse(cameraFilePath))
+//                        thumbnail?.let { outsidePhotoIV.setImageBitmap(it) }
+                        outsidePhotoIV.setImageURI(Uri.parse(currentPhotoPath))
                         view?.let {
                             uploadPhoto(it)
                             setCorrectIcon(it, outsideCorrectIV, true)
                         }
                     }
                     IMAGE_DESC_IN -> {
-                        insidePhotoIV.setImageURI(Uri.parse(cameraFilePath))
+//                        thumbnail?.let { insidePhotoIV.setImageBitmap(it) }
+                        insidePhotoIV.setImageURI(Uri.parse(currentPhotoPath))
                         view?.let {
                             uploadPhoto(it)
                             setCorrectIcon(it, insideCorrectIV, true)
                         }
                     }
                     IMAGE_DESC_ASSORTMENT -> {
-                        assortmentPhotoIV.setImageURI(Uri.parse(cameraFilePath))
+//                        thumbnail?.let { assortmentPhotoIV.setImageBitmap(it) }
+                        assortmentPhotoIV.setImageURI(Uri.parse(currentPhotoPath))
                         view?.let {
                             uploadPhoto(it)
                             setCorrectIcon(it, assortmentCorrectIV, true)
                         }
                     }
                     IMAGE_DESC_CORNER -> {
-                        cornerPhotoIV.setImageURI(Uri.parse(cameraFilePath))
+//                        thumbnail?.let { cornerPhotoIV.setImageBitmap(it) }
+                        cornerPhotoIV.setImageURI(Uri.parse(currentPhotoPath))
                         view?.let {
                             uploadPhoto(it)
                             setCorrectIcon(it, cornerCorrectIV, true)
@@ -226,136 +282,11 @@ class ImageFragment : Fragment(), CoroutineScope {
         }
     }
 
+    @Throws(IOException::class)
     private fun createImageFile(): File =
-        File.createTempFile(imageFileName(), IMAGE_SUFFIX, storagePath()).also {
-            cameraFilePath = FILE_PATH.plus(it.absolutePath)
-            Log.d(logTag, "createImageFile() camera file path -> $cameraFilePath")
+        File.createTempFile(imageFileName(), ".jpg", storagePath()).apply {
+            currentPhotoPath = absolutePath
         }
-
-//    @Throws(IOException::class)
-//    private fun createImageFile(): File {
-//        val image: File = File.createTempFile(imageFileName(), IMAGE_SUFFIX, storagePath())
-//        cameraFilePath = FILE_PATH.plus(image.absolutePath)
-//        Log.d(logTag, "createImageFile() camera file path -> $cameraFilePath")
-//        return image
-////        return compressedImageFromUri(Uri.parse(cameraFilePath))
-//    }
-
-    private fun decodeImageFromFile(file: String) =
-        BitmapFactory.Options().run {
-//            val inputStream = BufferedInputStream(activity?.contentResolver?.openInputStream(Uri.parse(file))).apply { markSupported() }
-            inJustDecodeBounds = true
-
-//            inputStream.mark(inputStream.available())
-//            BitmapFactory.decodeStream(inputStream, null, this)
-//            inputStream.reset()
-
-            BitmapFactory.decodeFile(file, this)
-            inSampleSize = calculateInSampleSize(this, 640, 480)
-            inJustDecodeBounds = false
-
-            BitmapFactory.decodeFile(file, this)
-        }
-
-    private fun compressedImageFromUri(uri: Uri): File {
-        Log.d(logTag, "compressedImageFromUri()...")
-        val inputStream = BufferedInputStream(activity?.contentResolver?.openInputStream(uri)).apply { markSupported() }
-
-//        val options = BitmapFactory.Options().apply {
-//            inJustDecodeBounds = true
-////            inSampleSize = 2
-//            inPreferredConfig = Bitmap.Config.ARGB_8888
-//        }
-//        inputStream.mark(inputStream.available())
-//        BitmapFactory.decodeStream(inputStream, null, options)
-//        val imageHeight: Int = options.outHeight
-//        val imageWidth: Int = options.outWidth
-////        val imageType: String = options.outMimeType
-//        Log.d(logTag, "Bitmap options: \n height => $imageHeight \n width => $imageWidth ")
-//        inputStream.reset()
-//
-//        val hRatio = ceil(options.outHeight / 800f).toInt()
-//        val wRatio = ceil(options.outWidth / 480f).toInt()
-//
-//        if (hRatio > 1 || wRatio > 1) options.inSampleSize = if (hRatio > wRatio) hRatio else wRatio
-//        options.inJustDecodeBounds = false
-//        val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
-//        inputStream.close()
-
-
-//        return file
-
-//        val orgWidth = options.outWidth
-//        val orgHeight = options.outHeight
-////        return if (orgWidth != -1 || orgHeight != -1) {
-//            var scaling = if (orgWidth > orgHeight && orgWidth > 480f) (orgWidth / 480f).toInt()
-//            else if (orgWidth < orgHeight && orgHeight > 800f) (orgHeight / 800f).toInt() else 1
-//            scaling = if (scaling <= 0) 1 else scaling
-//            options.inSampleSize = scaling
-//            inputStream = activity?.contentResolver?.openInputStream(uri)
-//            val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
-//            inputStream?.close()
-            return compressImage(decodeFromStream(inputStream, 1280, 720))
-////        } else null
-    }
-
-    private fun decodeFromStream(inputStream: BufferedInputStream, reqWidth: Int, reqHeight: Int) =
-        BitmapFactory.Options().run {
-            inJustDecodeBounds = true
-
-            inputStream.mark(inputStream.available())
-            BitmapFactory.decodeStream(inputStream, null, this)
-            inputStream.reset()
-
-            inSampleSize = calculateInSampleSize(this, reqWidth, reqHeight)
-            inJustDecodeBounds = false
-
-            BitmapFactory.decodeStream(inputStream, null, this)
-    }
-
-    private fun compressImage(bitmap: Bitmap?): File = File(context?.cacheDir, "upload").also {
-        val byteArrayOS = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS)
-        FileOutputStream(it).apply {
-            write(byteArrayOS.toByteArray())
-            flush()
-            close()
-        }
-        Log.d(logTag, "File size => ${it.length()}")
-    }
-//    private fun compressImage(bitmap: Bitmap?): File {
-//        val byteArrayOS = ByteArrayOutputStream()
-//        bitmap?.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOS)
-//        val file = File(context?.cacheDir, "upload")
-//        FileOutputStream(file).apply {
-//            write(byteArrayOS.toByteArray())
-//            flush()
-//            close()
-//        }
-////        val byteArrayIS = ByteArrayInputStream(byteArrayOS.toByteArray())
-////        return BitmapFactory.decodeStream(byteArrayIS, null, null)
-//        Log.d(logTag, "File size => ${file.length()}")
-//        return file
-//    }
-
-    private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
-        // Raw height and width of image
-        val (height: Int, width: Int) = options.run { outHeight to outWidth }
-        var inSampleSize = 1
-
-        if (height > reqHeight || width > reqWidth) {
-
-            val halfHeight: Int = height / 2
-            val halfWidth: Int = width / 2
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while (halfHeight / inSampleSize >= reqHeight &&
-                halfWidth / inSampleSize >= reqWidth) inSampleSize *= 2
-        }
-
-        return inSampleSize
-    }
 
     private fun setCorrectIcon(v: View, image: ImageView, isCorrect: Boolean) {
         v.apply {

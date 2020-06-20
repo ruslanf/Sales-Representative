@@ -73,6 +73,7 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil:$coil_version"
+    implementation "io.coil-kt:coil-base:$coil_version"
 
     // Media Resizer
     implementation "com.github.WindSekirun:MediaResizer:$media_resizer_version"

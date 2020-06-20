@@ -4,15 +4,14 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.android.synthetic.main.dialog_restore_password.view.*
-import kotlinx.android.synthetic.main.dialog_restore_password.view.dialogEmailET
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.BuildConfig

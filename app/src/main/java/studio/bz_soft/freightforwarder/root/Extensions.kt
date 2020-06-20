@@ -120,6 +120,10 @@ fun requestBody(file: String): RequestBody = file(file).asRequestBody("multipart
 fun getRequestBody(file: String): MultipartBody.Part =
     MultipartBody.Part.createFormData("image", fileName(file), requestBody(file))
 
+fun resizedRequestBody(file: String): RequestBody = File(file).asRequestBody("multipart/form-data".toMediaTypeOrNull())
+fun getResizedRequestBody(file: String): MultipartBody.Part =
+    MultipartBody.Part.createFormData("image", file, resizedRequestBody(file))
+
 fun getCurrentDT(): String = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).toString()
 
 fun parseOutputDate(date: String): LocalDate =

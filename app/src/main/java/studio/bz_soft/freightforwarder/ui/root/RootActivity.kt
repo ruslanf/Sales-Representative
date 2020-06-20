@@ -212,7 +212,7 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
         with(alertDialog) {
             setView(dialogView)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialogView.exitButton.setOnClickListener { dialogExitButtonListener(this) }
+            dialogView.endButton.setOnClickListener { dialogExitButtonListener(this) }
             dialogView.cancelButton.setOnClickListener { dismiss() }
             show()
         }

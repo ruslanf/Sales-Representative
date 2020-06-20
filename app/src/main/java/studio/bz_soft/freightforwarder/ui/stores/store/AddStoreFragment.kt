@@ -47,6 +47,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
     private var token: String = EMPTY_STRING
     private var ex: Exception? = null
 
+    private var isTypes = false
     private var isStorePoint = false
     private var isActualAddress = false
     private var isProductsRange = false
@@ -254,25 +255,26 @@ class AddStoreFragment : Fragment(), CoroutineScope {
             saveStoreInfoButton.isEnabled = false
             updateImageUrl()
             setFields(this)
-            when (isStorePoint) {
-                true -> when (isActualAddress) {
-                    true -> when (isProductsRange) {
-                        true -> {
-                            when (marketType.isNotBlank()) {
+            when (taxType.isNotBlank()) {
+                true -> when (isStorePoint) {
+                    true -> when (isActualAddress) {
+                        true -> when (isProductsRange) {
+                            true -> when (marketType.isNotBlank()) {
                                 true -> {
                                     saveStoreIntoServer(this)
                                     saveStoreIntoDB(this)
 //                removeImageUrl()
                                     findNavController().navigateUp()
                                 }
-                                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_market_type) )
+                                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_market_type))
                             }
+                            false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_assortment))
                         }
-                        false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_assortment) )
+                        false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_address))
                     }
-                    false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_address))
+                    false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_point))
                 }
-                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_point))
+                false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_types))
             }
             saveStoreInfoButton.isEnabled = true
         }
