@@ -32,6 +32,8 @@ import org.koin.android.ext.android.inject
 import studio.bz_soft.freightforwarder.R
 import studio.bz_soft.freightforwarder.data.http.Left
 import studio.bz_soft.freightforwarder.data.http.Right
+import studio.bz_soft.freightforwarder.data.models.DistanceModel
+import studio.bz_soft.freightforwarder.data.models.LocationModel
 import studio.bz_soft.freightforwarder.data.models.StorePointModel
 import studio.bz_soft.freightforwarder.root.Constants.EMPTY_STRING
 import studio.bz_soft.freightforwarder.root.Constants.PERMISSION_REQUEST_LOCATION
@@ -230,29 +232,56 @@ class RootActivity : AppCompatActivity(), CoroutineScope {
     private fun syncButtonListener() {
         progressBar.visibility = View.VISIBLE
         val points = mutableListOf<StorePointModel>()
+        val locations = mutableListOf<LocationModel>()
         launch {
             coroutineScope {
                 val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    val list = controller.getAllFromTradePoint()
-                    list.forEach {  tp ->
-                        points.add(StorePointModel(getUserId(), tp.workShift, tp.storePoint,
-                            tp.type, tp.taxNumber, tp.taxNumber_1,
-                            tp.addressActual, tp.latitude, tp.longitude, tp.addressLegal, tp.phone,
-                            tp.email, tp.lprName, tp.paymentType, tp.productsRange, tp.marketType,
-                            tp.companyType, tp.workTime, tp.dealer, tp.note,  tp.photoOutside, tp.photoInside,
-                            tp.photoGoods, tp.photoCorner)
-                        )
+                    controller.getAllFromTradePoint().run {
+                        forEach {  tp ->
+                            points.add(StorePointModel(getUserId(), tp.workShift, tp.storePoint,
+                                tp.type, tp.taxNumber, tp.taxNumber_1,
+                                tp.addressActual, tp.latitude, tp.longitude, tp.addressLegal, tp.phone,
+                                tp.email, tp.lprName, tp.paymentType, tp.productsRange, tp.marketType,
+                                tp.companyType, tp.workTime, tp.dealer, tp.note,  tp.photoOutside, tp.photoInside,
+                                tp.photoGoods, tp.photoCorner)
+                            )
+                        }
                     }
                     when (val r = controller.syncTradePoint(token, points)) {
                         is Right -> {  }
                         is Left -> { ex = r.value }
                     }
                 }
+                val requestLocations = async(SupervisorJob(job) + Dispatchers.IO) {
+                    controller.getAllFromLocations().run {
+                        forEach { location ->
+                            locations.add(LocationModel(getUserId(), controller.getWorkShift(),
+                                location.latitude, location.longitude)
+                            )
+                        }
+                    }
+                    when (val r = controller.syncTrack(token, locations)) {
+                        is Right -> {  }
+                        is Left -> { ex = r.value }
+                    }
+                }
+                val requestDistance = async(SupervisorJob(job) + Dispatchers.IO) {
+                    val distance = controller.getLastDistance()
+                    when (val r = controller.syncTrackDistance(token, DistanceModel(
+                        getUserId(), distance.workShift, distance.distance))
+                        ) {
+                        is Right -> {  }
+                        is Left -> { ex = r.value }
+                    }
+                }
                 request.await()
+                requestLocations.await()
+                requestDistance.await()
             }
             progressBar.visibility = View.GONE
             ex?.let {
                 showError(this@RootActivity, it, R.string.root_sync_message_error, logTag)
+                ex = null
             } ?: run {
 
             }
