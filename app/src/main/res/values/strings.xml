@@ -43,7 +43,9 @@
     <string name="button_cancel">Cancel</string>
 
     <string name="fragment_stores_title">Outlets</string>
-    <string name="fragment_stores_add_store_button">Add Store</string>
+    <string name="fragment_stores_show_all_stores_button">Show all</string>
+    <string name="fragment_stores_show_current_button">Show current</string>
+    <string name="fragment_stores_add_store_button">Add</string>
     <string name="fragment_stores_work_shift_title">Work Shift</string>
     <string name="fragment_stores_shift_message_error">Work Shift not started!</string>
     <string name="fragment_store_error_load_trade_point">Error loading trade points list</string>

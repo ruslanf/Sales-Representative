@@ -56,6 +56,7 @@ class StoresFragment : Fragment(), CoroutineScope {
     private var recyclerViewState: Parcelable? = null
     private var position = 0
 
+    private var isShowAll = false
     private var isWorkStarted = false
     private var location: Location? = null
     private var latitude: Double = 0.0
@@ -92,13 +93,35 @@ class StoresFragment : Fragment(), CoroutineScope {
             }
             swipeRefresh.setOnRefreshListener { refreshListener(this) }
 
+            showAllStoresButton.setOnClickListener { showAllButtonListener(this) }
             addStoreButton.setOnClickListener { storeButtonListener(this) }
         }
     }
 
     override fun onResume() {
         super.onResume()
+        isShowAll = false
+        view?.let { showWorkShift(it, !isShowAll) }
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.VISIBLE
+    }
+
+    private fun showAllButtonListener(v: View) {
+        v.apply {
+            isShowAll = !isShowAll
+            loadTradePoints(this)
+            showWorkShift(this, !isShowAll)
+        }
+    }
+
+    private fun showWorkShift(v: View, isShow: Boolean) {
+        v.apply {
+            showAllStoresButton.text = getString(
+                if (isShow) R.string.fragment_stores_show_all_stores_button
+                else R.string.fragment_stores_show_current_button
+            )
+            workShiftTitleTV.visibility = if (isShow) View.VISIBLE else View.GONE
+            dateTV.visibility = if (isShow) View.VISIBLE else View.GONE
+        }
     }
 
     private fun storeButtonListener(v: View) {
@@ -158,10 +181,13 @@ class StoresFragment : Fragment(), CoroutineScope {
         tradePointAdapter.apply {
             items.clear()
             items.addAll(
-                listStorePoints.filter {
-                    it.workShift == presenter.getWorkShift() && it.userId == presenter.getUserId()
-                }
-                .map { TradePointElement.TradePointItem(it) }
+                if (isShowAll)
+                    listStorePoints.filter { it.userId == presenter.getUserId() }
+                        .map { TradePointElement.TradePointItem(it) }
+                else
+                    listStorePoints.filter {
+                        it.workShift == presenter.getWorkShift() && it.userId == presenter.getUserId()
+                    }.map { TradePointElement.TradePointItem(it) }
             )
             notifyDataSetChanged()
         }

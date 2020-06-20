@@ -42,6 +42,8 @@
     <string name="fragment_work_shift_ended">Закончить рабочую смену</string>
 
     <string name="fragment_stores_title">Торговые точки</string>
+    <string name="fragment_stores_show_all_stores_button">Показать всё</string>
+    <string name="fragment_stores_show_current_button">Показать текущие</string>
     <string name="fragment_stores_add_store_button">Добавить</string>
     <string name="fragment_stores_work_shift_title">Смена</string>
     <string name="fragment_stores_shift_message_error">Рабочая смена не начата! Вначале начните смену</string>
