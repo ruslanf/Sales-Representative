@@ -50,7 +50,6 @@ import java.io.File
 import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
-
 class ImageFragment : Fragment(), CoroutineScope {
 
     private val logTag = ImageFragment::class.java.simpleName
