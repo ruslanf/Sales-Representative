@@ -186,6 +186,15 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         super.onResume()
         (activity as RootActivity).mainBottomNavigationMenu.visibility = View.GONE
         isStoreSaved = false
+        ProductsList.getProductsFromList()?.let {
+            productList.clear()
+            productList.addAll(it)
+        }
+        var a = EMPTY_STRING
+        productList.forEach { a = "${assortment[it - 1]}," }
+        productsRangeTV.text = a
+        view?.let { setCorrectIcon(it, productsIV, a.isNotBlank()) }
+        ProductsList.clearProductsList()
     }
 
     private fun fixScroll(v: View) {
@@ -261,9 +270,7 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                         true -> when (isProductsRange) {
                             true -> when (marketType.isNotBlank()) {
                                 true -> {
-                                    saveStoreIntoServer(this)
-                                    saveStoreIntoDB(this)
-//                removeImageUrl()
+                                    saveStore(this)
                                     findNavController().navigateUp()
                                 }
                                 false -> showToast(this, getString(R.string.fragment_add_store_not_filled_error_message_market_type))
@@ -315,25 +322,38 @@ class AddStoreFragment : Fragment(), CoroutineScope {
         }
     }
 
-    private fun saveStoreIntoServer(v: View) {
+    private fun saveStore(v: View) {
         v.apply {
             ex = null
             progressBar.visibility = View.VISIBLE
             launch {
-                val request = async(SupervisorJob(job) + Dispatchers.IO) {
-                    when (val r = presenter.saveSalesPoint(token, StorePointModel(getUserId(), getWorkShift(),
-                        storeName, taxType,
-                        taxNumber, taxNumber1, actualAddress, latitude, longitude, legalAddress,
-                        phone, email, lpr, payment, productList, marketType, companyType, workTime,
-                        dealer, note, photoOutside, photoInside, photoGoods, photoCorner))) {
-                        is Right -> {  }
-                        is Left -> { ex = r.value }
+                coroutineScope {
+                    val request = async(SupervisorJob(job) + Dispatchers.IO) {
+                        when (val r = presenter.saveSalesPoint(token, StorePointModel(getUserId(), getWorkShift(),
+                            storeName, taxType,
+                            taxNumber, taxNumber1, actualAddress, latitude, longitude, legalAddress,
+                            phone, email, lpr, payment, productList, marketType, companyType, workTime,
+                            dealer, note, photoOutside, photoInside, photoGoods, photoCorner))) {
+                            is Right -> {  }
+                            is Left -> { ex = r.value }
+                        }
                     }
+                    val requestDB = async(SupervisorJob(job) + Dispatchers.IO) {
+                        presenter.saveSalesPointToDB(TradePoint(0, getWorkShift(),
+                            storeName, taxType, taxNumber,
+                            taxNumber1, actualAddress, legalAddress, phone, email, lpr,
+                            payment, productList, marketType, companyType, workTime, dealer, note,
+                            latitude, longitude, photoOutside, photoInside, photoGoods, photoCorner
+                        ))
+                    }
+                    request.await()
+                    requestDB.await()
                 }
-                request.await()
+                removeImageUrl()
                 progressBar.visibility = View.GONE
                 ex?.let {
                     showError(context, it, R.string.fragment_add_store_update_error_message, logTag)
+                    ex = null
                 } ?: run {
 
                 }
@@ -376,34 +396,42 @@ class AddStoreFragment : Fragment(), CoroutineScope {
                 dialogView.goods0CB.goods0CB.setOnCheckedChangeListener { _, isChecked ->
                     g0 = if (isChecked) assortment[0].plus(",") else EMPTY_STRING
                     if (isChecked) productList.add(1)
+                    if (isChecked) ProductsList.addProductsToList(1)
                 }
                 dialogView.goods1CB.setOnCheckedChangeListener { _, isChecked ->
                     g1 = if (isChecked) assortment[1].plus(",") else EMPTY_STRING
                     if (isChecked) productList.add(2)
+                    if (isChecked) ProductsList.addProductsToList(2)
                 }
                 dialogView.goods2CB.setOnCheckedChangeListener { _, isChecked ->
                     g2 = if (isChecked) assortment[2].plus(",") else EMPTY_STRING
                     if (isChecked) productList.add(3)
+                    if (isChecked) ProductsList.addProductsToList(3)
                 }
                 dialogView.goods3CB.setOnCheckedChangeListener { _, isChecked ->
                     g3 = if (isChecked) assortment[3].plus(",") else EMPTY_STRING
                     if (isChecked) productList.add(4)
+                    if (isChecked) ProductsList.addProductsToList(4)
                 }
                 dialogView.goods4CB.setOnCheckedChangeListener { _, isChecked ->
                     g4 = if (isChecked) assortment[4].plus(",") else EMPTY_STRING
                     if (isChecked) productList.add(5)
+                    if (isChecked) ProductsList.addProductsToList(5)
                 }
                 dialogView.goods5CB.setOnCheckedChangeListener { _, isChecked ->
                     g5 = if (isChecked) assortment[5] else EMPTY_STRING
                     if (isChecked) productList.add(6)
+                    if (isChecked) ProductsList.addProductsToList(6)
                 }
                 dialogView.goods6CB.setOnCheckedChangeListener { _, isChecked ->
                     g6 = if (isChecked) assortment[6] else EMPTY_STRING
                     if (isChecked) productList.add(7)
+                    if (isChecked) ProductsList.addProductsToList(7)
                 }
                 dialogView.goods7CB.setOnCheckedChangeListener { _, isChecked ->
                     g7 = if (isChecked) assortment[7] else EMPTY_STRING
                     if (isChecked) productList.add(8)
+                    if (isChecked) ProductsList.addProductsToList(8)
                 }
                 dialogView.setProductsRangeButton.setOnClickListener {
                     productsRangeButtonListener(this@apply, this)

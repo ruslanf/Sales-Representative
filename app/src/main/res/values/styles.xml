@@ -116,7 +116,7 @@
     </style>
 
     <style name="SpinnerStyle" parent="BaseStyle">
-        <item name="android:spinnerMode">dialog</item>
+        <item name="android:spinnerMode">dropdown</item>
         <item name="android:layout_marginStart">@dimen/app_base_margin_start</item>
         <item name="android:layout_marginEnd">@dimen/app_base_margin_end</item>
     </style>
