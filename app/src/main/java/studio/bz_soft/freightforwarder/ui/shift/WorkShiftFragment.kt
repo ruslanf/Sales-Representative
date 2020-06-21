@@ -121,12 +121,7 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
     private fun workButtonListener(v: View) {
         v.apply {
             presenter.getWorkStarted()?.let {
-                presenter.setWorkStarted(!it)
-                workButtonState(this)
-                when (it) {
-                    true -> { startWorkShiftDialog(this, false) } // End Work shift
-                    false -> { startWorkShiftDialog(this, true) } // Start Work shift
-                }
+                startWorkShiftDialog(this, !it)
             }
         }
     }
@@ -154,6 +149,8 @@ class WorkShiftFragment : Fragment(), CoroutineScope {
                     )
                     it.okButton.setOnClickListener {
                         dismiss()
+                        presenter.setWorkStarted(isStarted)
+                        workButtonState(this@apply)
                         if (isStarted) startWorkShift(this@apply) else endWorkShift(this@apply)
                     }
                     it.cancelButton.setOnClickListener { dismiss() }
