@@ -50,7 +50,7 @@ class StoresFragment : Fragment(), CoroutineScope {
             KEY_TRADE_POINT_ID to tradePoint.id,
             KEY_TOKEN to token
         )
-        view?.findNavController()?.navigate(R.id.editStoreFragment, bundle)
+        if (!isShowAll) view?.findNavController()?.navigate(R.id.editStoreFragment, bundle)
     })
 
     private var recyclerViewState: Parcelable? = null

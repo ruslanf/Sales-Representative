@@ -21,6 +21,7 @@ class SimulatorItemHolder(v: View, val onClick: (StorePointModel) -> Unit): Base
             is TradePointElement.TradePointItem -> itemView.apply {
                 typeTV.text = item.tradePoint.type
                 tradePointNameTV.text = item.tradePoint.storePoint
+                workShiftTV.text = item.tradePoint.workShift
                 setOnClickListener { onClick(item.tradePoint) }
             }
         }
